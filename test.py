@@ -27,7 +27,7 @@ class SimulatorApp(App):
         rgb = np.matrix("'"+(rvalue.text)+","+(gvalue.text)+","+(bvalue.text)+"'")
         subrow = np.matrix("'"+(rstart.text)+","+(rend.text)+"'")
         subcol = np.matrix("'"+(cstart.text)+","+(cend.text)+"'")
-        outpath = os.getcwd()+""
+        outpath = os.getcwd()+"/"
         scilab.imgdisplay(fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
 
         img1.source = 'out_subset_img.jpg'
