@@ -11,6 +11,23 @@ import os
 import numpy as np
 
 class SimulatorApp(App):
+    fnm = ''
+    def showfc(self,mainimg,fcw,fchooser):
+        fchooser.height = fchooser.parent.height*6.5
+        fcw.height = fcw.parent.height*6.5
+        mainimg.source='black.png'
+
+    def showmainimg(self,mainimg,fcw,fchooser):
+        fchooser.height = fchooser.parent.height*0
+        fcw.height = fcw.parent.height*0
+        try:
+            mainimg.source=fchooser.selection[0]
+            self.fnm = fchooser.selection[0]
+        except:
+            print fchooser.selection
+
+
+
 
     def submit(self,rvalue,bvalue,gvalue,rstart,rend,cstart,cend,mainimg,img1,img2,img3,img4,img5):
         print rvalue.text
@@ -23,12 +40,12 @@ class SimulatorApp(App):
 
 
 
-        fnm = 'wallpaper.jpg'
+
         rgb = np.matrix("'"+(rvalue.text)+","+(gvalue.text)+","+(bvalue.text)+"'")
         subrow = np.matrix("'"+(rstart.text)+","+(rend.text)+"'")
         subcol = np.matrix("'"+(cstart.text)+","+(cend.text)+"'")
         outpath = os.getcwd()+"/"
-        scilab.imgdisplay(fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
+        scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
 
         img1.source = 'out_subset_img.jpg'
         img2.source = 'out_original_img.jpg'

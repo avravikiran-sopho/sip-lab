@@ -35,22 +35,30 @@ BoxLayout:
             text: ''
             id: rvalue
         Widget:
-            #Button:
-            #    y: placeholder1.y
-            #    x: self.parent.x
-            #    width: self.parent.width*7
-            #    height: self.parent.height*8
-            #    text: 'Submit'
-            #    on_press: print cstart.text
+
             Image:
                 y: placeholder1.y
                 x: self.parent.x
                 id: mainimg
-                source: 'wallpaper.jpg'
+                source: 'noimg.png'
+                width: self.parent.width*7
                 height: self.parent.height*6.5
-                width:self.parent.width*7
                 allow_stretch: True
                 keep_ratio: True
+            Widget:
+                y: placeholder1.y
+                x: self.parent.x
+                width: self.parent.width*7
+                height: self.parent.height*0
+                id: fcw
+                FileChooserIconView:
+                    id:fchooser
+                    y: placeholder1.y
+                    x: self.parent.x
+                    width: self.parent.width
+                    height: self.parent.height*1
+                    on_selection: app.showmainimg(mainimg,fcw,fchooser);
+
         Widget:
             id: placeholder1
         Widget:
@@ -232,7 +240,7 @@ BoxLayout:
                 width: self.parent.width*1.5
                 height: self.parent.height
                 text: 'Input Image'
-                on_press: print ""
+                on_press: app.showfc(mainimg,fcw,fc)
         Widget:
             Button:
                 x: self.parent.x*(1.5)
@@ -326,3 +334,4 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img5
+        Label:
