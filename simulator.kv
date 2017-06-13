@@ -57,7 +57,7 @@ BoxLayout:
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser);
+                    on_selection: app.showmainimg(mainimg,fcw,fchooser,s4,s5,s6,s7);
 
         Widget:
             id: placeholder1
@@ -131,11 +131,12 @@ BoxLayout:
         Label:
             text: 'Row Start'
         Slider:
-            range: (50,250)
+            range: (0,500)
             value: 1
             id: s4
             step: 1
-            on_value: rstart.text = str(s4.value)
+            on_value: rstart.text = str(s4.value) 
+            on_value: s5.min=int(s4.value)+100
         Label:
             text: ''
             id: rstart
@@ -158,7 +159,7 @@ BoxLayout:
         Label:
             text: 'Row End'
         Slider:
-            range: (50,250)
+            range: (100,600)
             value: 1
             id: s5
             step: 1
@@ -185,11 +186,12 @@ BoxLayout:
         Label:
             text: 'Column Start'
         Slider:
-            range: (50,250)
+            range: (0,500)
             value: 1
             id: s6
             step: 1
             on_value: cstart.text = str(s6.value)
+            on_value: s7.min=int(s6.value)+100
         Label:
             text: ''
             id: cstart
@@ -212,7 +214,7 @@ BoxLayout:
         Label:
             text: 'Column End'
         Slider:
-            range: (50,250)
+            range: (100,600)
             value: 1
             id: s7
             step: 1

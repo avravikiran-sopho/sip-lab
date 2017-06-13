@@ -10,6 +10,8 @@ from scilab2py import scilab
 scilab.getd
 import os
 import numpy as np
+import pygame
+import os
 
 class SimulatorApp(App):
     fnm = ''
@@ -22,16 +24,32 @@ class SimulatorApp(App):
         fchooser.height = fchooser.parent.height*6.5
         fcw.height = fcw.parent.height*6.5
         mainimg.source='black.png'
-        #popup = Popup(title='Test popup',content=Label(text='Hello world'),size_hint=(None, None), size=(400, 400))
-        #my_callback('ddddd')
-    def showmainimg(self,mainimg,fcw,fchooser):
+
+    def showmainimg(self,mainimg,fcw,fchooser,s4,s5,s6,s7):
+
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         try:
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
+            print(self.fnm)
+            img = pygame.image.load(self.fnm)
+            wid=img.get_width()
+            hei=img.get_height()
+            s4.max=str(int(wid)-100)
+            s5.max=wid
+            s6.max=str(int(hei)-100)
+            s7.max=hei
         except:
             print fchooser.selection
+
+
+
+    def changeVal(sl1,sl2):
+    	rstart.text = str(s4.value)
+    	s5.min=int(s4.value)+100
+
+
     def submit(self,rvalue,bvalue,gvalue,rstart,rend,cstart,cend,mainimg,img1,img2,img3,img4,img5):
         print rvalue.text
         print bvalue.text
