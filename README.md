@@ -2,9 +2,8 @@
 
 1.Download the folder <br/>
 2.Run test.py in Python2 <br/>
+3.Input Image file <br/> 
 3.Enter Inputs and click submit<br/>
-
-**At present inputimage is not implemented
 
 Requirements: <br/>
 1.Scilab<br/>
