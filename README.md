@@ -2,8 +2,9 @@
 
 1.Download the folder <br/>
 2.Run test.py in Python2 <br/>
-3.Input Image file <br/> 
-3.Enter Inputs and click submit<br/>
+3.Go to exp <br/>
+4.Input Image file <br/> 
+5.Enter Inputs and click submit<br/>
 
 Requirements: <br/>
 1.Scilab<br/>
