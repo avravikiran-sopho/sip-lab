@@ -7,62 +7,61 @@ from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.uix.popup import Popup
 from scilab2py import scilab
+from kivy.core.window import Window
+from kivy.config import Config
 scilab.getd
 import os
 import numpy as np
 import pygame
 import os
 
+#Window.fullscreen = 'auto'
+Window.clearcolor = (0.1, 0.1, 0.1, 1)
+
 class SimulatorApp(App):
     fnm = ''
-    #popup = Popup(content=Label(text='Hello world'))
-    #popup.bind(on_dismiss=my_callback)
-    #popup.open()
-    class CustomPopup():
-        pass
     def showfc(self,mainimg,fcw,fchooser):
         fchooser.height = fchooser.parent.height*6.5
         fcw.height = fcw.parent.height*6.5
-        mainimg.source='black.png'
+        mainimg.source='no.gif'
 
-    def showmainimg(self,mainimg,fcw,fchooser,s4,s5,s6,s7):
-
+    def showmainimg(self,mainimg,fcw,fchooser,s4,s5,s6,s7,submitbtn):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         try:
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
-            print(self.fnm)
             img = pygame.image.load(self.fnm)
             wid=img.get_width()
             hei=img.get_height()
-            s4.max=str(int(wid)-100)
-            s5.max=wid
-            s6.max=str(int(hei)-100)
-            s7.max=hei
+            print wid,hei
+            s4.max = hei-100
+            s4.min = 1
+            s5.max = hei
+            s6.max = wid-100
+            s6.min = 1
+            s7.max = wid
+            submitbtn.disabled = False
+            s4.disabled = False
+            s5.disabled = False
+            s6.disabled = False
+            s7.disabled = False
         except:
             print fchooser.selection
 
 
 
-    def changeVal(sl1,sl2):
-    	rstart.text = str(s4.value)
-    	s5.min=int(s4.value)+100
+
+    def submit(self,s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5):
 
 
-    def submit(self,rvalue,bvalue,gvalue,rstart,rend,cstart,cend,mainimg,img1,img2,img3,img4,img5):
-        print rvalue.text
-        print bvalue.text
-        print gvalue.text
-        print rstart.text
-        print rend.text
-        print cstart.text
-        print cend.text
-        rgb = np.matrix("'"+(rvalue.text)+","+(gvalue.text)+","+(bvalue.text)+"'")
-        subrow = np.matrix("'"+(rstart.text)+","+(rend.text)+"'")
-        subcol = np.matrix("'"+(cstart.text)+","+(cend.text)+"'")
+        rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
+        subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
+        subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
         outpath = os.getcwd()+"/"
+        print rgb,subrow,subcol
         scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
+
         img1.source = 'out_subset_img.jpg'
         img2.source = 'out_original_img.jpg'
         img3.source = 'out_hist_band 1.jpg'
@@ -75,12 +74,14 @@ class SimulatorApp(App):
         img4.reload()
         img5.reload()
         mainimg.reload()
-    def show_popup(self):
-        p = self.CustomPopup()
-        p.open()
+
+    def ChangeVal(self,sl1,sl2):
+    	sl2.min=int(sl1.value)+100
+
     def simulator(self, label):
         try:
             label.text = (eval(label.text))
         except:
             label.text = 'syn error'
+
 SimulatorApp().run()

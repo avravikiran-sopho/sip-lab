@@ -18,9 +18,6 @@ class SimulatorApp(App):
     #popup = Popup(content=Label(text='Hello world'))
     #popup.bind(on_dismiss=my_callback)
     #popup.open()
-    #fdsvsfvasfvfsdvafsd
-    #vfdsabvadfbdafb
-    #3sadvsa
     class CustomPopup():
         pass
     def showfc(self,mainimg,fcw,fchooser):
