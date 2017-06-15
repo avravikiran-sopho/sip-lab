@@ -5,6 +5,7 @@ BoxLayout:
     GridLayout:
         cols: 10
 
+        #row1
         Widget:
             Label:
                 text: 'VIEWING IMAGES IN DIFFERENT BANDS'
@@ -59,6 +60,7 @@ BoxLayout:
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
+                    filters: ['*.png','*.jpg','*.jpeg']
                     on_selection: app.showmainimg(mainimg,fcw,fchooser,s4,s5,s6,s7,submitbtn);
 
         Widget:
