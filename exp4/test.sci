@@ -1,4 +1,5 @@
 function img=test(pic,RGB,edgetype,thresh,direction,path)
+stacksize('max');
 getd;
 // Display mode
 mode(-1);
