@@ -1,44 +1,96 @@
-import os
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.slider import Slider
+from kivy.uix.button import Button
+from kivy.uix.image import Image
+from kivy.uix.popup import Popup
 from scilab2py import scilab
+from kivy.core.window import Window
+from kivy.config import Config
+scilab.getd
+import os
 import numpy as np
-from Tkinter import Tk
-from tkFileDialog import askopenfilename,askdirectory
-Tk().withdraw()
-if(input("chose all file dir \n1.use current dirrector 2.other:")==1):
-    scilab.getd(str(os.getcwd()))
-else:
-    scilab.getd(str(askdirectory()))
-#out=scilab.test(5,6)
-#print("this is in test "+ str(out))
-#exec('~/usr/share/scilab/contrib/sivp/loader.sce')
-#fnm=str(askopenfilename(filetypes = [("Image Files", ("*.jpg", "*.gif")),("JPEG",'*.jpg'),("GIF",'*.gif')]))
-fnm=str(askopenfilename())
-#rgb=np.matrix("'"+str(int(input("Enter R value(1-3): ")))
-#                      +","+str(int(input("Enter G value: (1-3)")))+","+str(int(input("Enter B value(1-3): ")))+"'")
-rgb=input("Enter Band value(1-3 integer): ")
-print("Enter Enhancement Type")
-dec=str(input("1.sobel\n2.prewitt\n3.log\n4.canny\n5.roberts\n:"))
-thresh=float(input("Enter Threshold value(>0.2): "))
-d='horizontal' if (str(input("Enter Direction(1.horizontal    2.vertical): ")))=='1' else 'vertical'
+import pygame
+import os
+from datetime import datetime
+#Window.fullscreen = 'auto'
+Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
-if(dec=='1'):#for sobel
-    egtype="sobel"   
-elif(dec=='2'):#prewitt
-    egtype="prewitt"
-elif(dec=='3'):#log
-    egtype="log"
-elif(dec=='4'):#canny
-    egtype="canny"
-elif(dec=='5'):#roberts
-    egtype="roberts"
-else:
-    print("invalid input")
-    exit()
-outpath=""
-if(input("chose all file dir \n1.use current dirrector 2.other")==1):
-    outpath=os.getcwd()
-else:
-    outpath=askdirectory()+'/'
-#print(fnm+"\n"+str(rgb)+"\n"+str(egtype1)+"\n"+str(egtype2)+"\n"+str(var1)+"\n"+str(var2)+"\n"+str(outpath))
+class betaApp(App):
+    fnm = ''
 
-scilab.test(fnm,rgb,egtype,thresh,d,outpath)
+    def showfc(self,mainimg,fcw,fchooser):
+        fchooser.height = fchooser.parent.height*6.5
+        fcw.height = fcw.parent.height*6.5
+        mainimg.source='no.gif'
+
+    def showmainimg(self,mainimg,fcw,fchooser,band_slider,submitbtn):
+        fchooser.height = fchooser.parent.height*0
+        fcw.height = fcw.parent.height*0
+        try:
+            mainimg.source=fchooser.selection[0]
+            self.fnm = fchooser.selection[0]
+            
+            #band_slider.max = 1
+            #band_slider.min = 3
+            band_slider.value=1
+            submitbtn.disabled = False
+            
+        except:
+            print fchooser.selection
+
+
+
+    def setType(self,eg):
+        self.egtype=eg
+    def setDir(self,d):
+        self.direction=d
+
+    def submit(self,bval,thresh_val,mainimg,img1,img2,img3):
+
+
+        #rgb = np.matrix("'"+str(bval.value)+","+str(bval.value)+","+str(bval.value)+"'")
+        #subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
+        #subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
+        folder=""
+        try:
+            now =datetime.now()
+            folder="out_"+str(now.year)+str(now.month)+str(now.day)+str(now.hour)+str(now.minute)+str(now.second)
+            os.mkdir(folder)
+        except Exception as ex:
+            print("error"+str(ex))
+        outpath = os.getcwd()+"/"+folder+"/"
+        
+        dec=True
+        try:
+            print(self.fnm,bval.value,self.egtype,thresh_val.value,self.direction,outpath)
+            if(self.egtype==""):
+                dec=False
+            if(self.direction==""):
+                dec=False
+            if(self.fnm==""):
+                dec=False
+        except:
+            print("error in variable")
+            dec=False
+        if(dec):
+            scilab.test(self.fnm,bval.value,self.egtype,thresh_val.value,self.direction,outpath)
+
+            img1.source = self.fnm
+            img2.source = outpath+'out_original_img.jpg'
+            img3.source = outpath+'edgeimg.jpg'
+            mainimg.source = img1.source
+            img1.reload()
+            img2.reload()
+            img3.reload()
+            mainimg.reload()
+
+    def simulator(self, label):
+        try:
+            label.text = (eval(label.text))
+        except:
+            label.text = 'syn error'
+
+betaApp().run()

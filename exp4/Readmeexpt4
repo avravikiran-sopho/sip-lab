@@ -1,0 +1,27 @@
+Steps
+
+
+1.Load SIVP toolbox. Also keep the folder with the files open in scilab file browser so it takes the image and text files path this can be done using cd command.
+
+2.Give suitable RGB values for example for normal image formats it can be in range 1 to 3 only. For hyperspectral image it will change to number of bands in the image. For example inputimage file has 6 bands so range is 1 to 6.Give path to store output image there. pic can be quickbird.jpg or inputimage, or the images available in the folder)
+
+3. Different edge types are
+sobel
+prewitt
+canny
+log
+roberts
+
+So edgetype variable can be any of above with same lowercase format of letters.
+
+4. Threshold is small value i have used 0.02.
+
+5. Direction is either horizontal or vertical..same lowercase format of letters.
+
+6.Run masterexpt4.sce file.
+ 
+
+
+Outputs
+Original image
+Edge detected image
