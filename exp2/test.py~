@@ -15,7 +15,7 @@ else:
 fnm=str(askopenfilename())
 rgb=np.matrix("'"+str(int(input("Enter R value(1-3): ")))
                       +","+str(int(input("Enter G value: (1-3)")))+","+str(int(input("Enter B value(1-3): ")))+"'")
-tp1=0
+tp11=0
 tp11=0
 tp12=0
 var1=0

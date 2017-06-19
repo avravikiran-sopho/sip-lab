@@ -13,8 +13,8 @@ function enhancement(pic,RGB,tp1,var1,var2,path)
   //%band)
 //%***************************************************************
 
-tp11=ascii(part(tp1,1));
-tp12=ascii(part(tp1,3));
+//tp11=ascii(part(tp1,1));
+//tp12=ascii(part(tp1,3));
 
 stacksize('max')
 [img,RbandVal,GbandVal,BbandVal] = imgdisplay1(pic,RGB,path);

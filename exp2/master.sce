@@ -12,7 +12,8 @@ win4pix='win4pix.txt';
 RGB=[1 2 3];
 subsetrow=[70 180];
 subsetcol=[70 180];
-img = imgdisplay(fname,RGB,subsetrow,subsetcol,win4pix);
+outpath = "/home/avravikiran/Pictures";
+img = imgdisplay1(fname,RGB,subsetrow,subsetcol,win4pix,outpath);
 //imshow(img)
 disp(size(img),"size of image")
 
