@@ -1,6 +1,6 @@
 function fftfilter(pic,RGB,tline1,tline3,tline4,typef,path)
 
-stacksize('max');
+
 
 [img, RbandVal, GbandVal, BbandVal]=imgdisplay1(pic,RGB,path);
 [r,c,no_layer]=size(img);
