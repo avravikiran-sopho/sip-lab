@@ -18,7 +18,7 @@ import os
 import subprocess
 from cmd import Cmd
 from threading import Thread
-
+import math
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -41,7 +41,7 @@ class SimulatorApp(App):
     def SetMode(self,mode):
         self.tp1=mode
     def submit(self,s1,s2,s3,s4,s5,mainimg,img1,img2,img3,img4,img5,img6,img7,img8):
-        array = [s1,s2,s3]
+        
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         var1 = 0
         var2 = 0
@@ -57,20 +57,38 @@ class SimulatorApp(App):
 
         img1.source = 'EnhancedImage.jpg'
         img2.source = 'out_original_img.jpg'
-        img3.source = 'out_hist_afterenhancement band 1.jpg'
+        m=set()
+        m.add(s1.value)
+        m.add(s2.value)
+        m.add(s3.value)
+        l=[img3,img4,img5,img6,img7,img8]
+        for i in range(0,(len(m)*2),2):
+            l[i].source='out_hist_afterenhancement band '+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
+            l[i+1].source='out_hist_band '+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
+            l[i].reload()
+            l[i+1].reload()
+
+
+        '''img3.source = 'out_hist_afterenhancement band 1.jpg'
         img4.source = 'out_hist_band 1.jpg'
         img5.source = 'out_hist_afterenhancement band 2.jpg'
         img6.source = 'out_hist_band 2.jpg'
         img7.source = 'out_hist_afterenhancement band 3.jpg'
-        img8.source = 'out_hist_band 3.jpg'
+        img8.source = 'out_hist_band 3.jpg'''
+
+
+
+        
+        
         img1.reload()
         img2.reload()
+        '''
         img3.reload()
         img4.reload()
         img5.reload()
         img6.reload()
         img7.reload()
-        img8.reload()
+        img8.reload()'''
         mainimg.source = img1.source
         mainimg.reload()
 
