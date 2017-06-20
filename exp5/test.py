@@ -15,6 +15,7 @@ import numpy as np
 import pygame
 import os
 from datetime import datetime
+import math
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -62,35 +63,35 @@ class SimulatorApp(App):
                 dec=False
             if(self.fnm==""):
                 dec=False
+            
         except:
             print("error in variable")
             dec=False
 
         if(dec):
-        	scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
+            scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
+            img1.source = outpath+'out_original_img.jpg'
+            img2.source = outpath+self.ftype+self.ptype+' filteredimg.jpg'
+            img3.source = outpath+'out_mag_spectrum_All.jpg'
+            mainimg.source = img1.source
+            img1.reload()
+            img2.reload()
+            img3.reload()
+            mainimg.reload()
+            m=set()
+            m.add(s1.value)
+            m.add(s2.value)
+            m.add(s3.value)
+            l=[img4,img5,img6,img7,img8,img9]
+            for i in range(0,(len(m)*2),2):
+                l[i].source=outpath+self.ftype+self.ptype+' filteredimg '+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
+                l[i+1].source=outpath+'out_magnitude_spectrum_'+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
+                l[i].reload()
+                l[i+1].reload()
         else:
-        	print("fill all fields properly")
-
-        img1.source = outpath+'out_original_img.jpg'
-        img2.source = outpath+'Butterworthlowpass filteredimg 1.jpg'
-        img3.source = outpath+'Butterworthlowpass filteredimg 2.jpg'
-        img4.source = outpath+'Butterworthlowpass filteredimg 3.jpg'
-        img5.source = outpath+'Butterworthlowpass filteredimg.jpg'
-        img6.source = outpath+'out_mag_spectrum_All.jpg'
-        img7.source = outpath+'out_magnitude_spectrum_1.jpg'
-        img8.source = outpath+'out_magnitude_spectrum_2.jpg'
-        img9.source = outpath+'out_magnitude_spectrum_3.jpg'
-        mainimg.source = img1.source
-        img1.reload()
-        img2.reload()
-        img3.reload()
-        img4.reload()
-        img5.reload()
-        img6.reload()
-        img7.reload()
-        img8.reload()
-        img9.reload()
-        mainimg.reload()
+            Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
+            print("fill all fields properly")
+        
 
     def setFilter(self,s):
     	print(s)

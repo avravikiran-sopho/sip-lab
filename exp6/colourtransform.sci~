@@ -4,7 +4,7 @@ function colourtransform(pic,RGB,path)
 img = double(img);
 // START transform
 [row,col,band]=size(img);
-stacksize('max');
+stacksize('max')
 
 for i=1:size(img,1)
     for j=1:size(img,2)

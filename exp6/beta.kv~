@@ -55,12 +55,11 @@ BoxLayout:
                 #display_border: True
                 FileChooserIconView:
                     id:fchooser
-                    filters: ['*.png','*.jpg','*.jpeg']
                     y: placeholder1.y
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn);
+                    on_selection: app.showmainimg(mainimg,fcw,fchooser,s4,s5,s6,s7,submitbtn);
 
         Widget:
             id: placeholder1
@@ -233,8 +232,7 @@ BoxLayout:
                 height: self.parent.height*.75
                 disabled: True
                 text: 'Submit'
-
-                on_press: app.submit(s1,s2,s3,mainimg,img1,img2,img3,img4)
+                on_press: app.submit(s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5)
 
         Label:
 

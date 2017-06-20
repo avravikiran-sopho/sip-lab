@@ -55,6 +55,7 @@ BoxLayout:
                 #display_border: True
                 FileChooserIconView:
                     id:fchooser
+                    filters: ['*.png','*.jpg','*.jpeg']
                     y: placeholder1.y
                     x: self.parent.x
                     width: self.parent.width
@@ -232,6 +233,7 @@ BoxLayout:
                 height: self.parent.height*.75
                 disabled: True
                 text: 'Submit'
+
                 on_press: app.submit(s1,s2,s3,mainimg,img1,img2,img3,img4)
 
         Label:

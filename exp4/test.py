@@ -68,12 +68,15 @@ class betaApp(App):
             print(self.fnm,bval.value,self.egtype,thresh_val.value,self.direction,outpath)
             if(self.egtype==""):
                 dec=False
+                Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
             if(self.direction==""):
+                Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
             if(self.fnm==""):
+                Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
         except:
-            print("error in variable")
+            
             dec=False
         if(dec):
             scilab.test(self.fnm,bval.value,self.egtype,thresh_val.value,self.direction,outpath)
@@ -86,6 +89,8 @@ class betaApp(App):
             img2.reload()
             img3.reload()
             mainimg.reload()
+        else:
+            Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
 
     def simulator(self, label):
         try:

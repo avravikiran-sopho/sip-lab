@@ -1,6 +1,6 @@
 
 function [img, RbandVal, GbandVal, BbandVal]=imgdisplay1(fname,RGB,path)
-stacksize('max')
+
 // Output variables initialisation (not found in input variables)
 img=[];
 
