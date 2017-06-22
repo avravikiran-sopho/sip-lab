@@ -1,33 +1,108 @@
-import os
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.slider import Slider
+from kivy.uix.button import Button
+from kivy.uix.image import Image
+from kivy.uix.popup import Popup
 from scilab2py import scilab
+from kivy.core.window import Window
+from kivy.config import Config
+scilab.getd
+import os
 import numpy as np
-from Tkinter import Tk
-from tkFileDialog import askopenfilename,askdirectory
-Tk().withdraw()
-if(input("chose all file dir \n1.use current dirrector 2.other:")==1):
-    scilab.getd(str(os.getcwd()))
-else:
-    scilab.getd(str(askdirectory()))
-#out=scilab.test(5,6)
-#print("this is in test "+ str(out))
-#exec('~/usr/share/scilab/contrib/sivp/loader.sce')
-#fnm=str(askopenfilename(filetypes = [("Image Files", ("*.jpg", "*.gif")),("JPEG",'*.jpg'),("GIF",'*.gif')]))
-fnm=str(askopenfilename())
-rgb=np.matrix("'"+str(int(input("Enter R value(1-3): ")))
-                      +","+str(int(input("Enter G value(1-3): ")))+","+str(int(input("Enter B value(1-3): ")))+"'")
-#print("Enter Enhancement Type")
-#dec=str(input("1.Linear\n2.Standard Deviation\n3.Histogram\n4.Logarithmic\n5.Exponential\n5.Decorrelation \n:"))
+import pygame
+import os
+from datetime import datetime
+import math
+#Window.fullscreen = 'auto'
+Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
-fil='Butterworth' if (str(input("Choose Filter(1.Butterworth    2.Gaussian(default)): ")))=='1' else 'Gaussian'
-pss='highpass' if (str(input("Enter Direction(1.highpass    2.lowpass(Defult)): ")))=='1' else 'lowpass'
-cutoff=float(input("Enter cutoff value(>.1):"))
-order=int(input("Enter Order Number: "))
+class SimulatorApp(App):
+    fnm = ''
+    def showfc(self,mainimg,fcw,fchooser):
+        fchooser.height = fchooser.parent.height*6.5
+        fcw.height = fcw.parent.height*6.5
+        mainimg.source='no.gif'
 
-outpath=""
-if(input("chose all file dir \n1.use current dirrector 2.other")==1):
-    outpath=os.getcwd()
-else:
-    outpath=askdirectory()+'/'
+    def showmainimg(self,mainimg,fcw,fchooser,submitbtn):
+        fchooser.height = fchooser.parent.height*0
+        fcw.height = fcw.parent.height*0
+        self.ftype=""
+        self.ptype=""
+        try:
+            mainimg.source=fchooser.selection[0]
+            self.fnm = fchooser.selection[0]
+            submitbtn.disabled = False
+        except:
+            print fchooser.selection
 
 
-scilab.fftfilter(fnm,rgb,pss,cutoff,order,fil,outpath)
+
+
+    def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9):
+
+
+        rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
+        folder=""
+        try:
+            now =datetime.now()
+            folder="out_"+str(now.year)+str(now.month)+str(now.day)+str(now.hour)+str(now.minute)+str(now.second)
+            os.mkdir(folder)
+        except Exception as ex:
+            print("error"+str(ex))
+        outpath = os.getcwd()+"/"+folder+"/"
+        
+        dec=True
+        try:
+            print(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
+            if(self.ftype==""):
+                dec=False
+            if(self.ptype==""):
+                dec=False
+            if(self.fnm==""):
+                dec=False
+            
+        except:
+            print("error in variable")
+            dec=False
+
+        if(dec):
+            scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
+            img1.source = outpath+'out_original_img.jpg'
+            img2.source = outpath+self.ftype+self.ptype+' filteredimg.jpg'
+            img3.source = outpath+'out_mag_spectrum_All.jpg'
+            mainimg.source = img1.source
+            img1.reload()
+            img2.reload()
+            img3.reload()
+            mainimg.reload()
+            m=set()
+            m.add(s1.value)
+            m.add(s2.value)
+            m.add(s3.value)
+            l=[img4,img5,img6,img7,img8,img9]
+            for i in range(0,(len(m)*2),2):
+                l[i].source=outpath+self.ftype+self.ptype+' filteredimg '+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
+                l[i+1].source=outpath+'out_magnitude_spectrum_'+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
+                l[i].reload()
+                l[i+1].reload()
+        else:
+            Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
+            print("fill all fields properly")
+        
+
+    def setFilter(self,s):
+    	print(s)
+    	self.ftype=s
+    def setPass(self,s):
+    	print(s)
+    	self.ptype=s
+    def simulator(self, label):
+        try:
+            label.text = (eval(label.text))
+        except:
+            label.text = 'syn error'
+
+SimulatorApp().run()
