@@ -1,0 +1,129 @@
+// This file is released into the public domain
+
+mprintf("SIVP - Scilab Image and Video Processing Toolbox\n");
+
+etc_tlbx  = get_absolute_file_path("SIVP.start");
+etc_tlbx  = getshortpathname(etc_tlbx);
+root_tlbx = strncpy( etc_tlbx, length(etc_tlbx)-length("\etc\") );
+SIVP_PATH = root_tlbx + filesep();
+
+//Load  functions library
+// =============================================================================
+pathmacros = pathconvert( root_tlbx ) + "macros"+ filesep();
+mprintf("\tLoad macros\n");
+sivplib = lib(pathmacros);
+
+// load gateways
+// =============================================================================
+mprintf("\tLoad gateways\n");
+ilib_verbose(0);
+
+functions=[ "sivptest";
+            "sivp_init";
+            "imread";
+            "int_imwrite";
+            "imfinfo";
+            "aviinfo";
+            "aviopen";
+            "camopen";
+            "avifile";
+            "aviclose";
+            "avicloseall";
+            "avilistopened";
+            "avireadframe";
+            "addframe";
+            "int_imresize";
+            "int_imabsdiff";
+            "int_imadd";
+            "int_imsubtract";
+            "int_immultiply";
+            "int_imdivide";
+            "imfilter";
+            "filter2";
+            "mat2utfimg";
+            "int_canny";
+            "int_sobel";
+            "int_cvtcolor";
+            "ind2rgb";
+            "detectobjects";
+            "camshift";
+            "meanshift";
+            "detectforeground";
+            "impyramid"];
+
+[dynamic_info,static_info] = getdebuginfo();
+arch_info  = static_info(grep(static_info,"/^Compiler Architecture:/","r"));
+
+if ~isempty(arch_info) & (regexp(arch_info,"/\sX64$/","o") <> []) then
+    ARCH = "64";
+else
+    ARCH = "32";
+end
+
+if getos() == "Windows" then
+
+    if win64() then
+        opencvDllPath = root_tlbx + "\thirdparty\opencv\windows\x64\";
+    else
+        opencvDllPath = root_tlbx + "\thirdparty\opencv\windows\x86\";
+    end
+
+    link(opencvDllPath + "cxcore210"  + getdynlibext());
+    link(opencvDllPath + "ml210"      + getdynlibext());
+    link(opencvDllPath + "highgui210" + getdynlibext());
+    link(opencvDllPath + "cxts210"    + getdynlibext());
+    link(opencvDllPath + "cv210"      + getdynlibext());
+    link(opencvDllPath + "cvaux210"   + getdynlibext());
+
+elseif getos() == "Linux" then
+
+    opencvlibs = root_tlbx + "/thirdparty/opencv/lib";
+
+    if ARCH == "32" then
+        link(opencvlibs+"/libgsm.so.1");
+    end
+
+    link(opencvlibs+"/libavutil.so.49");
+    link(opencvlibs+"/libavcodec.so.52");
+    link(opencvlibs+"/libavformat.so.52");
+    link(opencvlibs+"/libcxcore.so.4");
+    link(opencvlibs+"/libcv.so.4");
+    link(opencvlibs+"/libcvaux.so.4");
+    link(opencvlibs+"/libdc1394.so.22");
+    link(opencvlibs+"/libswscale.so.0");
+    link(opencvlibs+"/libhighgui.so.4");
+    link(opencvlibs+"/libml.so.4");
+
+end
+
+exec(pathconvert(root_tlbx+"/sci_gateway/loader_gateway.sce",%f));
+
+// Load and add help chapter
+// =============================================================================
+
+if or(getscilabmode() == ["NW";"STD"]) then
+    mprintf("\tLoad help\n");
+    path_addchapter = pathconvert(root_tlbx+"/jar");
+    if ( isdir(path_addchapter) <> [] ) then
+        add_help_chapter("SIVP - Scilab Image and Video Processing Toolbox", path_addchapter, %F);
+    clear add_help_chapter path_addchapter
+    end
+end
+
+// Add demos
+// =============================================================================
+if or(getscilabmode() == ["NW";"STD"]) then
+    mprintf("\tLoad demos\n");
+    pathdemos = pathconvert(root_tlbx+"/demos/sivp.dem.gateway.sce",%f,%t);
+    add_demo("SIVP",pathdemos);
+    clear add_demo pathdemos;
+end
+
+// =============================================================================
+
+mprintf("\n");
+clear root_tlbx;
+clear etc_tlbx;
+clear functions
+
+sivp_init(SIVP_PATH);
