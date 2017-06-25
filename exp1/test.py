@@ -25,6 +25,12 @@ class SimulatorApp(App):
         fcw.height = fcw.parent.height*6.5
         mainimg.source='no.gif'
 
+    def focus(self,s1,rvalue):
+        try:
+            s1.value = int(rvalue.text)
+        except:
+            print "dd"
+
     def showmainimg(self,mainimg,fcw,fchooser,s4,s5,s6,s7,submitbtn):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
@@ -60,7 +66,7 @@ class SimulatorApp(App):
         subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
         outpath = os.getcwd()+"/"
         print rgb,subrow,subcol
-        scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
+        scilab.imgdispuplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
 
         img1.source = 'out_subset_img.jpg'
         img2.source = 'out_original_img.jpg'

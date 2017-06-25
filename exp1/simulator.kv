@@ -12,15 +12,31 @@ BoxLayout:
                 y: self.parent.y
                 width: self.parent.width*10
                 font_size:50
-        Label:
-        Label:
-        Label:
-        Label:
-        Label:
-        Label:
-        Label:
-        Label:
-        Label:
+                border: (0,0,0,16)
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.parent.width*0.8,2
+
+        Widget:
+
+        Widget:
+
+        Widget:
+
+        Widget:
+
+        Widget:
+
+        Widget:
+
+        Widget:
+
+        Widget:
 
 
         #row2
@@ -32,9 +48,24 @@ BoxLayout:
             id: s1
             step: 1
             on_value: rvalue.text = str(s1.value)
-        Label:
-            text: ''
-            id: rvalue
+            #on_value: rvalue.hint_text = str(s1.value)
+        Widget:
+            #height:self.parent.height*0.5
+            #x: self.parent.x
+            #y: self.parent.y
+            TextInput:
+                height:self.parent.height*0.25
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.375
+                text: ''
+                id: rvalue
+                input_filter: 'int'
+                hint_text: "1 - 3"
+                multiline:False
+                on_text_validate: s1.value = int(rvalue.text)
+                on_focus: app.focus(s1,rvalue)
+
         Widget:
 
             Image:
@@ -265,9 +296,15 @@ BoxLayout:
         Label:
 
             x: self.parent.x
-        Label:
-            id: fc
-            x: self.parent.x
+        Widget:
+            id: separator
+
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.parent.width*0.3,self.parent.height*0.05
+                    size: 2,self.parent.height*0.8
         Widget
             Button:
                 background_color: (0,0,0,0)
