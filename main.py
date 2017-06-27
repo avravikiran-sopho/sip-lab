@@ -5,13 +5,13 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.core.window import Window
-from exp1 import test2 as t1
+from exp1 import test as t1
 import os
-'''from exp2 import test2 as t2
+#from exp2 import test2 as t2
 #from exp3 import test2 as t3
-from exp4 import test as t4
-from exp5 import test as t5
-from exp6 import test as t6'''
+#from exp4 import test as t4
+#from exp5 import test as t5
+#from exp6 import test as t6
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 

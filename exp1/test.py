@@ -12,7 +12,7 @@ from kivy.core.window import Window
 from kivy.config import Config
 import subprocess
 from datetime import datetime
-scilab.getd
+
 import os
 import numpy as np
 import pygame
@@ -107,6 +107,7 @@ class SimulatorApp(App):
         subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
         subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
         print rgb,subrow,subcol
+
         try:
             now =datetime.now()
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
@@ -115,6 +116,7 @@ class SimulatorApp(App):
             print("error"+str(ex))
         outpath = os.getcwd()+"/"+folder+"/"
         try:
+            scilab.getd(os.getcwd()+"/")
             scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
             img1.source = './'+folder+'/' +'out_subset_img.jpg'
             img2.source = './'+folder+'/'+'out_original_img.jpg'
@@ -147,4 +149,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-SimulatorApp().run()
+#SimulatorApp().run()
