@@ -1,7 +1,11 @@
 
 function img=imgdisplay(fname,RGB,subsetrow,subsetcol,win4pix,path)
 
+<<<<<<< HEAD
 exec ../SIVP_0.5.3.2/loader.sce
+=======
+#exec ../SIVP_0.5.3.2/loader.sce
+>>>>>>> 7c24e89be22b7ea4989826d779172d7a3b8ffa04
 // Output variables initialisation (not found in input variables)
 img=[];
 
