@@ -9,7 +9,7 @@ from kivy.uix.popup import Popup
 from scilab2py import scilab
 from kivy.core.window import Window
 from kivy.config import Config
-scilab.getd
+
 import os
 import numpy as np
 import pygame
@@ -60,6 +60,7 @@ class SimulatorApp(App):
         subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
         outpath = os.getcwd()+"/"
         print rgb,subrow,subcol
+        scilab.getd(outpath)
         scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
 
         img1.source = 'out_subset_img.jpg'
@@ -84,4 +85,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-SimulatorApp().run()
+#cSimulatorApp().run()
