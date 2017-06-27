@@ -73,4 +73,4 @@ class BetaApp(App):
         except:
             label.text = 'syn error'
 
-#BetaApp().run()
+BetaApp().run()

@@ -33,10 +33,10 @@ class SiplabApp(App):
         elif(s=="exp5"):
             os.chdir("./exp5/")
             print(os.getcwd())
-            t5.SimulatorApp().run()
+            t4.SimulatorApp().run()
         elif(s=="exp6"):
             os.chdir("./exp6/")
             print(os.getcwd())
-            t6.BetaApp().run()
+            t4.BetaApp().run()
 
 SiplabApp().run()
