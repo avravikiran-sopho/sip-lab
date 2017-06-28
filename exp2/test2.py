@@ -93,7 +93,6 @@ class SimulatorApp(App):
         var1 = float(s4.value)
         var2 = float(s5.value)
         try:
-<<<<<<< HEAD
             now =datetime.now()
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
             os.mkdir(folder)
@@ -134,10 +133,6 @@ class SimulatorApp(App):
             mainimg.reload()
             img1.opacity = 1
 
-=======
-	    scilab.getd(os.getcwd()+"/")
-            scilab.enhancement(self.fnm,rgb,self.tp1,var1,var2,path)
->>>>>>> f36988c8f359f51beec9d08b7ae1f487d1f6676d
         except Exception as e:
             #d=subprocess.check_output("scialab",shell=True)
             res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
