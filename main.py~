@@ -4,29 +4,16 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.image import Image
-from kivy.uix.widget import Widget
 from kivy.core.window import Window
-from kivy.core.window import WindowBase
 from exp1 import test as t1
 import os
 from exp2 import test2 as t2
 #from exp3 import test2 as t3
-<<<<<<< HEAD
-#from exp4 import test as t4
-#from exp5 import test as t5
-#from exp6 import test as t6
-#Window.fullscreen = 'fake'
-=======
 from exp4 import test as t4
 from exp5 import test as t5
 from exp6 import test as t6
 #Window.fullscreen = 'auto'
->>>>>>> f36988c8f359f51beec9d08b7ae1f487d1f6676d
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
-from kivy.config import Config
-Config.set('graphics','resizable',0)
-from kivy.core.window import Window
-Window.size = (1280, 720)
 
 class SiplabApp(App):
     def siplab(self,s):
@@ -46,10 +33,10 @@ class SiplabApp(App):
         elif(s=="exp5"):
             os.chdir("./exp5/")
             print(os.getcwd())
-            t5.SimulatorApp().run()
+            t4.SimulatorApp().run()
         elif(s=="exp6"):
             os.chdir("./exp6/")
             print(os.getcwd())
-            t6.BetaApp().run()
+            t4.BetaApp().run()
 
 SiplabApp().run()

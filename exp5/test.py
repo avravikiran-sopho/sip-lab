@@ -9,7 +9,7 @@ from kivy.uix.popup import Popup
 from scilab2py import scilab
 from kivy.core.window import Window
 from kivy.config import Config
-scilab.getd
+#scilab.getd
 import os
 import numpy as np
 import pygame
@@ -69,6 +69,7 @@ class SimulatorApp(App):
             dec=False
 
         if(dec):
+	    scilab.getd(os.getcwd()+"/")
             scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
             img1.source = outpath+'out_original_img.jpg'
             img2.source = outpath+self.ftype+self.ptype+' filteredimg.jpg'
@@ -105,4 +106,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-SimulatorApp().run()
+#SimulatorApp().run()
