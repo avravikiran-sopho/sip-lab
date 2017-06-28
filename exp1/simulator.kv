@@ -11,7 +11,7 @@ BoxLayout:
                 text: 'VIEWING IMAGES IN DIFFERENT BANDS'
                 y: self.parent.y
                 width: self.parent.width*10
-                font_size:50
+                font_size:40
                 border: (0,0,0,16)
         Widget:
             id: separator
@@ -20,7 +20,7 @@ BoxLayout:
                     rgb: 1,1,1
                 Rectangle:
                     pos: self.pos
-                    size: self.parent.width*0.8,2
+                    size: self.parent.width*0.7,2
 
         Widget:
         Widget:
@@ -30,6 +30,12 @@ BoxLayout:
         Widget:
         Widget:
         Widget:
+            Button:
+                text: 'Main Menu'
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.25
+                height: self.parent.height*0.5
+                width:self.parent.width*0.75
 
 
         #row2
@@ -48,7 +54,7 @@ BoxLayout:
                 id: bandvalue
                 input_filter: 'int'
                 multiline:False
-                #readonly: True
+                readonly: True
                 hint_text: "NA"
                 on_text_validate: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
                 on_focus: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)

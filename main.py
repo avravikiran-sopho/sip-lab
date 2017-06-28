@@ -4,7 +4,9 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.image import Image
+from kivy.uix.widget import Widget
 from kivy.core.window import Window
+from kivy.core.window import WindowBase
 from exp1 import test as t1
 import os
 #from exp2 import test2 as t2
@@ -12,8 +14,12 @@ import os
 #from exp4 import test as t4
 #from exp5 import test as t5
 #from exp6 import test as t6
-#Window.fullscreen = 'auto'
+#Window.fullscreen = 'fake'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
+from kivy.config import Config
+Config.set('graphics','resizable',0)
+from kivy.core.window import Window
+Window.size = (1280, 720)
 
 class SiplabApp(App):
     def siplab(self,s):

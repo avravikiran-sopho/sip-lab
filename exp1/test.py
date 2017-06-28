@@ -16,27 +16,30 @@ from datetime import datetime
 import os
 import numpy as np
 import pygame
-import os
+
 
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
+Window.size = (800,600)
 
 class SimulatorApp(App):
     fnm = ''
     def showfc(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*6.5
-        fcw.height = fcw.parent.height*6.5
-        mainimg.source='no.gif'
+        if (fcw.height == 0):
+            fchooser.height = fchooser.parent.height*7
+            fcw.height = fcw.parent.height*7
+            mainimg.source='no.gif'
+
     def focus (self,slider,textinput):
         try:
             if (int(textinput.text)>slider.max):
                 slider.value = slider.max
+                textinput.text = slider.max
             elif (int(textinput.text)<slider.min):
                 slider.value = slider.min
+                textinput.text = slider.min
             else:
                 slider.value = int(textinput.text)
-        except:
-            print ""
 
     def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
         try:
