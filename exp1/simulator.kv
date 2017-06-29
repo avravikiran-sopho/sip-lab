@@ -11,7 +11,7 @@ BoxLayout:
                 text: 'VIEWING IMAGES IN DIFFERENT BANDS'
                 y: self.parent.y
                 width: self.parent.width*10
-                font_size:40
+                font_size:
                 border: (0,0,0,16)
         Widget:
             id: separator
@@ -176,7 +176,8 @@ BoxLayout:
         Widget:
             id: placeholder1
 
-        #row3
+        #row3   avrkiran
+
         Label:
             text: 'B Value'
         Slider:
@@ -198,6 +199,7 @@ BoxLayout:
                 multiline:False
                 on_text_validate: s3.value = int(bvalue.text)
                 on_focus: app.focus(s3,bvalue)
+                font_size:10
         Widget:
             id: placeholder1
         Widget:

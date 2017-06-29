@@ -40,6 +40,8 @@ class SimulatorApp(App):
                 textinput.text = slider.min
             else:
                 slider.value = int(textinput.text)
+        except:
+            print ""
 
     def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
         try:
@@ -152,4 +154,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-#SimulatorApp().run()
+SimulatorApp().run()

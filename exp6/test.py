@@ -35,8 +35,52 @@ class BetaApp(App):
             submitbtn.disabled = False
         except:
             print fchooser.selection
+    def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
+        try:
+            s1.max = int(bandvalue.text)
+            s2.max = int(bandvalue.text)
+            s3.max = int(bandvalue.text)
+            s1.value = s1.min
+            s2.value = s2.min
+            s3.value = s3.min
+            rvalue.hint_text = "1 - " + bandvalue.text
+            gvalue.hint_text = "1 - " + bandvalue.text
+            bvalue.hint_text = "1 - " + bandvalue.text
+        except:
+            print ""
+    def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
+        try:
+            s1.max = int(bandvalue.text)
+            s2.max = int(bandvalue.text)
+            s3.max = int(bandvalue.text)
+            s1.value = s1.min
+            s2.value = s2.min
+            s3.value = s3.min
+            rvalue.hint_text = "1 - " + bandvalue.text
+            gvalue.hint_text = "1 - " + bandvalue.text
+            bvalue.hint_text = "1 - " + bandvalue.text
+        except:
+            print "dd"
+    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3):
+        mainimg.source = imgtodisp.source
+        imgtodisp.opacity = 1
+        otherimg1.opacity = 0.3
+        otherimg2.opacity = 0.3
+        otherimg3.opacity = 0.3
+        
 
-
+    def focus (self,slider,textinput):
+        try:
+            if (int(textinput.text)>slider.max):
+                slider.value = slider.max
+                textinput.text = slider.max
+            elif (int(textinput.text)<slider.min):
+                slider.value = slider.min
+                textinput.text = slider.min
+            else:
+                slider.value = int(textinput.text)
+        except:
+            print ""
 
 
     def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4):
@@ -73,4 +117,4 @@ class BetaApp(App):
         except:
             label.text = 'syn error'
 
-#BetaApp().run()
+BetaApp().run()

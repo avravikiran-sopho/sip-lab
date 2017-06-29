@@ -26,6 +26,30 @@ class SimulatorApp(App):
         fcw.height = fcw.parent.height*6.5
         mainimg.source='no.gif'
 
+    def focus (self,slider,textinput):
+        try:
+            if (int(textinput.text)>slider.max):
+                slider.value = slider.max
+                textinput.text = slider.max
+            elif (int(textinput.text)<slider.min):
+                slider.value = slider.min
+                textinput.text = slider.min
+            else:
+                slider.value = int(textinput.text)
+        except:
+            print ""
+    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7,otherimg8):
+        mainimg.source = imgtodisp.source
+        imgtodisp.opacity = 1
+        otherimg1.opacity = 0.3
+        otherimg2.opacity = 0.3
+        otherimg3.opacity = 0.3
+        otherimg4.opacity = 0.3
+        otherimg5.opacity = 0.3
+        otherimg6.opacity = 0.3
+        otherimg7.opacity = 0.3
+        otherimg8.opacity = 0.3
+
     def showmainimg(self,mainimg,fcw,fchooser,submitbtn):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
@@ -41,19 +65,19 @@ class SimulatorApp(App):
 
 
 
-    def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9):
+    def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname):
 
 
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
         try:
             now =datetime.now()
-            folder="out_"+str(now.year)+str(now.month)+str(now.day)+str(now.hour)+str(now.minute)+str(now.second)
+            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
             os.mkdir(folder)
         except Exception as ex:
             print("error"+str(ex))
         outpath = os.getcwd()+"/"+folder+"/"
-        
+
         dec=True
         try:
             print(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
@@ -63,7 +87,7 @@ class SimulatorApp(App):
                 dec=False
             if(self.fnm==""):
                 dec=False
-            
+
         except:
             print("error in variable")
             dec=False
@@ -75,6 +99,8 @@ class SimulatorApp(App):
             img2.source = outpath+self.ftype+self.ptype+' filteredimg.jpg'
             img3.source = outpath+'out_mag_spectrum_All.jpg'
             mainimg.source = img1.source
+            img1.opacity = 1
+            imgname.text = img1.source
             img1.reload()
             img2.reload()
             img3.reload()
@@ -92,7 +118,7 @@ class SimulatorApp(App):
         else:
             Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
             print("fill all fields properly")
-        
+
 
     def setFilter(self,s):
     	print(s)
@@ -106,4 +132,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-#SimulatorApp().run()
+SimulatorApp().run()

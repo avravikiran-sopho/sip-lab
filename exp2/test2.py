@@ -145,6 +145,6 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-#SimulatorApp().run()
+SimulatorApp().run()
 #Thread(target=app.run).start()
 #MyCmd(app).cmdloop()

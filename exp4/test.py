@@ -26,18 +26,17 @@ class betaApp(App):
         fcw.height = fcw.parent.height*6.5
         mainimg.source='no.gif'
 
-    def showmainimg(self,mainimg,fcw,fchooser,band_slider,submitbtn):
+    def showmainimg(self,mainimg,fcw,fchooser,bandvalue,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         try:
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
-            
+            imgname.text = mainimg.source
             #band_slider.max = 1
-            #band_slider.min = 3
-            band_slider.value=1
+            #band_slider.min = 3s
             submitbtn.disabled = False
-            
+
         except:
             print fchooser.selection
 
@@ -47,8 +46,17 @@ class betaApp(App):
         self.egtype=eg
     def setDir(self,d):
         self.direction=d
+    def Set_Slider (self,slider,tlabel):
+        if (int(tlabel.text)>slider.max):
+            slider.value = slider.max
+            tlabel.text = slider.max
+        elif (int(tlabel.text)<slider.min):
+            slider.value = slider.min
+            tlabel.text = slider.min
+        else:
+            slider.value = int(tlabel.text)
 
-    def submit(self,bval,thresh_val,mainimg,img1,img2,img3):
+    def submit(self,bval,slider,mainimg,img1,img2,img3,imgname):
 
 
         #rgb = np.matrix("'"+str(bval.value)+","+str(bval.value)+","+str(bval.value)+"'")
@@ -57,15 +65,15 @@ class betaApp(App):
         folder=""
         try:
             now =datetime.now()
-            folder="out_"+str(now.year)+str(now.month)+str(now.day)+str(now.hour)+str(now.minute)+str(now.second)
+            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
             os.mkdir(folder)
         except Exception as ex:
             print("error"+str(ex))
         outpath = os.getcwd()+"/"+folder+"/"
-        
+
         dec=True
         try:
-            print(self.fnm,bval.value,self.egtype,thresh_val.value,self.direction,outpath)
+            print(self.fnm,bval.value,self.egtype,slider.value,self.direction,outpath)
             if(self.egtype==""):
                 dec=False
                 Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
@@ -76,12 +84,11 @@ class betaApp(App):
                 Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
         except:
-            
+
             dec=False
         if(dec):
 	    scilab.getd(os.getcwd()+"/")
-            scilab.test(self.fnm,bval.value,self.egtype,thresh_val.value,self.direction,outpath)
-
+            scilab.test(self.fnm,bval.value,self.egtype,slider.value,self.direction,outpath)
             img1.source = self.fnm
             img2.source = outpath+'out_original_img.jpg'
             img3.source = outpath+'edgeimg.jpg'
@@ -90,13 +97,20 @@ class betaApp(App):
             img2.reload()
             img3.reload()
             mainimg.reload()
+            img1.opacity = 1
+            imgname.text = mainimg.source
         else:
             Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
-
+    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2):
+        mainimg.source = imgtodisp.source
+        imgtodisp.opacity = 1
+        otherimg1.opacity = 0.3
+        otherimg2.opacity = 0.3
+        
     def simulator(self, label):
         try:
             label.text = (eval(label.text))
         except:
             label.text = 'syn error'
 
-#betaApp().run()
+betaApp().run()
