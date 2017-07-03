@@ -1,0 +1,684 @@
+
+BoxLayout:
+    orientation: 'vertical'
+
+    GridLayout:
+        cols: 11
+
+        #row1
+        Widget:
+            Label:
+                text: 'CONTARST ENHANCEMENT'
+                x: self.parent.x
+                y: self.parent.y
+                width: self.parent.width*11
+                font_size:40
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.parent.width*0.8,2
+        Label:
+        Label:
+        Label:
+        Label:
+        Label:
+        Label:
+        Label:
+        Label:
+        Widget:
+            Button:
+                text: 'Main Menu'
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.25
+                height: self.parent.height*0.5
+                width:self.parent.width*0.75
+
+
+        Label:
+            text: 'Band Value'
+        Widget:
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+
+                text: ''
+                id: bandvalue
+                input_filter: 'int'
+                multiline:False
+                readonly: True
+                hint_text: "NA"
+                on_text_validate: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_focus: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+        Widget:
+        Widget:
+            Image:
+                y: placeholder1.y + self.parent.height*1
+                x: self.parent.x
+                id: mainimg
+                source: 'noimg.png'
+                width: self.parent.width*8
+                height: self.parent.height*10.5
+                allow_stretch: True
+                keep_ratio: True
+                #display_border: True
+            Widget:
+                y: placeholder1.y + self.parent.height*1
+                x: self.parent.x
+                width: self.parent.width*8
+                height: self.parent.height*0
+                id: fcw
+                #display_border: True
+                FileChooserIconView:
+                    id:fchooser
+                    y: placeholder1.y
+                    x: self.parent.x
+                    width: self.parent.width
+                    height: self.parent.height*1
+                    #filters: ['*.png','*.jpg','*.jpeg']
+                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn,imgname);
+                    on_selection: app.EnableBand(bandvalue)
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+
+        #row2
+        Label:
+            text: 'R Value'
+        Slider:
+            range: (1,3)
+            id: s1
+            width: self.parent.width
+            step: 1
+            on_value: rvalue.text = str(s1.value)
+        Widget:
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+
+                text: ''
+                id: rvalue
+                input_filter: 'int'
+                hint_text: "1 - 3"
+                #hint_text.size: self.size
+                multiline:False
+                on_text_validate: app.focus(s1,rvalue)
+                on_focus: app.focus(s1,rvalue)
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+        #row2
+        Label:
+            text: 'G Value'
+        Slider:
+            range: (1,3)
+            id: s2
+            width: self.parent.width
+            step: 1
+            on_value: gvalue.text = str(s2.value)
+        Widget:
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+
+                text: ''
+                id: gvalue
+                input_filter: 'int'
+                hint_text: "1 - 3"
+                #hint_text.size: self.size
+                multiline:False
+                on_text_validate: app.focus(s2,gvalue)
+                on_focus: app.focus(s2,gvalue)
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+        #row3
+        Label:
+            text: 'B Value'
+        Slider:
+            range: (1,3)
+            id: s3
+            width: self.parent.width
+            step: 1
+            on_value: bvalue.text = str(s3.value)
+        Widget:
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+
+                text: ''
+                id: bvalue
+                input_filter: 'int'
+                hint_text: "1 - 3"
+                multiline:False
+                on_text_validate: app.focus(s3,bvalue)
+                on_focus: app.focus(s3,bvalue)
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+        #row4
+        Label:
+            text:"Enhancement Type"
+        CheckBox:
+            group: 'radio'
+            on_active: s6.value = s6.min
+            on_active: s6.disabled = True
+            on_active: svalue.readonly =True
+            on_active: app.SetMode('Gaussian')
+        Label:
+            text: 'Average'
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+
+        #row5
+        Widget:
+        CheckBox:
+            group: 'radio'
+            on_active: s6.value = s6.min
+            on_active: s6.disabled = True
+            on_active: svalue.readonly =True
+            on_active: app.SetMode('Circular')
+        Label:
+            text: 'Circular'
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+
+        #row6
+        Widget:
+        CheckBox:
+            group: 'radio'
+            on_active: s6.value = s6.min
+            on_active: s6.disabled = False
+            on_active: svalue.readonly =True
+            on_active: app.SetMode('Gaussian')
+        Label:
+            text: 'Gaussian'
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+        #row7
+        Widget:
+        CheckBox:
+            group: 'radio'
+            on_active: s6.value = s6.min
+            on_active: s6.disabled = True
+            on_active: svalue.readonly =True
+            on_active: app.SetMode('Median')
+        Label:
+            text: 'Median'
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+
+        #row8
+        Widget:
+        CheckBox:
+            group: 'radio'
+            on_active: s6.value = s6.min
+            on_active: s6.disabled = True
+            on_active: svalue.readonly =True
+            on_active: app.SetMode('Weighted Average')
+        Label:
+            text: 'Weighted Average'
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+
+        Label:
+            text: 'Window1 Size'
+        Slider:
+            range: (3,7)
+            id: s4
+            width: self.parent.width
+            step: 2
+            on_value: w1value.text = str(s4.value)
+        Widget:
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+                text: ''
+                id: w1value
+                input_filter: 'int'
+                hint_text: "3,5,7"
+                #hint_text.size: self.size
+                multiline:False
+                on_text_validate: app.focus(s4,w1value)
+                on_focus: app.focus(s4,w1value)
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+        Label:
+            text: 'Window2 Size'
+        Slider:
+            range: (3,7)
+            id: s5
+            width: self.parent.width
+            step: 2
+            on_value: w2value.text = str(s5.value)
+        Widget:
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+
+                text: ''
+                id: w2value
+                input_filter: 'int'
+                hint_text: "3,5,7"
+                #hint_text.size: self.size
+                multiline:False
+                on_text_validate: app.focus(s5,w2value)
+                on_focus: app.focus(s5,w2value)
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+
+        Label:
+            text: 'Sigma Value'
+        Slider:
+            range: (0.5,3.0)
+            id: s6
+            width: self.parent.width
+            step: 0.1
+            on_value: svalue.text = str(s4.value)
+            disabled:True
+        Widget:
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+
+                text: ''
+                id: svalue
+                input_filter: 'float'
+                hint_text: "0.5 - 3.0"
+                multiline:False
+                readonly: True
+                on_text_validate: app.focus(s4,svalue)
+                on_focus: app.focus(s4,svalue)
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.parent.width*0.275,self.parent.height*0.025
+                    size: 2,self.parent.height*0.875
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.parent.width*(0.2875),self.parent.height*(0.075)
+                    size: self.parent.width*0.7,2
+        Widget:
+            Label:
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.25
+                height: self.parent.height*0.5
+                width: self.parent.width*4
+                text: ''
+                id: imgname
+                font_size:25
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+        #row12
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.parent.width*(0.0125),self.parent.height*(0.075)
+                    size: self.parent.width*0.25,2
+        Widget:
+            Button:
+                x: self.parent.width*(0.5)
+                y: self.parent.height*(0.125)
+                width: self.parent.width*1
+                height: self.parent.height*0.75
+                text: 'Input Image'
+                on_press: app.showfc(mainimg,fcw,fchooser)
+        Widget:
+            Button:
+                id: submitbtn
+                x: self.parent.x*(0.75)
+                y: self.parent.height*(0.125)
+                width: self.parent.width*1
+                height: self.parent.height*.75
+                disabled: True
+                text: 'Submit'
+                on_press: app.submit(s1,s2,s3,s4,s5,s6,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname)
+
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img1.source)
+                on_press: app.ButtonImage(mainimg,img1,img2,img3,img4,img5,img6,img7,img8)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img1
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img2.source)
+                on_press: app.ButtonImage(mainimg,img2,img1,img3,img4,img5,img6,img7,img8)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img2
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img3.source)
+                on_press: app.ButtonImage(mainimg,img3,img2,img1,img4,img5,img6,img7,img8)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img3
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img4.source)
+                on_press: app.ButtonImage(mainimg,img4,img2,img3,img1,img5,img6,img7,img8)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img4
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img5.source)
+                on_press: app.ButtonImage(mainimg,img5,img2,img3,img4,img1,img6,img7,img8)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img5
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img6.source)
+                on_press: app.ButtonImage(mainimg,img6,img2,img3,img4,img5,img1,img7,img8)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img6
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img7.source)
+                on_press: app.ButtonImage(mainimg,img7,img2,img3,img4,img5,img6,img1,img8)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img7
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img8.source)
+                on_press: app.ButtonImage(mainimg,img8,img2,img3,img4,img5,img6,img7,img1)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.8
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img8

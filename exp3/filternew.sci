@@ -1,4 +1,4 @@
-function filternew(pic,RGB,tp1,tp11,tp12,winSize1,winSize2,sigma,path)
+function filternew(pic,RGB,tp1,winSize1,winSize2,sigma,path)
 
 //******************************************************
 //code developed by: L.N.Eeti,Research Assistant,CSRE.
@@ -23,7 +23,8 @@ function filternew(pic,RGB,tp1,tp11,tp12,winSize1,winSize2,sigma,path)
 //%***********************************************************
 stacksize('max');
 mode(-1);
-
+tp11=ascii(part(tp1,1));
+tp12=ascii(part(tp1,3));
 [img,RbandVal,GbandVal,BbandVal] = imgdisplay1(pic,RGB,path);
 bnd=[RbandVal, GbandVal, BbandVal];
 [r,c,b]=size(img);

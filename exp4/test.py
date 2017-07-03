@@ -106,11 +106,11 @@ class betaApp(App):
         imgtodisp.opacity = 1
         otherimg1.opacity = 0.3
         otherimg2.opacity = 0.3
-        
+
     def simulator(self, label):
         try:
             label.text = (eval(label.text))
         except:
             label.text = 'syn error'
 
-betaApp().run()
+#betaApp().run()

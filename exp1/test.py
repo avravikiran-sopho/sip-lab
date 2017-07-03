@@ -58,11 +58,11 @@ class SimulatorApp(App):
             print "dd"
     def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4):
         mainimg.source = imgtodisp.source
-        imgtodisp.opacity = 1
+        imgtodisp.opacity = 0.3
         otherimg1.opacity = 0.3
-        otherimg2.opacity = 0.3
-        otherimg3.opacity = 0.3
-        otherimg4.opacity = 0.3
+        otherimg2.opacity = 1
+        otherimg3.opacity = 1
+        otherimg4.opacity = 1
 
     def EnableBand(self,bandvalue):
         if (self.fnm.find(".")==-1):
@@ -154,4 +154,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-SimulatorApp().run()
+#SimulatorApp().run()

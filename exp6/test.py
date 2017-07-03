@@ -67,7 +67,7 @@ class BetaApp(App):
         otherimg1.opacity = 0.3
         otherimg2.opacity = 0.3
         otherimg3.opacity = 0.3
-        
+
 
     def focus (self,slider,textinput):
         try:
@@ -117,4 +117,4 @@ class BetaApp(App):
         except:
             label.text = 'syn error'
 
-BetaApp().run()
+#BetaApp().run()
