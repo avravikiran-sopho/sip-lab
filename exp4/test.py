@@ -15,6 +15,14 @@ import numpy as np
 import pygame
 import os
 from datetime import datetime
+
+import sys
+import os.path
+p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(p)
+import main as m
+sys.path.remove(p)
+
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -106,11 +114,15 @@ class betaApp(App):
         imgtodisp.opacity = 1
         otherimg1.opacity = 0.3
         otherimg2.opacity = 0.3
-        
+    def mainMenu(self):
+        App.get_running_app().stop()
+        os.chdir("..")
+        m.SiplabApp().run()
+
     def simulator(self, label):
         try:
             label.text = (eval(label.text))
         except:
             label.text = 'syn error'
 
-betaApp().run()
+#betaApp().run()

@@ -17,13 +17,18 @@ import os
 import numpy as np
 import pygame
 
-
+import sys
+import os.path
+p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(p)
+import main as m
+sys.path.remove(p)
 #Window.fullscreen = 'auto'
-Window.clearcolor = (0.1, 0.1, 0.1, 1)
-Window.size = (800,600)
-
+#Window.clearcolor = (0.1, 0.1, 0.1, 1)
+#Window.size = (800,600)
 class SimulatorApp(App):
     fnm = ''
+
     def showfc(self,mainimg,fcw,fchooser):
         if (fcw.height == 0):
             fchooser.height = fchooser.parent.height*7
@@ -147,6 +152,10 @@ class SimulatorApp(App):
     	sl2.min=int(sl1.value)+100
         sl2.value = sl2.min
         hint.hint_text = str(sl1.value)+" - " + str(sl1.max+100)
+    def mainMenu(self):
+        App.get_running_app().stop()
+        os.chdir("..")
+        m.SiplabApp().run()
 
     def simulator(self, label):
         try:
@@ -154,4 +163,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-SimulatorApp().run()
+#SimulatorApp().run()

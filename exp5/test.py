@@ -16,6 +16,14 @@ import pygame
 import os
 from datetime import datetime
 import math
+
+import sys
+import os.path
+p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(p)
+import main as m
+sys.path.remove(p)
+
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -119,6 +127,10 @@ class SimulatorApp(App):
             Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
             print("fill all fields properly")
 
+    def mainMenu(self):
+        App.get_running_app().stop()
+        os.chdir("..")
+        m.SiplabApp().run()
 
     def setFilter(self,s):
     	print(s)
@@ -132,4 +144,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-SimulatorApp().run()
+#SimulatorApp().run()

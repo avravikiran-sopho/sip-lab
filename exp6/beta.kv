@@ -31,6 +31,7 @@ BoxLayout:
                 text: 'Main Menu'
                 x: self.parent.x
                 y: self.parent.y + self.parent.height*0.25
+                on_press: app.mainMenu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
 
@@ -82,7 +83,7 @@ BoxLayout:
                     width: self.parent.width
                     height: self.parent.height*1
                     #filters: ['*.png','*.jpg','*.jpeg']
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname);
+                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn,imgname);
                     on_selection: app.EnableBand(bandvalue)
         Widget:
             id: placeholder1

@@ -20,6 +20,14 @@ import subprocess
 from cmd import Cmd
 from threading import Thread
 import math
+
+import sys
+import os.path
+p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(p)
+import main as m
+sys.path.remove(p)
+
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -138,13 +146,16 @@ class SimulatorApp(App):
             res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
             res.open()
 
-
+    def mainMenu(self):
+        App.get_running_app().stop()
+        os.chdir("..")
+        m.SiplabApp().run()
     def simulator(self, label):
         try:
             label.text = (eval(label.text))
         except:
             label.text = 'syn error'
 
-SimulatorApp().run()
+#SimulatorApp().run()
 #Thread(target=app.run).start()
 #MyCmd(app).cmdloop()

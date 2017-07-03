@@ -16,6 +16,16 @@ import pygame
 import os
 from datetime import datetime
 import math
+import threading
+import time
+
+import sys
+import os.path
+p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(p)
+import main as m
+sys.path.remove(p)
+
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -26,15 +36,21 @@ class BetaApp(App):
         fcw.height = fcw.parent.height*6.5
         mainimg.source='no.gif'
 
-    def showmainimg(self,mainimg,fcw,fchooser,submitbtn):
+    def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
+        imgname.text = mainimg.source
         try:
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
+
             submitbtn.disabled = False
         except:
             print fchooser.selection
+    def EnableBand(self,bandvalue):
+        if (self.fnm.find(".")==-1):
+            print "band"
+            bandvalue.disabled = False
     def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
         try:
             s1.max = int(bandvalue.text)
@@ -67,7 +83,7 @@ class BetaApp(App):
         otherimg1.opacity = 0.3
         otherimg2.opacity = 0.3
         otherimg3.opacity = 0.3
-        
+
 
     def focus (self,slider,textinput):
         try:
@@ -82,10 +98,14 @@ class BetaApp(App):
         except:
             print ""
 
-
+    def showDl(self):
+        while(True):
+            tine.sleep(5)
+            print("ok")
+        #self.dl=Popup(title="Process Running",content=Label(text="Please wait untill all calculations and process are done.....!!!") ,size_hint=(None, None), size=(500, 100),auto_dismiss=False)
+        #self.dl.open()
     def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4):
-
-
+        threading.Thread(target=self.showDl).start()
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
 
         folder=""
@@ -98,7 +118,7 @@ class BetaApp(App):
         outpath = os.getcwd()+"/"+folder+"/"
 	scilab.getd(os.getcwd()+"/")
         scilab.colourtransform(self.fnm,rgb,outpath)
-
+        #self.dl.dismiss()
         img1.source = outpath+'out_original_img.jpg'
         m=set()
         m.add(s1.value)
@@ -111,10 +131,15 @@ class BetaApp(App):
         mainimg.source = img1.source
         mainimg.reload()
 
+    def mainMenu(self):
+
+        App.get_running_app().stop()
+        os.chdir("..")
+        m.SiplabApp().run()
     def simulator(self, label):
         try:
             label.text = (eval(label.text))
         except:
             label.text = 'syn error'
 
-BetaApp().run()
+#BetaApp().run()
