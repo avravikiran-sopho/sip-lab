@@ -44,7 +44,7 @@ BoxLayout:
         Widget:
             Button:
                 x: self.parent.x + self.parent.width*1
-                y: self.parent.y 
+                y: self.parent.y
                 width: self.parent.width*1
                 height: self.parent.height*.75
                 text: 'Input Image'
@@ -60,7 +60,6 @@ BoxLayout:
                     size: self.parent.width*0.2,2
         Widget:
         Widget:
-
             Image:
                 y: placeholder1.y + self.parent.height*0.75
                 x: self.parent.x
@@ -70,6 +69,7 @@ BoxLayout:
                 height: self.parent.height*8
                 allow_stretch: True
                 keep_ratio: True
+                #nocache: True
                 #display_border: True
             Widget:
                 y: placeholder1.y
@@ -205,7 +205,6 @@ BoxLayout:
             id: placeholder1
 
         #row3   avrkiran
-
         Label:
             text: 'B Value'
         Slider:
@@ -435,7 +434,10 @@ BoxLayout:
                 disabled: True
                 text: 'Submit'
                 font_size: 20
+
+
                 on_press: app.submit(s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5)
+
         Widget:
             id: separator
 

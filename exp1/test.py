@@ -10,13 +10,14 @@ from kivy.uix.popup import Popup
 from scilab2py import scilab
 from kivy.core.window import Window
 from kivy.config import Config
+from kivy.clock import mainthread
 import subprocess
 from datetime import datetime
-
+import time
 import os
 import numpy as np
 import pygame
-
+import threading
 import sys
 import os.path
 p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
@@ -28,7 +29,7 @@ Config.set('graphics', 'width', '500')
 Config.set('graphics', 'height', '500')
 #Window.fullscreen = 'auto'
 #Window.clearcolor = (0.1, 0.1, 0.1, 1)
-#Window.size = (800,600)
+#Window.size = (800,600)i
 class SimulatorApp(App):
     fnm = ''
 
@@ -109,23 +110,36 @@ class SimulatorApp(App):
         except:
             print ""
 
-
-
-
     def submit(self,s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
         subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
+
+        def exe():
+            try:
+                scilab.getd(os.getcwd()+"/")
+                scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
+                load()
+            except Exception as e:
+                res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
+                res.open()
+
         try:
             now =datetime.now()
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
-            print("error"+str(ex))
+            res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
+            res.open()
+
         outpath = os.getcwd()+"/"+folder+"/"
-        try:
-            scilab.getd(os.getcwd()+"/")
-            scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
+        mainimg.source = 'Loading.gif'
+        mainimg.reload()
+        thread = threading.Thread(target=exe,args=())
+        thread.start()
+
+        @mainthread
+        def load():
             img1.source = './'+folder+'/' +'out_subset_img.jpg'
             img2.source = './'+folder+'/'+'out_original_img.jpg'
             img3.source = './'+folder+'/'+'out_hist_band 1.jpg'
@@ -139,9 +153,6 @@ class SimulatorApp(App):
             img4.reload()
             img5.reload()
             mainimg.reload()
-        except Exception as e:
-            res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
-            res.open()
 
     def ChangeVal(self,sl1,sl2,hint):
     	sl2.min=int(sl1.value)+100
