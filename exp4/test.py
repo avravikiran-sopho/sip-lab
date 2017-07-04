@@ -15,15 +15,27 @@ import numpy as np
 import pygame
 import os
 from datetime import datetime
+
+import sys
+import os.path
+p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(p)
+import main as m
+sys.path.remove(p)
+
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
 class betaApp(App):
     fnm = ''
+    def mainMenu(self):
+        App.get_running_app().stop()
+        os.chdir("..")
+        m.SiplabApp().run()
 
     def showfc(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*6.5
-        fcw.height = fcw.parent.height*6.5
+        fchooser.height = fchooser.parent.height*8.5
+        fcw.height = fcw.parent.height*8.5
         mainimg.source='no.gif'
 
     def showmainimg(self,mainimg,fcw,fchooser,bandvalue,submitbtn,imgname):
@@ -41,7 +53,18 @@ class betaApp(App):
             print fchooser.selection
 
 
-
+    def focus (self,slider,textinput):
+        try:
+            if (int(textinput.text)>slider.max):
+                slider.value = slider.max
+                textinput.text = slider.max
+            elif (int(textinput.text)<slider.min):
+                slider.value = slider.min
+                textinput.text = slider.min
+            else:
+                slider.value = int(textinput.text)
+        except:
+            print ""
     def setType(self,eg):
         self.egtype=eg
     def setDir(self,d):
@@ -65,7 +88,7 @@ class betaApp(App):
         folder=""
         try:
             now =datetime.now()
-            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
+            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
             print("error"+str(ex))

@@ -3,7 +3,7 @@ BoxLayout:
     orientation: 'vertical'
 
     GridLayout:
-        cols: 10
+        cols: 11
 
         Widget:
             Label:
@@ -18,7 +18,8 @@ BoxLayout:
                     rgb: 1,1,1
                 Rectangle:
                     pos: self.pos
-                    size: self.parent.width*0.7,2
+                    size: self.parent.width*0.8,2
+        Widget:
         Widget:
         Widget:
         Widget:
@@ -31,46 +32,45 @@ BoxLayout:
                 text: 'Main Menu'
                 x: self.parent.x
                 y: self.parent.y + self.parent.height*0.25
+                on_press: app.mainMenu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
+                font_size:20
 
 
-        #row2
-        Label:
-            text: 'Band Value'
         Widget:
-            #height:self.parent.height*0.5
-            #x: self.parent.x
-            #y: self.parent.y
-            TextInput:
-                height:self.parent.height*0.25
-                width:self.parent.width*0.75
-                x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
-                text: ''
-                id: bandvalue
-                input_filter: 'int'
-                multiline:False
-                readonly: True
-                hint_text: "NA"
-                on_text_validate: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
-                on_focus: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+            Button:
+                x: self.parent.width*(1)
+                y: self.parent.y
+                width: self.parent.width*1
+                height: self.parent.height*0.75
+                text: 'Input Image'
+                font_size: 20
+                on_press: app.showfc(mainimg,fcw,fchooser)
         Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.parent.width*(0.0125),self.parent.height*(0.775)
+                    size: self.parent.width*0.275,2
         Widget:
 
+        Widget:
             Image:
-                y: placeholder1.y + self.parent.height*0.5
-                x: self.parent.x
+                y: placeholder1.y + self.parent.height*1.5
+                x: self.parent.x + self.parent.width*0.5
                 id: mainimg
                 source: 'noimg.png'
                 width: self.parent.width*7
-                height: self.parent.height*7
+                height: self.parent.height*6
                 allow_stretch: True
                 keep_ratio: True
                 #display_border: True
             Widget:
-                y: placeholder1.y
-                x: self.parent.x
+                y: placeholder1.y + self.parent.height*1.5
+                x: self.parent.x + self.parent.width*0.5
                 width: self.parent.width*7
                 height: self.parent.height*0
                 id: fcw
@@ -82,8 +82,48 @@ BoxLayout:
                     width: self.parent.width
                     height: self.parent.height*1
                     #filters: ['*.png','*.jpg','*.jpeg']
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname);
+                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn,imgname);
                     on_selection: app.EnableBand(bandvalue)
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+        Widget:
+            id: placeholder1
+
+
+        #row2
+        Label:
+            text: 'Band Value'
+        Widget:
+            #height:self.parent.height*0.5
+            #x: self.parent.x
+            #y: self.parent.y
+            TextInput:
+                height:self.parent.height*0.375
+                width:self.parent.width*0.75
+                x: self.parent.x + self.parent.height*0.125
+                y: self.parent.y + self.parent.height*0.3125
+                text: ''
+                id: bandvalue
+                input_filter: 'int'
+                multiline:False
+                readonly: True
+                hint_text: "NA"
+                on_text_validate: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_focus: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+        Widget:
+        Widget:
+        Widget:
+            id: placeholder1
         Widget:
             id: placeholder1
         Widget:
@@ -109,10 +149,10 @@ BoxLayout:
 
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: rvalue
                 input_filter: 'int'
@@ -120,6 +160,8 @@ BoxLayout:
                 multiline:False
                 on_text_validate: app.focus(s1,rvalue)
                 on_focus: app.focus(s1,rvalue)
+        Widget:
+            id: placeholder1
         Widget:
             id: placeholder1
         Widget:
@@ -147,10 +189,10 @@ BoxLayout:
             on_value: gvalue.text = str(s2.value)
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: gvalue
                 input_filter: 'int'
@@ -172,8 +214,10 @@ BoxLayout:
             id: placeholder1
         Widget:
             id: placeholder1
+        Widget:
+            id: placeholder1
 
-        #row3   avrkiran
+        #row3
 
         Label:
             text: 'B Value'
@@ -185,10 +229,10 @@ BoxLayout:
             on_value: bvalue.text = str(s3.value)
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: bvalue
                 input_filter: 'int'
@@ -196,7 +240,9 @@ BoxLayout:
                 multiline:False
                 on_text_validate: s3.value = int(bvalue.text)
                 on_focus: app.focus(s3,bvalue)
-                font_size:10
+
+        Widget:
+            id: placeholder1
         Widget:
             id: placeholder1
         Widget:
@@ -213,6 +259,8 @@ BoxLayout:
             id: placeholder1
 
         #row5
+        Widget:
+            id: placeholder1
         Widget:
             id: placeholder1
         Widget:
@@ -255,12 +303,10 @@ BoxLayout:
             id: placeholder1
         Widget:
             id: placeholder1
+        Widget:
+            id: placeholder1
 
         #row7
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
         Widget:
             id: placeholder1
         Widget:
@@ -269,27 +315,137 @@ BoxLayout:
                 Color:
                     rgb: 1,1,1
                 Rectangle:
-                    pos: self.parent.width*(0.3125),self.parent.height*(0.1)
-                    size: self.parent.width*0.675,2
+                    pos: self.parent.width*(0.3125),self.parent.height*(0.2)
+                    size: self.parent.width*0.875,2
         Widget:
             Label:
-                x: self.parent.x
-                y: self.parent.y
+                x: self.parent.x + self.parent.width*2.5
+                y: self.parent.y + self.parent.height
                 height: self.parent.height*0.5
                 width: self.parent.width*5
-                text: 'd'
+                text: ''
                 id: imgname
                 font_size:25
         Widget:
             id: placeholder1
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                on_press: app.ButtonImage(mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12)
+                x: self.parent.x
+                y: self.parent.y
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img1.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.7
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img1
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                y: self.parent.y
+                height: self.parent.height
+                width:self.parent.width
+                on_press: app.ButtonImage(mainimg,img2,img1,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12)
+                on_press: imgname.text = str(img2.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.1
+                source: 'noimg.png'
+                height: self.parent.height*0.7
+                opacity: 1
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img2
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                y: self.parent.y
+                height: self.parent.height
+                width:self.parent.width
+                on_press: app.ButtonImage(mainimg,img3,img2,img1,img4,img5,img6,img7,img8,img9,img10,img11,img12)
+                on_press: imgname.text = str(img3.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.1
+                source: 'noimg.png'
+                height: self.parent.height*0.7
+                opacity: 1
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img3
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                y: self.parent.y
+                height: self.parent.height
+                width:self.parent.width
+                on_press: app.ButtonImage(mainimg,img4,img2,img3,img1,img5,img6,img7,img8,img9,img10,img11,img12)
+                on_press: imgname.text = str(img4.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.7
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img4
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                y: self.parent.y
+                height: self.parent.height
+                width:self.parent.width
+                on_press: app.ButtonImage(mainimg,img5,img2,img3,img4,img1,img6,img7,img8,img9,img10,img11,img12)
+                on_press: imgname.text = str(img5.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.7
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img5
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                x: self.parent.x
+                y: self.parent.y
+                height: self.parent.height
+                width:self.parent.width
+                on_press: app.ButtonImage(mainimg,img6,img2,img3,img4,img5,img1,img7,img8,img9,img10,img11,img12)
+                on_press: imgname.text = str(img6.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.7
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img6
         Widget:
             id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
+
+
 
         Widget:
             id: separator
@@ -300,23 +456,16 @@ BoxLayout:
                     pos: self.parent.width*(0.0125),self.parent.height*(0.1)
                     size: self.parent.width*0.275,2
         Widget:
-            Button:
-                x: self.parent.width*(0.5)
-                y: self.parent.height*(0.125)
-                width: self.parent.width*1
-                height: self.parent.height*0.75
-                text: 'Input Image'
-                on_press: app.showfc(mainimg,fcw,fchooser)
         Widget:
             Button:
                 id: submitbtn
-                x: self.parent.x*(0.75)
+                x: self.parent.width*(1)
                 y: self.parent.height*(0.125)
                 width: self.parent.width*1
                 height: self.parent.height*.75
                 disabled: True
                 text: 'Submit'
-                on_press: app.submit(s1,s2,s3,mainimg,img1,img2,img3,img4)
+                on_press: app.submit(s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12)
         Widget:
             id: separator
 
@@ -325,28 +474,25 @@ BoxLayout:
                     rgb: 1,1,1
                 Rectangle:
                     pos: self.parent.width*0.3,self.parent.height*0.025
-                    size: 2,self.parent.height*0.75
-        Label:
-            id: fc
-            x: self.parent.x
+                    size: 2,self.parent.height*0.85
         Widget
             Button:
                 background_color: (0,0,0,0)
-                on_press: app.ButtonImage(mainimg,img1,img2,img3,img4)
+                on_press: app.ButtonImage(mainimg,img7,img2,img3,img4,img5,img6,img1,img8,img9,img10,img11,img12)
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: imgname.text = str(img1.source)
+                on_press: imgname.text = str(img7.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
-                opacity: 0.3
+                opacity: 1
                 height: self.parent.height*0.7
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
-                id: img1
+                id: img7
         Widget
             Button:
                 background_color: (0,0,0,0)
@@ -354,18 +500,55 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img2,img1,img3,img4)
-                on_press: imgname.text = str(img2.source)
+                on_press: app.ButtonImage(mainimg,img8,img2,img3,img4,img5,img6,img7,img1,img9,img10,img11,img12)
+                on_press: imgname.text = str(img8.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
                 height: self.parent.height*0.7
-                opacity: 0.3
+                opacity: 1
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
-                id: img2
+                id: img8
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                on_press: app.ButtonImage(mainimg,img9,img2,img3,img4,img5,img6,img7,img8,img1,img10,img11,img12)
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: imgname.text = str(img9.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                opacity: 1
+                height: self.parent.height*0.7
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img9
+        Widget
+            Button:
+                background_color: (0,0,0,0)
+                on_press: print "2"
+                x: self.parent.x
+                height: self.parent.height
+                width:self.parent.width
+                on_press: app.ButtonImage(mainimg,img10,img2,img3,img4,img5,img6,img7,img8,img9,img1,img11,img12)
+                on_press: imgname.text = str(img10.source)
+            Image:
+                x: self.parent.x
+                y: self.parent.height*0.1
+                source: 'noimg.png'
+                height: self.parent.height*0.7
+                opacity: 1
+                width:self.parent.width
+                allow_stretch: True
+                keep_ratio: True
+                id: img10
         Widget
             Button:
                 background_color: (0,0,0,0)
@@ -373,18 +556,18 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img3,img2,img1,img4)
-                on_press: imgname.text = str(img3.source)
+                on_press: app.ButtonImage(mainimg,img11,img2,img3,img4,img5,img6,img7,img8,img9,img10,img1,img12)
+                on_press: imgname.text = str(img11.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
                 height: self.parent.height*0.7
-                opacity: 0.3
+                opacity: 1
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
-                id: img3
+                id: img11
         Widget
             Button:
                 background_color: (0,0,0,0)
@@ -392,16 +575,16 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img4,img2,img3,img1)
-                on_press: imgname.text = str(img4.source)
+                on_press: app.ButtonImage(mainimg,img12,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img1)
+                on_press: imgname.text = str(img12.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
-                opacity: 0.3
+                opacity: 1
                 height: self.parent.height*0.7
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
-                id: img4
+                id: img12
         Label:

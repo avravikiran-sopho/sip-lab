@@ -20,6 +20,14 @@ import subprocess
 from cmd import Cmd
 from threading import Thread
 import math
+
+import sys
+import os.path
+p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(p)
+import main as m
+sys.path.remove(p)
+
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -27,8 +35,8 @@ class SimulatorApp(App):
     fnm = ''
     tp1=''
     def showfc(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*10
-        fcw.height = fcw.parent.height*10
+        fchooser.height = fchooser.parent.height*11
+        fcw.height = fcw.parent.height*11
         mainimg.source='no.gif'
 
     def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
@@ -57,14 +65,14 @@ class SimulatorApp(App):
             print ""
     def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7):
         mainimg.source = imgtodisp.source
-        imgtodisp.opacity = 1
-        otherimg1.opacity = 0.3
-        otherimg2.opacity = 0.3
-        otherimg3.opacity = 0.3
-        otherimg4.opacity = 0.3
-        otherimg5.opacity = 0.3
-        otherimg6.opacity = 0.3
-        otherimg7.opacity = 0.3
+        imgtodisp.opacity = 0.3
+        otherimg1.opacity = 1
+        otherimg2.opacity = 1
+        otherimg3.opacity = 1
+        otherimg4.opacity = 1
+        otherimg5.opacity = 1
+        otherimg6.opacity = 1
+        otherimg7.opacity = 1
 
     def EnableBand(self,bandvalue):
         if (self.fnm.find(".")==-1):
@@ -83,7 +91,7 @@ class SimulatorApp(App):
             gvalue.hint_text = "1 - " + bandvalue.text
             bvalue.hint_text = "1 - " + bandvalue.text
         except:
-            print "dd"
+            print ""
 
     def submit(self,s1,s2,s3,s4,s5,mainimg,img1,img2,img3,img4,img5,img6,img7,img8):
 
@@ -94,7 +102,7 @@ class SimulatorApp(App):
         var2 = float(s5.value)
         try:
             now =datetime.now()
-            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
+            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
             print("error"+str(ex))
@@ -131,14 +139,17 @@ class SimulatorApp(App):
             img8.reload()
             mainimg.source = img1.source
             mainimg.reload()
-            img1.opacity = 1
+            img1.opacity = 0.3
 
         except Exception as e:
             #d=subprocess.check_output("scialab",shell=True)
             res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
             res.open()
 
-
+    def mainMenu(self):
+        App.get_running_app().stop()
+        os.chdir("..")
+        m.SiplabApp().run()
     def simulator(self, label):
         try:
             label.text = (eval(label.text))

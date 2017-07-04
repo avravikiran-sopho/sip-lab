@@ -19,7 +19,7 @@ Window.clearcolor = (0.1, 0.1, 0.1, 1)
 from kivy.config import Config
 Config.set('graphics','resizable',0)
 from kivy.core.window import Window
-Window.size = (1280, 720)
+Window.size = (1920, 1080)
 import pymysql
 import hashlib
 
@@ -78,4 +78,4 @@ class SiplabApp(App):
             print(os.getcwd())
             t6.BetaApp().run()
 
-SiplabApp().run()
+#SiplabApp().run()
