@@ -1,3 +1,7 @@
+#Experiment 5
+#VIEWING IMAGES IN DIFFERENT FILTERS
+
+#import all required kivy modules
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
@@ -5,36 +9,44 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.slider import Slider
 from kivy.uix.button import Button
 from kivy.uix.image import Image
+from kivy.graphics import BorderImage
 from kivy.uix.popup import Popup
-from scilab2py import scilab
 from kivy.core.window import Window
-from kivy.config import Config
-#scilab.getd
+from kivy.clock import mainthread
+import pygame
+
+#import scilab2py module
+from scilab2py import scilab
+
+#import other required modules
+from datetime import datetime
+import time
 import os
 import numpy as np
-import pygame
-import os
-from datetime import datetime
-import math
-
+import threading
 import sys
 import os.path
+import main as m
 p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(p)
-import main as m
 sys.path.remove(p)
 
-#Window.fullscreen = 'auto'
+#Background color
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
-class SimulatorApp(App):
+#define all functionality in this class
+class Experiment5App(App):
+    #initialize input file name
     fnm = ''
-    def showfc(self,mainimg,fcw,fchooser):
+
+    #Displays file chooser when input image is clicked
+    def show_filechooser(self,mainimg,fcw,fchooser):
         fchooser.height = fchooser.parent.height*9.5
         fcw.height = fcw.parent.height*9.5
         mainimg.source='no.gif'
 
-    def focus (self,slider,textinput):
+    #Change slider value when text value is given
+    def change_slider (self,slider,textinput):
         try:
             if (int(textinput.text)>slider.max):
                 slider.value = slider.max
@@ -45,8 +57,11 @@ class SimulatorApp(App):
             else:
                 slider.value = int(textinput.text)
         except:
-            print ""
-    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7,otherimg8):
+            pass
+
+    #Displays image in mainimg when clicked on images in output panel
+    #Blurs the image which is being displayed in mainimg
+    def img_viewer (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7,otherimg8):
         mainimg.source = imgtodisp.source
         imgtodisp.opacity = 0.3
         otherimg1.opacity = 1
@@ -58,7 +73,8 @@ class SimulatorApp(App):
         otherimg7.opacity = 1
         otherimg8.opacity = 1
 
-    def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
+    #Displays preview of selected image from file chooser
+    def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         self.ftype=""
@@ -69,15 +85,15 @@ class SimulatorApp(App):
             submitbtn.disabled = False
             imgname.text = mainimg.source
         except:
-            print fchooser.selection
+            pass
 
-
-
-
+    #Calls scilab and images are processed
     def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
 
+        #validating inputs
+        dec = True
         try:
             if(self.ftype==""):
                 dec=False
@@ -88,7 +104,8 @@ class SimulatorApp(App):
         except:
             dec=False
 
-        def exe():
+        #function to call scilab
+        def execute():
             try:
                 if(dec):
                     scilab.getd(os.getcwd()+"/")
@@ -106,16 +123,18 @@ class SimulatorApp(App):
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
-            print("error"+str(ex))
+            res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
+            res.open()
         outpath = os.getcwd()+"/"+folder+"/"
 
         #show loadind gif when experiment is running
         outpath = os.getcwd()+"/"+folder+"/"
         mainimg.source = 'Loading.gif'
         mainimg.reload()
-        thread = threading.Thread(target=exe,args=())
+        thread = threading.Thread(target=execute,args=())
         thread.start()
 
+        #load all the output images after scilab is executed
         @mainthread
         def load():
             img1.source = outpath+'out_original_img.jpg'
@@ -129,16 +148,20 @@ class SimulatorApp(App):
             img3.reload()
             mainimg.reload()
 
-    def mainMenu(self):
+    #Display main_menu when button is clicked
+    def main_menu(self):
         App.get_running_app().stop()
         os.chdir("..")
         m.SiplabApp().run()
-    def EnableBand(self,bandvalue):
+
+    #If input image is HDR,then bahd value is enabled
+    def enable_band(self,bandvalue):
         if (self.fnm.find(".")==-1):
             print "band"
             bandvalue.disabled = False
 
-    def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
+    #Sets max value of rgb when band value is given
+    def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
         try:
             s1.max = int(bandvalue.text)
             s2.max = int(bandvalue.text)
@@ -150,18 +173,14 @@ class SimulatorApp(App):
             gvalue.hint_text = "1 - " + bandvalue.text
             bvalue.hint_text = "1 - " + bandvalue.text
         except:
-            print ""
+            pass
 
-    def setFilter(self,s):
-    	print(s)
+    #set filter
+    def set_filter(self,s):
     	self.ftype=s
-    def setPass(self,s):
-    	print(s)
+
+    #set pass
+    def set_pass(self,s):
     	self.ptype=s
-    def simulator(self, label):
-        try:
-            label.text = (eval(label.text))
-        except:
-            label.text = 'syn error'
 
 #SimulatorApp().run()

@@ -33,7 +33,7 @@ BoxLayout:
                 text: 'Main Menu'
                 x: self.parent.x
                 y: self.parent.y + self.parent.height*0.25
-                on_press: app.mainMenu()
+                on_press: app.main_menu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
                 font_size: 20
@@ -105,8 +105,8 @@ BoxLayout:
                 multiline:False
                 readonly: True
                 hint_text: "NA"
-                on_text_validate: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
-                on_focus: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_text_validate: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_focus: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
         Widget:
         Widget:
         Widget:
@@ -261,7 +261,7 @@ BoxLayout:
             text: 'Filter Type'
         CheckBox:
             group:"filter_grp"
-            on_active:app.setFilter("Butterworth")
+            on_active:app.set_filter("Butterworth")
         Label:
             text: 'Butterworth'
         Widget:
@@ -288,7 +288,7 @@ BoxLayout:
 			id: placeholder1
         CheckBox:
             group:"filter_grp"
-            on_active:app.setFilter("Gaussian")
+            on_active:app.set_filter("Gaussian")
         Label:
             text: 'Gaussian'
         Widget:
@@ -314,7 +314,7 @@ BoxLayout:
             text: 'Pass Type'
         CheckBox:
             group:"pass_grp"
-            on_active:app.setPass("lowpass")
+            on_active:app.set_pass("lowpass")
         Label:
             text: 'Lowpass'
         Widget:
@@ -341,7 +341,7 @@ BoxLayout:
             id: placeholder1
         CheckBox:
             group:"pass_grp"
-            on_active:app.setPass("highpass")
+            on_active:app.set_pass("highpass")
         Label:
             text: 'Highpass'
         Widget:
@@ -485,7 +485,7 @@ BoxLayout:
 		Widget:
             Button:
                 background_color: (0,0,0,0)
-                on_press: app.ButtonImage(mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9)
+                on_press: app.img_viewer(mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9)
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
@@ -507,7 +507,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img2,img1,img3,img4,img5,img6,img7,img8,img9)
+                on_press: app.img_viewer(mainimg,img2,img1,img3,img4,img5,img6,img7,img8,img9)
                 on_press: imgname.text = str(img2.source)
             Image:
                 x: self.parent.x
@@ -526,7 +526,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img3,img2,img1,img4,img5,img6,img7,img8,img9)
+                on_press: app.img_viewer(mainimg,img3,img2,img1,img4,img5,img6,img7,img8,img9)
                 on_press: imgname.text = str(img3.source)
             Image:
                 x: self.parent.x
@@ -541,7 +541,7 @@ BoxLayout:
         Widget:
             Button:
                 background_color: (0,0,0,0)
-                on_press: app.ButtonImage(mainimg,img4,img2,img3,img1,img5,img6,img7,img8,img9)
+                on_press: app.img_viewer(mainimg,img4,img2,img3,img1,img5,img6,img7,img8,img9)
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
@@ -562,7 +562,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img5,img2,img3,img4,img1,img6,img7,img8,img9)
+                on_press: app.img_viewer(mainimg,img5,img2,img3,img4,img1,img6,img7,img8,img9)
                 on_press: imgname.text = str(img5.source)
             Image:
                 x: self.parent.x
@@ -580,7 +580,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img6,img2,img3,img4,img5,img1,img7,img8,img9)
+                on_press: app.img_viewer(mainimg,img6,img2,img3,img4,img5,img1,img7,img8,img9)
                 on_press: imgname.text = str(img6.source)
             Image:
                 x: self.parent.x
@@ -595,7 +595,7 @@ BoxLayout:
         Widget:
             Button:
                 background_color: (0,0,0,0)
-                on_press: app.ButtonImage(mainimg,img7,img2,img3,img4,img5,img6,img1,img8,img9)
+                on_press: app.img_viewer(mainimg,img7,img2,img3,img4,img5,img6,img1,img8,img9)
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
@@ -616,7 +616,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img8,img2,img3,img4,img5,img6,img7,img1,img9)
+                on_press: app.img_viewer(mainimg,img8,img2,img3,img4,img5,img6,img7,img1,img9)
                 on_press: imgname.text = str(img8.source)
             Image:
                 x: self.parent.x
@@ -634,7 +634,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img9,img2,img3,img4,img5,img6,img7,img8,img1)
+                on_press: app.img_viewer(mainimg,img9,img2,img3,img4,img5,img6,img7,img8,img1)
                 on_press: imgname.text = str(img9.source)
             Image:
                 x: self.parent.x

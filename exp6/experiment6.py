@@ -1,3 +1,7 @@
+#Experiment 5
+#VIEWING IMAGES IN DIFFERENT FILTERS
+
+#import all required kivy modules
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
@@ -5,56 +9,62 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.slider import Slider
 from kivy.uix.button import Button
 from kivy.uix.image import Image
+from kivy.graphics import BorderImage
 from kivy.uix.popup import Popup
-from scilab2py import scilab
 from kivy.core.window import Window
-from kivy.config import Config
-#scilab.getd
+from kivy.clock import mainthread
+import pygame
+
+#import scilab2py module
+from scilab2py import scilab
+
+#import other required modules
+from datetime import datetime
+import time
 import os
 import numpy as np
-import pygame
-import os
-from datetime import datetime
-import math
 import threading
-import time
-
 import sys
 import os.path
+import main as m
 p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(p)
-import main as m
 sys.path.remove(p)
 
-#Window.fullscreen = 'auto'
+#Background color
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
-class BetaApp(App):
+#define all functionality in this class
+class Experiment6App(App):
+    #initialize input file name
     fnm = ''
 
-    def showfc(self,mainimg,fcw,fchooser):
+    #Displays file chooser when input image is clicked
+    def show_filechooser(self,mainimg,fcw,fchooser):
         fchooser.height = fchooser.parent.height*7
         fcw.height = fcw.parent.height*7
         mainimg.source='no.gif'
 
-    def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
+    #Displays preview of selected image from file chooser
+    def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         imgname.text = mainimg.source
         try:
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
-
             submitbtn.disabled = False
         except:
-            print fchooser.selection
+            pass
 
-    def EnableBand(self,bandvalue):
+    #If input image is HDR,then bahd value is enabled
+    def enable_band(self,bandvalue):
         if (self.fnm.find(".")==-1):
             print "band"
             bandvalue.disabled = False
 
-    def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
+    #Sets max value of rgb when band value is given
+    def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
         try:
             s1.max = int(bandvalue.text)
             s2.max = int(bandvalue.text)
@@ -66,9 +76,11 @@ class BetaApp(App):
             gvalue.hint_text = "1 - " + bandvalue.text
             bvalue.hint_text = "1 - " + bandvalue.text
         except:
-            print ""
+            pass
 
-    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7,otherimg8,otherimg9,otherimg10,otherimg11):
+    #Displays image in mainimg when clicked on images in output panel
+    #Blurs the image which is being displayed in mainimg
+    def img_viewer (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7,otherimg8,otherimg9,otherimg10,otherimg11):
         mainimg.source = imgtodisp.source
         imgtodisp.opacity = 0.3
         otherimg1.opacity = 1
@@ -83,7 +95,8 @@ class BetaApp(App):
         otherimg10opacity = 1
         otherimg11.opacity = 1
 
-    def focus (self,slider,textinput):
+    #Change slider value when text value is given
+    def change_slider (self,slider,textinput):
         try:
             if (int(textinput.text)>slider.max):
                 slider.value = slider.max
@@ -94,18 +107,10 @@ class BetaApp(App):
             else:
                 slider.value = int(textinput.text)
         except:
-            print ""
+            print "
 
-    def showDl(self):
-        while(True):
-            tine.sleep(5)
-            print("ok")
-        #self.dl=Popup(title="Process Running",content=Label(text="Please wait untill all calculations and process are done.....!!!")
-        #,size_hint=(None, None), size=(500, 100),auto_dismiss=False)
-        #self.dl.open()
-
+    #Calls scilab and images are processed
     def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12):
-        threading.Thread(target=self.showDl).start()
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
 
@@ -165,14 +170,10 @@ class BetaApp(App):
             img12.reload()
             mainimg.reload()
 
-    def mainMenu(self):
+    #Display main_menu when button is clicked
+    def main_menu(self):
         App.get_running_app().stop()
         os.chdir("..")
         m.SiplabApp().run()
-    def simulator(self, label):
-        try:
-            label.text = (eval(label.text))
-        except:
-            label.text = 'syn error'
 
-#BetaApp().run()
+#Experiment6App().run()
