@@ -1,4 +1,4 @@
-function filternew(pic,RGB,tp1,winSize1,winSize2,sigma,path)
+function filternew(pic,RGB,tp1,tp11,tp12,winSize1,winSize2,sigma,path)
 
 //******************************************************
 //code developed by: L.N.Eeti,Research Assistant,CSRE.

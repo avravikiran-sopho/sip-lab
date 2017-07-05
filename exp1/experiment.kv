@@ -1,43 +1,42 @@
 
+# UI for exp1
+
 BoxLayout:
     orientation: 'vertical'
+
+    #columns: 10
+    #rows: 11
 
     GridLayout:
         cols: 10
 
         #row1
+        #Title of exp
         Widget:
             Label:
                 text: 'VIEWING IMAGES IN DIFFERENT BANDS'
                 y: self.parent.y
                 width: self.parent.width*10
-                font_size:
+                font_size: 40
                 border: (0,0,0,16)
+        #Underline
         Widget:
             id: separator
             canvas:
                 Color:
                     rgb: 1,1,1
                 Rectangle:
-                    pos: self.pos
-                    size: self.parent.width*0.7,2
-
+                    pos: self.parent.width*0.05,self.parent.height*0.9
+                    size: self.parent.width*0.9,2
+        #Empty widgets
         Widget:
         Widget:
         Widget:
         Widget:
-            Button:
-
-                text: 'Reload'
-                x: self.parent.x
-                y: self.parent.y + self.parent.height*0.25
-                on_press: app.load()
-                height: self.parent.height*0.5
-                width:self.parent.width*0.75
-
         Widget:
         Widget:
         Widget:
+        #Mainmenu Button
         Widget:
             Button:
                 text: 'Main Menu'
@@ -46,72 +45,95 @@ BoxLayout:
                 on_press: app.mainMenu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
-
+                font_size: 20
 
         #row2
+        #Input Image button
+        Widget:
+            Button:
+                x: self.parent.x + self.parent.width*1
+                y: self.parent.y
+                width: self.parent.width*1
+                height: self.parent.height*.75
+                text: 'Input Image'
+                font_size: 20
+                on_press: app.show_filechooser(mainimg,fcw,fchooser)
+        #underline
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.parent.width*0.05,self.parent.height*0.8
+                    size: self.parent.width*0.2,2
+        Widget:
+        Widget:
+            #Main image
+            Image:
+                y: self.parent.height*1.55
+                x: self.parent.x
+                id: mainimg
+                source: 'noimg.png'
+                width: self.parent.width*7
+                height: self.parent.height*8
+                allow_stretch: True
+                keep_ratio: True
+            #Inputfile selector
+            Widget:
+                x: self.parent.x
+                y: self.parent.height*1.5
+                width: self.parent.width*7
+                height: self.parent.height*0
+                id: fcw
+                FileChooserIconView:
+                    id:fchooser
+                    y: self.parent.y
+                    x: self.parent.x
+                    width: self.parent.width
+                    height: self.parent.height*1
+                    on_selection: app.show_selected_img(mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname);
+                    on_selection: app.enable_band(bandvalue)
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+
+        #row3
+        #Band value
         Label:
             text: 'Band Value'
+        #input Bandvalue
         Widget:
-            #height:self.parent.height*0.5
-            #x: self.parent.x
-            #y: self.parent.y
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: bandvalue
                 input_filter: 'int'
                 multiline:False
                 readonly: True
                 hint_text: "NA"
-                on_text_validate: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
-                on_focus: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_text_validate: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_focus: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
         Widget:
         Widget:
 
-            Image:
-                y: placeholder1.y + self.parent.height*0.5
-                x: self.parent.x
-                id: mainimg
-                source: 'noimg.png'
-                width: self.parent.width*7
-                height: self.parent.height*7
-                allow_stretch: True
-                keep_ratio: True
-                #display_border: True
-            Widget:
-                y: placeholder1.y
-                x: self.parent.x
-                width: self.parent.width*7
-                height: self.parent.height*0
-                id: fcw
-                #display_border: True
-                FileChooserIconView:
-                    id:fchooser
-                    y: placeholder1.y
-                    x: self.parent.x
-                    width: self.parent.width
-                    height: self.parent.height*1
-                    #filters: ['*.png','*.jpg','*.jpeg']
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname);
-                    on_selection: app.EnableBand(bandvalue)
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-
+        #row4
+        #R value
         Label:
             text: 'R Value'
+        #R slider
         Slider:
             range: (1,3)
             value: 1
@@ -119,38 +141,33 @@ BoxLayout:
             width: self.parent.width
             step: 1
             on_value: rvalue.text = str(s1.value)
-
+        #R input value
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: rvalue
                 input_filter: 'int'
                 hint_text: "1 - 3"
                 multiline:False
-                on_text_validate: app.focus(s1,rvalue)
-                on_focus: app.focus(s1,rvalue)
+                on_text_validate: app.change_slider(s1,rvalue)
+                on_focus: app.change_slider(s1,rvalue)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row2
+        #row5
+        #G value
         Label:
             text: 'G Value'
+        #G Slider
         Slider:
             range: (1,3)
             value: 1
@@ -158,90 +175,80 @@ BoxLayout:
             width: self.parent.width
             step: 1
             on_value: gvalue.text = str(s2.value)
+        #G input
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: gvalue
                 input_filter: 'int'
                 hint_text: "1 - 3"
                 multiline:False
                 on_text_validate: s2.value = int(gvalue.text)
-                on_focus: app.focus(s2,gvalue)
+                on_focus: app.change_slider(s2,gvalue)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row3   avrkiran
-
+        #row6
+        #B value
         Label:
             text: 'B Value'
+        #B Slider
         Slider:
             range: (1,3)
             value: 1
             id: s3
             step: 1
             on_value: bvalue.text = str(s3.value)
+        #B input
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: bvalue
                 input_filter: 'int'
                 hint_text: "1 - 3"
                 multiline:False
                 on_text_validate: s3.value = int(bvalue.text)
-                on_focus: app.focus(s3,bvalue)
-                font_size:10
+                on_focus: app.change_slider(s3,bvalue)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row4
+        #row7
+        #row start
         Label:
             text: 'Row Start'
+        #row start Slider
         Slider:
             range: (50,250)
-
             id: s4
             disabled: True
             step: 1
             on_value: rstart.text = str(s4.value)
-            on_value: app.ChangeVal(s4,s5,rend)
+            on_value: app.adjust_end_value(s4,s5,rend)
+        #row start input
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: rstart
                 input_filter: 'int'
@@ -249,38 +256,33 @@ BoxLayout:
                 multiline:False
                 readonly: True
                 on_text_validate: s4.value = int(rstart.text)
-                on_focus: app.focus(s4,rstart)
+                on_focus: app.change_slider(s4,rstart)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row5
+        #row8
+        #row end
         Label:
             text: 'Row End'
+        #row end slider
         Slider:
             range: (50,250)
-
             id: s5
             disabled: True
             step: 1
             on_value: rend.text = str(s5.value)
+        #row end input
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: rend
                 input_filter: 'int'
@@ -288,78 +290,68 @@ BoxLayout:
                 multiline:False
                 readonly: True
                 on_text_validate: s5.value = int(rend.text)
-                on_focus: app.focus(s5,rend)
+                on_focus: app.change_slider(s5,rend)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row6
+        #row9
+        #column start
         Label:
             text: 'Column Start'
+        #cloumn start slider
         Slider:
             range: (50,250)
-
             id: s6
             step: 1
             disabled: True
             on_value: cstart.text = str(s6.value)
-            on_value: app.ChangeVal(s6,s7,cend)
+            on_value: app.adjust_end_value(s6,s7,cend)
+        #column start input
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: cstart
                 input_filter: 'int'
                 hint_text: "NA"
+                text_size: self.width, None
                 multiline:False
                 readonly: True
                 on_text_validate: s6.value = int(cstart.text)
-                on_focus: app.focus(s6,cstart)
+                on_focus: app.change_slider(s6,cstart)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row7
+        #row10
+        #colunn end
         Label:
             text: 'Column End'
+        #column end slider
         Slider:
             range: (50,250)
-
             id: s7
             step: 1
             disabled: True
             on_value: cend.text = str(s7.value)
         Widget:
             TextInput:
-                height:self.parent.height*0.25
+                height:self.parent.height*0.375
                 width:self.parent.width*0.75
                 x: self.parent.x + self.parent.height*0.125
-                y: self.parent.y + self.parent.height*0.375
+                y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: cend
                 input_filter: 'int'
@@ -367,7 +359,8 @@ BoxLayout:
                 multiline:False
                 readonly: True
                 on_text_validate: s7.value = int(cend.text)
-                on_focus: app.focus(s7,cend)
+                on_focus: app.change_slider(s7,cend)
+        #underline below mainimg
         Widget:
             id: separator
             canvas:
@@ -376,146 +369,153 @@ BoxLayout:
                 Rectangle:
                     pos: self.parent.width*(0.3125),self.parent.height*(0.1)
                     size: self.parent.width*0.675,2
+        #printing imgage name
         Widget:
             Label:
                 x: self.parent.x
                 y: self.parent.y
-                height: self.parent.height*0.5
+                height: self.parent.height*0.75
                 width: self.parent.width*5
                 text: ''
                 id: imgname
                 font_size:25
 
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-
+        #row11
+        #underline below inputs
         Widget:
             id: separator
             canvas:
                 Color:
                     rgb: 1,1,1
                 Rectangle:
-                    pos: self.parent.width*(0.0125),self.parent.height*(0.1)
-                    size: self.parent.width*0.275,2
+                    pos: self.parent.width*(0.05),self.parent.height*(0.1)
+                    size: self.parent.width*0.2,2
         Widget:
-            Button:
-                x: self.parent.width*(0.5)
-                y: self.parent.height*(0.125)
-                width: self.parent.width*1
-                height: self.parent.height*0.75
-                text: 'Input Image'
-                on_press: app.showfc(mainimg,fcw,fchooser)
+        #submit button
         Widget:
             Button:
                 id: submitbtn
-                x: self.parent.x*(0.75)
+                x: self.parent.x - self.parent.width*1
                 y: self.parent.height*(0.125)
                 width: self.parent.width*1
                 height: self.parent.height*.75
                 disabled: True
                 text: 'Submit'
-                on_press: app.submit(s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5)
+                font_size: 20
+                on_press: app.submit(s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5)
+        #vertical line between mainimg and inputs
         Widget:
             id: separator
-
             canvas:
                 Color:
                     rgb: 1,1,1
                 Rectangle:
                     pos: self.parent.width*0.3,self.parent.height*0.025
                     size: 2,self.parent.height*0.85
+        #output image1
         Widget
+            #When this button is clicked,output image1 will be displayed in mainimg
             Button:
                 background_color: (0,0,0,0)
-                on_press: app.ButtonImage(mainimg,img1,img2,img3,img4,img5)
+                on_press: app.img_viewer(mainimg,img1,img2,img3,img4,img5)
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
+                id:btnimg1
                 on_press: imgname.text = str(img1.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
-                opacity: 0.3
+                opacity: 1
                 height: self.parent.height*0.8
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
                 id: img1
+
+        #output image2
         Widget
+            #When this button is clicked,output image2 will be displayed in mainimg
             Button:
                 background_color: (0,0,0,0)
-                on_press: print "2"
                 x: self.parent.x
+                id:btnimg2
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img2,img1,img3,img4,img5)
+                on_press: app.img_viewer(mainimg,img2,img1,img3,img4,img5)
                 on_press: imgname.text = str(img2.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
                 height: self.parent.height*0.8
-                opacity: 0.3
+                opacity: 1
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
                 id: img2
+
+        #output image3
         Widget
+            #When this button is clicked,output image1 will be displayed in mainimg
             Button:
                 background_color: (0,0,0,0)
-                on_press: print "3"
                 x: self.parent.x
+                id:btnimg3
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img3,img2,img1,img4,img5)
+                on_press: app.img_viewer(mainimg,img3,img2,img1,img4,img5)
                 on_press: imgname.text = str(img3.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
                 height: self.parent.height*0.8
-                opacity: 0.3
+                opacity: 1
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
+
                 id: img3
+        #output image4
         Widget
+            #When this button is clicked,output image4 will be displayed in mainimg
             Button:
                 background_color: (0,0,0,0)
-                on_press: print "4"
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img4,img2,img3,img1,img5)
+                id:btnimg4
+                on_press: app.img_viewer(mainimg,img4,img2,img3,img1,img5)
                 on_press: imgname.text = str(img4.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
                 source: 'noimg.png'
-                opacity: 0.3
+                opacity: 1
                 height: self.parent.height*0.8
                 width:self.parent.width
                 allow_stretch: True
                 keep_ratio: True
+
                 id: img4
+        #output image5
         Widget
+            #When this button is clicked,output image5 will be displayed in mainimg
             Button:
                 background_color: (0,0,0,0)
-                on_press: print "5"
                 x: self.parent.x
+                id:btnimg5
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img5,img2,img3,img4,img1)
+                on_press: app.img_viewer(mainimg,img5,img2,img3,img4,img1)
                 on_press: imgname.text = str(img5.source)
             Image:
                 x: self.parent.x
@@ -523,8 +523,9 @@ BoxLayout:
                 source: 'noimg.png'
                 height: self.parent.height*0.8
                 width:self.parent.width
-                opacity: 0.3
+                opacity: 1
                 allow_stretch: True
                 keep_ratio: True
                 id: img5
+
         Label:

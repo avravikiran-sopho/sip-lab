@@ -31,9 +31,10 @@ Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
 class BetaApp(App):
     fnm = ''
+
     def showfc(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*6.5
-        fcw.height = fcw.parent.height*6.5
+        fchooser.height = fchooser.parent.height*7
+        fcw.height = fcw.parent.height*7
         mainimg.source='no.gif'
 
     def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
@@ -47,10 +48,12 @@ class BetaApp(App):
             submitbtn.disabled = False
         except:
             print fchooser.selection
+
     def EnableBand(self,bandvalue):
         if (self.fnm.find(".")==-1):
             print "band"
             bandvalue.disabled = False
+
     def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
         try:
             s1.max = int(bandvalue.text)
@@ -64,26 +67,21 @@ class BetaApp(App):
             bvalue.hint_text = "1 - " + bandvalue.text
         except:
             print ""
-    def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
-        try:
-            s1.max = int(bandvalue.text)
-            s2.max = int(bandvalue.text)
-            s3.max = int(bandvalue.text)
-            s1.value = s1.min
-            s2.value = s2.min
-            s3.value = s3.min
-            rvalue.hint_text = "1 - " + bandvalue.text
-            gvalue.hint_text = "1 - " + bandvalue.text
-            bvalue.hint_text = "1 - " + bandvalue.text
-        except:
-            print "dd"
-    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3):
-        mainimg.source = imgtodisp.source
-        imgtodisp.opacity = 1
-        otherimg1.opacity = 0.3
-        otherimg2.opacity = 0.3
-        otherimg3.opacity = 0.3
 
+    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7,otherimg8,otherimg9,otherimg10,otherimg11):
+        mainimg.source = imgtodisp.source
+        imgtodisp.opacity = 0.3
+        otherimg1.opacity = 1
+        otherimg2.opacity = 1
+        otherimg3.opacity = 1
+        otherimg4.opacity = 1
+        otherimg5.opacity = 1
+        otherimg6.opacity = 1
+        otherimg7.opacity = 1
+        otherimg8.opacity = 1
+        otherimg9.opacity = 1
+        otherimg10opacity = 1
+        otherimg11.opacity = 1
 
     def focus (self,slider,textinput):
         try:
@@ -102,9 +100,12 @@ class BetaApp(App):
         while(True):
             tine.sleep(5)
             print("ok")
-        #self.dl=Popup(title="Process Running",content=Label(text="Please wait untill all calculations and process are done.....!!!") ,size_hint=(None, None), size=(500, 100),auto_dismiss=False)
+        #self.dl=Popup(title="Process Running",content=Label(text="Please wait untill all calculations and process are done.....!!!")
+        #,size_hint=(None, None), size=(500, 100),auto_dismiss=False)
         #self.dl.open()
-    def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4):
+
+    def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,
+    img9,img10,img11,img12):
         threading.Thread(target=self.showDl).start()
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
 
@@ -120,15 +121,30 @@ class BetaApp(App):
         scilab.colourtransform(self.fnm,rgb,outpath)
         #self.dl.dismiss()
         img1.source = outpath+'out_original_img.jpg'
-        m=set()
-        m.add(s1.value)
-        m.add(s2.value)
-        m.add(s3.value)
-        l=[img2,img3,img4]
-        for i in range(len(m)):
-            l[i].source='out_hist_band '+str(int(list(m)[i]))+'.jpg'
-            l[i].reload()
+        img2.source = outpath+'out_RGB.jpg'
+        img3.source = outpath+'out_Red.jpg'
+        img4.source = outpath+'out_Green.jpg'
+        img5.source = outpath+'out_Blue.jpg'
+        img6.source = outpath+'out_VALUE.jpg'
+        img7.source = outpath+'out_SATURATION.jpg'
+        img8.source = outpath+'out_HSV.jpg'
+        img9.source = outpath+'out_HUE.jpg'
+        img10.source = outpath+'out_hist_band 1.jpg'
+        img11.source = outpath+'out_hist_band 2.jpg'
+        img12.source = outpath+'out_hist_band 3.jpg'
         mainimg.source = img1.source
+        img1.reload()
+        img2.reload()
+        img3.reload()
+        img4.reload()
+        img5.reload()
+        img6.reload()
+        img7.reload()
+        img8.reload()
+        img9.reload()
+        img10.reload()
+        img11.reload()
+        img12.reload()
         mainimg.reload()
 
     def mainMenu(self):
