@@ -94,15 +94,12 @@ class Experiment4App(App):
         try:
             print self.egtype,"   ",self.direction,"  ",self.fnm
             if(self.egtype==""):
-                print "1"
                 dec=False
                 Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
             if(self.direction==""):
-                print "2"
                 Popup(title="Error",content=Label(text="Please select direction type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
             if(self.fnm==""):
-                print "3"
                 Popup(title="Error",content=Label(text="Please select file type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
         except:
@@ -138,7 +135,8 @@ class Experiment4App(App):
             thread = threading.Thread(target=execute,args=())
             thread.start()
         else:
-            Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
+            print(" ")
+            #Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
         @mainthread
         def load():
             img1.source = self.fnm

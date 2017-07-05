@@ -334,6 +334,7 @@ BoxLayout:
                 on_press: app.img_viewer(mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12)
                 x: self.parent.x
                 y: self.parent.y
+                id:btnimg1
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img1.source)
@@ -352,6 +353,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 y: self.parent.y
+                id:btnimg2
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img2,img1,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12)
@@ -371,6 +373,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 y: self.parent.y
+                id:btnimg3
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img3,img2,img1,img4,img5,img6,img7,img8,img9,img10,img11,img12)
@@ -390,6 +393,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 y: self.parent.y
+                id:btnimg4
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img4,img2,img3,img1,img5,img6,img7,img8,img9,img10,img11,img12)
@@ -409,6 +413,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 y: self.parent.y
+                id:btnimg5
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img5,img2,img3,img4,img1,img6,img7,img8,img9,img10,img11,img12)
@@ -428,6 +433,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 y: self.parent.y
+                id:btnimg6
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img6,img2,img3,img4,img5,img1,img7,img8,img9,img10,img11,img12)
@@ -465,7 +471,7 @@ BoxLayout:
                 height: self.parent.height*.75
                 disabled: True
                 text: 'Submit'
-                on_press: app.submit(s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12)
+                on_press: app.submit(s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,btnimg10,btnimg11,btnimg12)
         Widget:
             id: separator
 
@@ -480,6 +486,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: app.img_viewer(mainimg,img7,img2,img3,img4,img5,img6,img1,img8,img9,img10,img11,img12)
                 x: self.parent.x
+                id:btnimg7
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img7.source)
@@ -498,6 +505,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: print "2"
                 x: self.parent.x
+                id:btnimg8
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img8,img2,img3,img4,img5,img6,img7,img1,img9,img10,img11,img12)
@@ -517,6 +525,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: app.img_viewer(mainimg,img9,img2,img3,img4,img5,img6,img7,img8,img1,img10,img11,img12)
                 x: self.parent.x
+                id:btnimg9
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img9.source)
@@ -535,6 +544,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: print "2"
                 x: self.parent.x
+                id:btnimg10
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img10,img2,img3,img4,img5,img6,img7,img8,img9,img1,img11,img12)
@@ -554,6 +564,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: print "3"
                 x: self.parent.x
+                id:btnimg11
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img11,img2,img3,img4,img5,img6,img7,img8,img9,img10,img1,img12)
@@ -573,6 +584,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: print "4"
                 x: self.parent.x
+                id:btnimg12
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img12,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img1)

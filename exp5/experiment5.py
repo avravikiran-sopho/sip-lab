@@ -88,7 +88,7 @@ class Experiment5App(App):
             pass
 
     #Calls scilab and images are processed
-    def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname):
+    def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
 
@@ -107,13 +107,12 @@ class Experiment5App(App):
         #function to call scilab
         def execute():
             try:
-                if(dec):
-                    scilab.getd(os.getcwd()+"/")
-                    scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
-                    load()
-                else:
-                    Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
+                scilab.getd(os.getcwd()+"/")
+                scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
+                load()
             except Exception as e:
+                mainimg.source = "no.gif"
+                mainimg.reload()
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
 
@@ -129,24 +128,40 @@ class Experiment5App(App):
 
         #show loadind gif when experiment is running
         outpath = os.getcwd()+"/"+folder+"/"
-        mainimg.source = 'Loading.gif'
-        mainimg.reload()
-        thread = threading.Thread(target=execute,args=())
-        thread.start()
+        if(dec):
+            mainimg.source = 'Loading.gif'
+            mainimg.reload()
+            thread = threading.Thread(target=execute,args=())
+            thread.start()
+        else:
+            Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
+
 
         #load all the output images after scilab is executed
         @mainthread
         def load():
-            img1.source = outpath+'out_original_img.jpg'
-            img2.source = outpath+self.ftype+self.ptype+' filteredimg.jpg'
-            img3.source = outpath+'out_mag_spectrum_All.jpg'
-            mainimg.source = img1.source
-            img1.opacity = 0.3
-            imgname.text = img1.source
+            img1.source = './'+folder+'/'+'out_original_img.jpg'
+            img2.source = './'+folder+'/'+self.ftype+self.ptype+' filteredimg.jpg'
             img1.reload()
             img2.reload()
-            img3.reload()
+            self.testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 1.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 2.jpg')
+            self.testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 3.jpg')
+            img6.source = './'+folder+'/'+'out_mag_spectrum_All.jpg'
+            img6.reload()
+            self.testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_1.jpg')
+            self.testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_2.jpg')
+            self.testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_3.jpg')
+            mainimg.source = img1.source
             mainimg.reload()
+            img1.opacity = 0.3
+    def testImg(self,img,btnimg,f):
+        if(os.path.isfile(f)):
+            img.source = f
+            img.reload()
+        else:
+            img.source = "no.gif"
+            btnimg.disabled = True
 
     #Display main_menu when button is clicked
     def main_menu(self):

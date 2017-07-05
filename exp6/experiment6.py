@@ -107,10 +107,10 @@ class Experiment6App(App):
             else:
                 slider.value = int(textinput.text)
         except:
-            print "
+            print ""
 
     #Calls scilab and images are processed
-    def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12):
+    def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,btnimg10,btnimg11,btnimg12):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
 
@@ -152,9 +152,9 @@ class Experiment6App(App):
             img7.source = outpath+'out_SATURATION.jpg'
             img8.source = outpath+'out_HSV.jpg'
             img9.source = outpath+'out_HUE.jpg'
-            img10.source = outpath+'out_hist_band 1.jpg'
-            img11.source = outpath+'out_hist_band 2.jpg'
-            img12.source = outpath+'out_hist_band 3.jpg'
+            self.testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band 1.jpg')
+            self.testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band 2.jpg')
+            self.testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band 3.jpg')
             mainimg.source = img1.source
             img1.reload()
             img2.reload()
@@ -165,9 +165,6 @@ class Experiment6App(App):
             img7.reload()
             img8.reload()
             img9.reload()
-            img10.reload()
-            img11.reload()
-            img12.reload()
             mainimg.reload()
 
     #Display main_menu when button is clicked
@@ -175,5 +172,11 @@ class Experiment6App(App):
         App.get_running_app().stop()
         os.chdir("..")
         m.SiplabApp().run()
-
+    def testImg(self,img,btnimg,f):
+        if(os.path.isfile(f)):
+            img.source = f
+            img.reload()
+        else:
+            img.source = "no.gif"
+            btnimg.disabled = True
 #Experiment6App().run()

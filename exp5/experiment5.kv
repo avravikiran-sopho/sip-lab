@@ -45,7 +45,7 @@ BoxLayout:
                 height: self.parent.height*0.75
                 text: 'Input Image'
                 font_size: 20
-                on_press: app.showfc(mainimg,fcw,fchooser)
+                on_press: app.show_filechooser(mainimg,fcw,fchooser)
         Widget:
             id: separator
             canvas:
@@ -80,7 +80,7 @@ BoxLayout:
                     width: self.parent.width
                     height: self.parent.height*1
                     #filters:['*.png','*.jpg','*.jpeg']
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn,imgname);
+                    on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
         Widget:
         Widget:
         Widget:
@@ -472,7 +472,7 @@ BoxLayout:
                 height: self.parent.height*.75
                 disabled: True
                 text: 'Submit'
-                on_press: app.submit(s1,s2,s3,mainimg,cf_val.value,or_val.value,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname)
+                on_press: app.submit(s1,s2,s3,mainimg,cf_val.value,or_val.value,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8)
 
         Widget:
             id: separator
@@ -487,6 +487,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: app.img_viewer(mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9)
                 x: self.parent.x
+                id:btnimg1
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img1.source)
@@ -505,6 +506,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: print "2"
                 x: self.parent.x
+                id:btnimg2
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img2,img1,img3,img4,img5,img6,img7,img8,img9)
@@ -523,6 +525,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 on_press: print "3"
+                id:btnimg3
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
@@ -543,6 +546,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: app.img_viewer(mainimg,img4,img2,img3,img1,img5,img6,img7,img8,img9)
                 x: self.parent.x
+                id:btnimg4
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img4.source)
@@ -560,6 +564,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg5
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img5,img2,img3,img4,img1,img6,img7,img8,img9)
@@ -578,6 +583,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg6
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img6,img2,img3,img4,img5,img1,img7,img8,img9)
@@ -597,6 +603,7 @@ BoxLayout:
                 background_color: (0,0,0,0)
                 on_press: app.img_viewer(mainimg,img7,img2,img3,img4,img5,img6,img1,img8,img9)
                 x: self.parent.x
+                id:btnimg7
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img7.source)
@@ -614,6 +621,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg8
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img8,img2,img3,img4,img5,img6,img7,img1,img9)
@@ -632,6 +640,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg9
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img9,img2,img3,img4,img5,img6,img7,img8,img1)
