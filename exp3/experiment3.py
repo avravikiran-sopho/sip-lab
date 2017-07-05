@@ -29,7 +29,7 @@ sys.path.append(p)
 import main as m
 sys.path.remove(p)
 
-class SimulatorApp(App):
+class Experiment3App(App):
     fnm = ''
     tp1=''
     def showfc(self,mainimg,fcw,fchooser):
@@ -108,6 +108,18 @@ class SimulatorApp(App):
         ws1 = int(s4.value)
         ws2 = int(s5.value)
         sigma = int(s6.value)
+
+        #function to call scilab
+        def exe():
+            try:
+                scilab.getd(os.getcwd()+"/")
+                scilab.filternew(self.fnm,rgb,self.tp1,ws1,ws2,sigma,outpath)
+                load()
+            except Exception as e:
+                res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
+                res.open()
+
+        #create folder in format "out_day_month_year_hour_minute_second" to store output files
         try:
             now =datetime.now()
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
@@ -116,21 +128,18 @@ class SimulatorApp(App):
             print("error"+str(ex))
         outpath = os.getcwd()+"/"+folder+"/"
 
-        try:
-            scilab.getd(os.getcwd()+"/")
-            scilab.filternew(self.fnm,rgb,self.tp1,ws1,ws2,sigma,outpath)
+        #show loadind gif when experiment is running
+        outpath = os.getcwd()+"/"+folder+"/"
+        mainimg.source = 'Loading.gif'
+        mainimg.reload()
+        thread = threading.Thread(target=exe,args=())
+        thread.start()
+
+        #load all the output images after scilab is executed
+        @mainthread
+        def load():
             img1.source = './'+folder+'/' +'FilteredImage.jpg'
             img2.source = './'+folder+'/' +'out_original_img.jpg'
-            m=set()
-            m.add(s1.value)
-            m.add(s2.value)
-            m.add(s3.value)
-            l=[img3,img4,img5,img6,img7,img8]
-            for i in range(0,(len(m)*2),2):
-                l[i].source='out_hist_afterfilter band '+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
-                l[i+1].source='out_hist_band '+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
-                l[i].reload()
-                l[i+1].reload()
             img3.source = './'+folder+'/' +'out_hist_afterfilter band 1.jpg'
             img4.source = './'+folder+'/' +'out_hist_band 1.jpg'
             img5.source = './'+folder+'/' +'out_hist_afterfilter band 2.jpg'
@@ -147,20 +156,11 @@ class SimulatorApp(App):
             img8.reload()
             mainimg.source = img1.source
             mainimg.reload()
-            img1.opacity = 1
+            img1.opacity = 0.3
 
         except Exception as e:
             #d=subprocess.check_output("scialab",shell=True)
             res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
             res.open()
 
-
-    def simulator(self, label):
-        try:
-            label.text = (eval(label.text))
-        except:
-            label.text = 'syn error'
-
-#SimulatorApp().run()
-#Thread(target=app.run).start()
-#MyCmd(app).cmdloop()
+#Experiment3App().run()

@@ -168,6 +168,8 @@ class Experiment1App(App):
             img1.opacity = 0.3
             imgname.text = img1.source
             mainimg.reload()
+
+    #Checking for images before display
     def testImg(self,img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
@@ -175,6 +177,7 @@ class Experiment1App(App):
         else:
             img.source = "no.gif"
             btnimg.disabled = True
+
     #Adjusts end values of row and column when start values are given
     def adjust_end_value(self,sl1,sl2,hint):
     	sl2.min=int(sl1.value)+100

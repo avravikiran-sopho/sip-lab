@@ -80,23 +80,11 @@ class betaApp(App):
             slider.value = int(tlabel.text)
 
     def submit(self,bval,slider,mainimg,img1,img2,img3,imgname):
-
-
-        #rgb = np.matrix("'"+str(bval.value)+","+str(bval.value)+","+str(bval.value)+"'")
-        #subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
-        #subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
         folder=""
-        try:
-            now =datetime.now()
-            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
-            os.mkdir(folder)
-        except Exception as ex:
-            print("error"+str(ex))
-        outpath = os.getcwd()+"/"+folder+"/"
+        #function to call scilab
 
         dec=True
         try:
-            print(self.fnm,bval.value,self.egtype,slider.value,self.direction,outpath)
             if(self.egtype==""):
                 dec=False
                 Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
@@ -107,11 +95,38 @@ class betaApp(App):
                 Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
         except:
-
             dec=False
-        if(dec):
-	    scilab.getd(os.getcwd()+"/")
-            scilab.test(self.fnm,bval.value,self.egtype,slider.value,self.direction,outpath)
+
+        def exe():
+            try:
+                if(dec):
+                    scilab.getd(os.getcwd()+"/")
+                    scilab.test(self.fnm,bval.value,self.egtype,slider.value,self.direction,outpath)
+                    load()
+                else:
+                    Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
+            except Exception as e:
+                res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
+                res.open()
+
+        #create folder in format "out_day_month_year_hour_minute_second" to store output files
+        try:
+            now =datetime.now()
+            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
+            os.mkdir(folder)
+        except Exception as ex:
+            print("error"+str(ex))
+        outpath = os.getcwd()+"/"+folder+"/"
+
+        #show loadind gif when experiment is running
+        outpath = os.getcwd()+"/"+folder+"/"
+        mainimg.source = 'Loading.gif'
+        mainimg.reload()
+        thread = threading.Thread(target=exe,args=())
+        thread.start()
+
+        @mainthread
+        def load():
             img1.source = self.fnm
             img2.source = outpath+'out_original_img.jpg'
             img3.source = outpath+'edgeimg.jpg'
@@ -122,8 +137,9 @@ class betaApp(App):
             mainimg.reload()
             img1.opacity = 1
             imgname.text = mainimg.source
-        else:
-            Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
+
+
+
     def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2):
         mainimg.source = imgtodisp.source
         imgtodisp.opacity = 1

@@ -10,7 +10,7 @@ from kivy.core.window import WindowBase
 from exp1 import experiment1 as t1
 import os
 from exp2 import experiment2 as t2
-from exp3 import test2 as t3
+from exp3 import experiment3 as t3
 from exp4 import test as t4
 from exp5 import test as t5
 from exp6 import test as t6
@@ -48,7 +48,7 @@ class SiplabApp(App):
         elif(self.s=="Smoothing"):
             os.chdir("./exp3/")
             print(os.getcwd())
-            t3.SimulatorApp().run()
+            t3.Experiment3App().run()
         elif(self.s=="Edge Detection"):
             os.chdir("./exp4/")
             print(os.getcwd())
