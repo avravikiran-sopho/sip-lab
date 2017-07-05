@@ -126,7 +126,7 @@ class Experiment1App(App):
             pass
 
     #Calls scilab and images are processed
-    def submit(self,s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5,imgname):
+    def submit(self,s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
         subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
@@ -158,21 +158,23 @@ class Experiment1App(App):
         #load all the output images after scilab is executed
         @mainthread
         def load():
-            img1.source = './'+folder+'/' +'out_subset_img.jpg'
-            img2.source = './'+folder+'/'+'out_original_img.jpg'
-            img3.source = './'+folder+'/'+'out_hist_band 1.jpg'
-            img4.source = './'+folder+'/'+'out_hist_band 2.jpg'
-            img5.source = './'+folder+'/'+'out_hist_band 3.jpg'
+
+            img1.source = './'+folder+'/'+'out_original_img.jpg'
+            self.testImg(img2,btnimg2,'./'+folder+'/'+'out_subset_img.jpg')
+            self.testImg(img3,btnimg3,'./'+folder+'/'+'out_hist_band 1.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'/'+'out_hist_band 2.jpg')
+            self.testImg(img5,btnimg5,'./'+folder+'/'+'out_hist_band 3.jpg')
             mainimg.source = img1.source
             img1.opacity = 0.3
-            img1.reload()
-            img2.reload()
-            img3.reload()
-            img4.reload()
-            img5.reload()
             imgname.text = img1.source
             mainimg.reload()
-
+    def testImg(self,img,btnimg,f):
+        if(os.path.isfile(f)):
+            img.source = f
+            img.reload()
+        else:
+            img.source = "no.gif"
+            btnimg.disabled = True
     #Adjusts end values of row and column when start values are given
     def adjust_end_value(self,sl1,sl2,hint):
     	sl2.min=int(sl1.value)+100

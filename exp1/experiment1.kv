@@ -408,7 +408,7 @@ BoxLayout:
                 disabled: True
                 text: 'Submit'
                 font_size: 20
-                on_press: app.submit(s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5,imgname)
+                on_press: app.submit(s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5)
         #vertical line between mainimg and inputs
         Widget:
             id: separator
@@ -427,6 +427,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
+                id:btnimg1
                 on_press: imgname.text = str(img1.source)
             Image:
                 x: self.parent.x
@@ -445,6 +446,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg2
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img2,img1,img3,img4,img5)
@@ -466,6 +468,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg3
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img3,img2,img1,img4,img5)
@@ -489,6 +492,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
+                id:btnimg4
                 on_press: app.img_viewer(mainimg,img4,img2,img3,img1,img5)
                 on_press: imgname.text = str(img4.source)
             Image:
@@ -508,6 +512,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg5
                 height: self.parent.height
                 width:self.parent.width
                 on_press: app.img_viewer(mainimg,img5,img2,img3,img4,img1)

@@ -19,9 +19,9 @@ Window.clearcolor = (0.1, 0.1, 0.1, 1)
 from kivy.config import Config
 Config.set('graphics','resizable',0)
 from kivy.core.window import Window
-Window.size = (1920,1080)
-import pymysql
-import hashlib
+Window.size = (1920, 1080)
+#import pymysql
+#import hashlib
 
 
 
@@ -35,22 +35,6 @@ class SiplabApp(App):
         self.role = roles
 
     def siplab(self,username,password):
-        conn = pymysql.connect(host='localhost',user='root',password='avrkiran',db='siplab')
-        print self.role,self.s
-        a = conn.cursor()
-        hash_password = hashlib.md5(password.text).hexdigest()
-        sql1 = "INSERT INTO  `siplab`.`users` (`id` ,`name` ,`password` ,`category`) VALUES (NULL,%s,%s,%s);"
-        sql2 = "INSERT INTO  `siplab`.`experiments` (`id` ,`name` ,`experiment`)VALUES (NULL,%s,%s);"
-        try:
-            role = self.role
-            s = self.s
-            a.execute(sql1,(username.text,hash_password,role))
-            conn.commit()
-            a.execute(sql2,(username.text,s))
-            conn.commit()
-        except Exception as e:
-            print e
-            conn.rollback()
 
         App.get_running_app().stop()
         if(self.s=="Viewing Images in Different Bands"):
