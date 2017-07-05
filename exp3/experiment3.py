@@ -1,3 +1,8 @@
+
+#Experiment 3
+#SMOOTHING
+
+#import all required kivy modules
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
@@ -5,44 +10,49 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.slider import Slider
 from kivy.uix.button import Button
 from kivy.uix.image import Image
+from kivy.graphics import BorderImage
 from kivy.uix.popup import Popup
-from scilab2py import scilab
 from kivy.core.window import Window
-from kivy.config import Config
-from kivy.uix.checkbox import CheckBox
-#scilab.getd
-import os
-from datetime import datetime
-import numpy as np
+from kivy.clock import mainthread
 import pygame
+
+#import scilab2py module
+from scilab2py import scilab
+
+#import other required modules
+from datetime import datetime
+import time
 import os
-import subprocess
-from cmd import Cmd
-from threading import Thread
-import math
-#Window.fullscreen = 'auto'
-Window.clearcolor = (0.1, 0.1, 0.1, 1)
+import numpy as np
+import threading
 import sys
 import os.path
+import main as m
 p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(p)
-import main as m
 sys.path.remove(p)
 
+#define all functionality in this class
 class Experiment3App(App):
+    #initialize input file name
     fnm = ''
+    #initialize mode name
     tp1=''
-    def showfc(self,mainimg,fcw,fchooser):
+
+    #Displays file chooser when input image is clicked
+    def show_filechooser(self,mainimg,fcw,fchooser):
         mainimg.source='no.gif'
         fchooser.height = fchooser.parent.height*11.5
         fcw.height = fcw.parent.height*11.5
 
-    def mainMenu(self):
+    #Display main_menu when button is clicked
+    def main_menu(self):
         App.get_running_app().stop()
         os.chdir("..")
         m.SiplabApp().run()
 
-    def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
+    #Displays preview of selected image from file chooser
+    def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         try:
@@ -51,12 +61,14 @@ class Experiment3App(App):
             imgname.text = mainimg.source
             submitbtn.disabled = False
         except:
-            print fchooser.selection
+            pass
 
-    def SetMode(self,mode):
+    #set mode of experiment
+    def set_mode(self,mode):
         self.tp1=mode
 
-    def focus (self,slider,textinput):
+    #Change slider value when text value is given
+    def change_slider(self,slider,textinput):
         try:
             if (int(textinput.text)>slider.max):
                 slider.value = slider.max
@@ -67,8 +79,11 @@ class Experiment3App(App):
             else:
                 slider.value = int(textinput.text)
         except:
-            print ""
-    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7):
+            pass
+
+    #Displays image in mainimg when clicked on images in output panel
+    #Blurs the image which is being displayed in mainimg
+    def img_viewer (self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4,otherimg5,otherimg6,otherimg7):
         mainimg.source = imgtodisp.source
         imgtodisp.opacity = 0.3
         otherimg1.opacity = 1
@@ -79,12 +94,14 @@ class Experiment3App(App):
         otherimg6.opacity = 1
         otherimg7.opacity = 1
 
-    def EnableBand(self,bandvalue):
+    #If input image is HDR,then bahd value is enabled
+    def enable_band(self,bandvalue):
         if (self.fnm.find(".")==-1):
             print "band"
             bandvalue.disabled = False
 
-    def SetMaxRGB(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
+    #Sets max value of rgb when band value is given
+    def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
         try:
             s1.max = int(bandvalue.text)
             s2.max = int(bandvalue.text)
@@ -96,10 +113,10 @@ class Experiment3App(App):
             gvalue.hint_text = "1 - " + bandvalue.text
             bvalue.hint_text = "1 - " + bandvalue.text
         except:
-            print ""
+            pass
 
+    #Calls scilab and images are processed
     def submit(self,s1,s2,s3,s4,s5,s6,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname):
-
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         var1 = 0
         var2 = 0
