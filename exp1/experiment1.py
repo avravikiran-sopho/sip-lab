@@ -32,8 +32,11 @@ p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(p)
 sys.path.remove(p)
 
+#Background color
+Window.clearcolor = (0.1, 0.1, 0.1, 1)
+
 #define all functionality in this class
-class ExperimentApp(App):
+class Experiment1App(App):
     #initialize input file name
     fnm = ''
 
@@ -145,6 +148,7 @@ class ExperimentApp(App):
         except Exception as ex:
             res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
             res.open()
+
         #show loadind gif when experiment is running
         outpath = os.getcwd()+"/"+folder+"/"
         mainimg.source = 'Loading.gif'
@@ -176,7 +180,7 @@ class ExperimentApp(App):
         hint.hint_text = str(sl1.value)+" - " + str(sl1.max+100)
 
     #Display mainmenu when button is clicked
-    def mainMenu(self):
+    def main_menu(self):
         App.get_running_app().stop()
         os.chdir("..")
         m.SiplabApp().run()

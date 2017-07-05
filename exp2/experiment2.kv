@@ -35,7 +35,7 @@ BoxLayout:
                 text: 'Main Menu'
                 x: self.parent.x
                 y: self.parent.y + self.parent.height*0.25
-                on_press: app.mainMenu()
+                on_press: app.main_menu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
                 font_size: 20
@@ -48,7 +48,7 @@ BoxLayout:
                 height: self.parent.height*.75
                 text: 'Input Image'
                 font_size: 20
-                on_press: app.showfc(mainimg,fcw,fchooser)
+                on_press: app.show_filechooser(mainimg,fcw,fchooser)
         Widget:
             id: separator
             canvas:
@@ -81,8 +81,8 @@ BoxLayout:
                     width: self.parent.width
                     height: self.parent.height*1
                     #filters: ['*.png','*.jpg','*.jpeg']
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn,imgname);
-                    on_selection: app.EnableBand(bandvalue)
+                    on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
+                    on_selection: app.enable_band(bandvalue)
         Widget:
         Widget:
         Widget:
@@ -107,8 +107,8 @@ BoxLayout:
                 multiline:False
                 readonly: True
                 hint_text: "NA"
-                on_text_validate: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
-                on_focus: app.SetMaxRGB(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_text_validate: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                on_focus: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
         Widget:
         Widget:
         Widget:
@@ -149,8 +149,8 @@ BoxLayout:
                 hint_text: "1 - 3"
                 #hint_text.size: self.size
                 multiline:False
-                on_text_validate: app.focus(s1,rvalue)
-                on_focus: app.focus(s1,rvalue)
+                on_text_validate: app.change_slider(s1,rvalue)
+                on_focus: app.change_slider(s1,rvalue)
         Widget:
             id: placeholder1
         Widget:
@@ -190,8 +190,8 @@ BoxLayout:
                 hint_text: "1 - 3"
                 #hint_text.size: self.size
                 multiline:False
-                on_text_validate: app.focus(s2,gvalue)
-                on_focus: app.focus(s2,gvalue)
+                on_text_validate: app.change_slider(s2,gvalue)
+                on_focus: app.change_slider(s2,gvalue)
         Widget:
             id: placeholder1
         Widget:
@@ -230,8 +230,8 @@ BoxLayout:
                 input_filter: 'int'
                 hint_text: "1 - 3"
                 multiline:False
-                on_text_validate: app.focus(s3,bvalue)
-                on_focus: app.focus(s3,bvalue)
+                on_text_validate: app.change_slider(s3,bvalue)
+                on_focus: app.change_slider(s3,bvalue)
         Widget:
             id: placeholder1
         Widget:
@@ -470,8 +470,8 @@ BoxLayout:
                 hint_text: "0 - 2"
                 multiline:False
                 readonly: True
-                on_text_validate: app.focus(s4,value1)
-                on_focus: app.focus(s4,value1)
+                on_text_validate: app.change_slider(s4,value1)
+                on_focus: app.change_slider(s4,value1)
         Widget:
             id: placeholder1
         Widget:
@@ -512,8 +512,8 @@ BoxLayout:
                 hint_text: "0 - 255"
                 multiline:False
                 readonly: True
-                on_text_validate: app.focus(s5,value2)
-                on_focus: app.focus(s5,value2)
+                on_text_validate: app.change_slider(s5,value2)
+                on_focus: app.change_slider(s5,value2)
         Widget:
             id: separator
             canvas:
@@ -570,7 +570,7 @@ BoxLayout:
                 font_size: 20
                 disabled: True
                 text: 'Submit'
-                on_press: app.submit(s1,s2,s3,s4,s5,mainimg,img1,img2,img3,img4,img5,img6,img7,img8)
+                on_press: app.submit(s1,s2,s3,s4,s5,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname)
 
         Widget
             Button:
@@ -579,7 +579,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img1.source)
-                on_press: app.ButtonImage(mainimg,img1,img2,img3,img4,img5,img6,img7,img8)
+                on_press: app.img_viewer(mainimg,img1,img2,img3,img4,img5,img6,img7,img8)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -597,7 +597,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img2.source)
-                on_press: app.ButtonImage(mainimg,img2,img1,img3,img4,img5,img6,img7,img8)
+                on_press: app.img_viewer(mainimg,img2,img1,img3,img4,img5,img6,img7,img8)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -615,7 +615,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img3.source)
-                on_press: app.ButtonImage(mainimg,img3,img2,img1,img4,img5,img6,img7,img8)
+                on_press: app.img_viewer(mainimg,img3,img2,img1,img4,img5,img6,img7,img8)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -633,7 +633,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img4.source)
-                on_press: app.ButtonImage(mainimg,img4,img2,img3,img1,img5,img6,img7,img8)
+                on_press: app.img_viewer(mainimg,img4,img2,img3,img1,img5,img6,img7,img8)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -651,7 +651,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img5.source)
-                on_press: app.ButtonImage(mainimg,img5,img2,img3,img4,img1,img6,img7,img8)
+                on_press: app.img_viewer(mainimg,img5,img2,img3,img4,img1,img6,img7,img8)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -669,7 +669,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img6.source)
-                on_press: app.ButtonImage(mainimg,img6,img2,img3,img4,img5,img1,img7,img8)
+                on_press: app.img_viewer(mainimg,img6,img2,img3,img4,img5,img1,img7,img8)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -687,7 +687,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img7.source)
-                on_press: app.ButtonImage(mainimg,img7,img2,img3,img4,img5,img6,img1,img8)
+                on_press: app.img_viewer(mainimg,img7,img2,img3,img4,img5,img6,img1,img8)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -705,7 +705,7 @@ BoxLayout:
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img8.source)
-                on_press: app.ButtonImage(mainimg,img8,img2,img3,img4,img5,img6,img7,img1)
+                on_press: app.img_viewer(mainimg,img8,img2,img3,img4,img5,img6,img7,img1)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
