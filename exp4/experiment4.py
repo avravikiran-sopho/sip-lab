@@ -9,12 +9,14 @@ from kivy.uix.popup import Popup
 from scilab2py import scilab
 from kivy.core.window import Window
 from kivy.config import Config
+from kivy.clock import mainthread
 #scilab.getd
 import os
 import numpy as np
 import pygame
 import os
 from datetime import datetime
+import threading
 
 import sys
 import os.path
@@ -26,7 +28,7 @@ sys.path.remove(p)
 #Window.fullscreen = 'auto'
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
-class betaApp(App):
+class Experiment4App(App):
     fnm = ''
     def mainMenu(self):
         App.get_running_app().stop()
@@ -38,7 +40,7 @@ class betaApp(App):
         fcw.height = fcw.parent.height*8.5
         mainimg.source='no.gif'
 
-    def showmainimg(self,mainimg,fcw,fchooser,bandvalue,submitbtn,imgname):
+    def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         try:
@@ -79,34 +81,37 @@ class betaApp(App):
         else:
             slider.value = int(tlabel.text)
 
-    def submit(self,bval,slider,mainimg,img1,img2,img3,imgname):
+    def submit(self,rgbslider,slider,mainimg,img1,img2,img3,imgname):
         folder=""
         #function to call scilab
 
         dec=True
         try:
+            print self.egtype,"   ",self.direction,"  ",self.fnm
             if(self.egtype==""):
+                print "1"
                 dec=False
                 Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
             if(self.direction==""):
-                Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
+                print "2"
+                Popup(title="Error",content=Label(text="Please select direction type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
             if(self.fnm==""):
-                Popup(title="Error",content=Label(text="Please select edge type"),size_hint=(None, None), size=(600, 200)).open()
+                print "3"
+                Popup(title="Error",content=Label(text="Please select file type"),size_hint=(None, None), size=(600, 200)).open()
                 dec=False
         except:
             dec=False
 
         def exe():
             try:
-                if(dec):
-                    scilab.getd(os.getcwd()+"/")
-                    scilab.test(self.fnm,bval.value,self.egtype,slider.value,self.direction,outpath)
-                    load()
-                else:
-                    Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
+                scilab.getd(os.getcwd()+"/")
+                scilab.test(self.fnm,rgbslider.value,self.egtype,slider.value,self.direction,outpath)
+                load()
             except Exception as e:
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
+                mainimg.source = "no.gif"
+                mainimg.reload()
                 res.open()
 
         #create folder in format "out_day_month_year_hour_minute_second" to store output files
@@ -120,11 +125,13 @@ class betaApp(App):
 
         #show loadind gif when experiment is running
         outpath = os.getcwd()+"/"+folder+"/"
-        mainimg.source = 'Loading.gif'
-        mainimg.reload()
-        thread = threading.Thread(target=exe,args=())
-        thread.start()
-
+        if(dec):
+            mainimg.source = 'Loading.gif'
+            mainimg.reload()
+            thread = threading.Thread(target=exe,args=())
+            thread.start()
+        else:
+            Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
         @mainthread
         def load():
             img1.source = self.fnm

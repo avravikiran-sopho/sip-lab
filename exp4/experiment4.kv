@@ -81,7 +81,7 @@ BoxLayout:
                     width: self.parent.width
                     height: self.parent.height*1
                     #filters: ['*.png','*.jpg','*.jpeg']
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,bandvalue,submitbtn,imgname);
+                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn,imgname);
         Widget:
         Widget:
         Widget:
@@ -365,7 +365,7 @@ BoxLayout:
                 disabled: True
                 text: 'Submit'
                 font_size: 20
-                on_press: app.submit(bandvalue,slider,mainimg,img1,img2,img3,imgname)
+                on_press: app.submit(rgbslider,slider,mainimg,img1,img2,img3,imgname)
 
         Widget:
             id: separator

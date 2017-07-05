@@ -561,12 +561,13 @@ BoxLayout:
                 disabled: True
                 text: 'Submit'
                 font_size: 20
-                on_press: app.submit(s1,s2,s3,s4,s5,s6,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname)
+                on_press: app.submit(s1,s2,s3,s4,s5,s6,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8)
 
         Widget
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg1
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img1.source)
@@ -585,6 +586,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg2
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img2.source)
@@ -603,6 +605,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg3
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img3.source)
@@ -621,6 +624,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg4
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img4.source)
@@ -639,6 +643,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg5
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img5.source)
@@ -657,6 +662,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg6
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img6.source)
@@ -675,6 +681,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg7
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img7.source)
@@ -693,6 +700,7 @@ BoxLayout:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
+                id:btnimg8
                 height: self.parent.height
                 width:self.parent.width
                 on_press: imgname.text = str(img8.source)

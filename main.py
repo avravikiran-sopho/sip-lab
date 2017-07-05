@@ -11,7 +11,7 @@ from exp1 import experiment1 as t1
 import os
 from exp2 import experiment2 as t2
 from exp3 import experiment3 as t3
-from exp4 import test as t4
+from exp4 import experiment4 as t4
 from exp5 import test as t5
 from exp6 import test as t6
 #Window.ful
@@ -52,7 +52,7 @@ class SiplabApp(App):
         elif(self.s=="Edge Detection"):
             os.chdir("./exp4/")
             print(os.getcwd())
-            t4.betaApp().run()
+            t4.Experiment4App().run()
         elif(self.s=="Frequency Domain Filtering (Fourier Transform)"):
             os.chdir("./exp5/")
             print(os.getcwd())

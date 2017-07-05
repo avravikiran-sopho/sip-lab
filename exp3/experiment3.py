@@ -98,7 +98,7 @@ class Experiment3App(App):
         except:
             print ""
 
-    def submit(self,s1,s2,s3,s4,s5,s6,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname):
+    def submit(self,s1,s2,s3,s4,s5,s6,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8):
 
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         var1 = 0
@@ -138,29 +138,25 @@ class Experiment3App(App):
         #load all the output images after scilab is executed
         @mainthread
         def load():
-            img1.source = './'+folder+'/' +'FilteredImage.jpg'
-            img2.source = './'+folder+'/' +'out_original_img.jpg'
-            img3.source = './'+folder+'/' +'out_hist_afterfilter band 1.jpg'
-            img4.source = './'+folder+'/' +'out_hist_band 1.jpg'
-            img5.source = './'+folder+'/' +'out_hist_afterfilter band 2.jpg'
-            img6.source = './'+folder+'/' +'out_hist_band 2.jpg'
-            img7.source = './'+folder+'/' +'out_hist_afterfilter band 3.jpg'
-            img8.source = './'+folder+'/' +'out_hist_band 3.jpg'''
+            img1.source ='./'+folder+'/' +'FilteredImage.jpg'
             img1.reload()
-            img2.reload()
-            img3.reload()
-            img4.reload()
+            self.testImg(img2,btnimg2,'./'+folder+'/' +'out_hist_afterfilter band 1.jpg')
+            self.testImg(img3,btnimg3,'./'+folder+'/' +'out_hist_afterfilter band 2.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'/' +'out_hist_afterfilter band 3.jpg')
+            img5.source = './'+folder+'/' +'out_original_img.jpg'
             img5.reload()
-            img6.reload()
-            img7.reload()
-            img8.reload()
+            self.testImg(img6,btnimg6,'./'+folder+'/' +'out_hist_band 1.jpg')
+            self.testImg(img7,btnimg7,'./'+folder+'/' +'out_hist_band 2.jpg')
+            self.testImg(img8,btnimg8,'./'+folder+'/' +'out_hist_band 3.jpg')
             mainimg.source = img1.source
             mainimg.reload()
             img1.opacity = 0.3
-
-        except Exception as e:
-            #d=subprocess.check_output("scialab",shell=True)
-            res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
-            res.open()
+        def testImg(self,img,btnimg,f):
+            if(os.path.isfile(f)):
+                img.source = f
+                img.reload()
+            else:
+                img.source = "no.gif"
+                btnimg.disabled = True
 
 #Experiment3App().run()
