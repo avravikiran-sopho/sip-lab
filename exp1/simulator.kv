@@ -26,6 +26,15 @@ BoxLayout:
         Widget:
         Widget:
         Widget:
+            Button:
+
+                text: 'Reload'
+                x: self.parent.x
+                y: self.parent.y + self.parent.height*0.25
+                on_press: app.load()
+                height: self.parent.height*0.5
+                width:self.parent.width*0.75
+
         Widget:
         Widget:
         Widget:

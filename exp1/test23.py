@@ -108,48 +108,51 @@ class SimulatorApp(App):
         except:
             print fchooser.selection
 
-    def statPro(self,fnm,rgb,subrow,subcol,outpath):
 
-        print("2")
-        try:
-            scilab.getd(os.getcwd()+"/")
-            scilab.imgdisplay(fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
-            self.load()
-        except Exception as e:
-
-            print e
-            #dl.dismiss()
-            #res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
-            #res.open()
-        print("3")
 
     def submit(self,s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5):
-        self.rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
-        self.subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
-        self.subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
+        rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
+        subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
+        subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
+
+        try:
+            now =datetime.now()
+            folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
+            os.mkdir(folder)
+        except Exception as ex:
+            print("error"+str(ex))
+        self.outpath = os.getcwd()+"/"+folder+"/"
+
+        def statPro():
+            print("2")
+            try:
+                scilab.getd(os.getcwd()+"/")
+                scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',self.outpath)
+                dl.dismiss()
+                load()
+            except Exception as e:
+                dl.dismiss()
+                print e
+            print("3")
         mainimg=mainimg
         img1=img1
         img2=img2
         img3=img3
         img4=img4
         img5=img5
-        try:
-            now =datetime.now()
-            self.folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)
-            os.mkdir(self.folder)
-        except Exception as ex:
-            print("error"+str(ex))
-        self.outpath = os.getcwd()+"/"+self.folder+"/"
-        self.dl=Popup(title="Process Running",content=Label(text="Please wait untill all calculations and process are done.....!!!") ,size_hint=(None, None), size=(500, 100),auto_dismiss=False)
-        self.dl.open()
+        dl=Popup(title="Process Running",content=Label(text="Please wait untill all calculations and process are done.....!!!") ,size_hint=(None, None), size=(500, 100),auto_dismiss=False)
+        dl.open()
         print "before thread"
-        t=threading.Thread(target=self.statPro, args=(self.fnm,self.rgb,self.subrow,self.subcol,self.outpath,))
+        t=threading.Thread(target=statPro, args=())
         t.start()
+        #t.join()
+        print("1")
 
-        print("test: 1")
+
+        #self.load()
         @mainthread
-        def load(self,*args):
-            self.dl.dismiss()
+        def load():
+            dl.dismiss()
             folder=self.outpath
             img1.source = folder+'out_subset_img.jpg'
             img2.source = folder+'out_original_img.jpg'
@@ -164,7 +167,7 @@ class SimulatorApp(App):
             img4.reload()
             img5.reload()
             mainimg.reload()
-            return True
+
     def ChangeVal(self,sl1,sl2,hint):
     	sl2.min=int(sl1.value)+100
         sl2.value = sl2.min
@@ -180,4 +183,4 @@ class SimulatorApp(App):
         except:
             label.text = 'syn error'
 
-#SimulatorApp().run()
+SimulatorApp().run()
