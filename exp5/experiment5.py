@@ -77,6 +77,30 @@ class SimulatorApp(App):
     def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
+
+        try:
+            if(self.ftype==""):
+                dec=False
+            if(self.ptype==""):
+                dec=False
+            if(self.fnm==""):
+                dec=False
+        except:
+            dec=False
+
+        def exe():
+            try:
+                if(dec):
+                    scilab.getd(os.getcwd()+"/")
+                    scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
+                    load()
+                else:
+                    Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
+            except Exception as e:
+                res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
+                res.open()
+
+        #create folder in format "out_day_month_year_hour_minute_second" to store output files
         try:
             now =datetime.now()
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
@@ -85,23 +109,15 @@ class SimulatorApp(App):
             print("error"+str(ex))
         outpath = os.getcwd()+"/"+folder+"/"
 
-        dec=True
-        try:
-            print(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
-            if(self.ftype==""):
-                dec=False
-            if(self.ptype==""):
-                dec=False
-            if(self.fnm==""):
-                dec=False
+        #show loadind gif when experiment is running
+        outpath = os.getcwd()+"/"+folder+"/"
+        mainimg.source = 'Loading.gif'
+        mainimg.reload()
+        thread = threading.Thread(target=exe,args=())
+        thread.start()
 
-        except:
-            print("error in variable")
-            dec=False
-
-        if(dec):
-	    scilab.getd(os.getcwd()+"/")
-            scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
+        @mainthread
+        def load():
             img1.source = outpath+'out_original_img.jpg'
             img2.source = outpath+self.ftype+self.ptype+' filteredimg.jpg'
             img3.source = outpath+'out_mag_spectrum_All.jpg'
@@ -112,19 +128,6 @@ class SimulatorApp(App):
             img2.reload()
             img3.reload()
             mainimg.reload()
-            m=set()
-            m.add(s1.value)
-            m.add(s2.value)
-            m.add(s3.value)
-            l=[img4,img5,img6,img7,img8,img9]
-            for i in range(0,(len(m)*2),2):
-                l[i].source=outpath+self.ftype+self.ptype+' filteredimg '+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
-                l[i+1].source=outpath+'out_magnitude_spectrum_'+str(int(list(m)[int(math.floor(i/2))]))+'.jpg'
-                l[i].reload()
-                l[i+1].reload()
-        else:
-            Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
-            print("fill all fields properly")
 
     def mainMenu(self):
         App.get_running_app().stop()

@@ -158,9 +158,4 @@ class Experiment3App(App):
             mainimg.reload()
             img1.opacity = 0.3
 
-        except Exception as e:
-            #d=subprocess.check_output("scialab",shell=True)
-            res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
-            res.open()
-
 #Experiment3App().run()
