@@ -77,10 +77,11 @@ class Experiment4App(App):
         except:
             pass
 
-
+    #set type
     def set_type(self,eg):
         self.egtype=eg
 
+    #set direction
     def set_dir(self,d):
         self.direction=d
 
@@ -122,7 +123,8 @@ class Experiment4App(App):
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
-            print("error"+str(ex))
+            res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
+            res.open()
         outpath = os.getcwd()+"/"+folder+"/"
 
         #show loadind gif when experiment is running
