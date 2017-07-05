@@ -56,7 +56,7 @@ class SiplabApp(App):
         if(self.s=="Viewing Images in Different Bands"):
             os.chdir("./exp1/")
             print(os.getcwd())
-            t1.SimulatorApp().run()
+            t1.ExperimentApp().run()
         elif(self.s=="Contrast Enhancement"):
             os.chdir("./exp2/")
             print(os.getcwd())
