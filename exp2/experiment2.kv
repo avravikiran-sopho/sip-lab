@@ -258,7 +258,7 @@ BoxLayout:
             on_active: s5.disabled = True
             on_active: value1.readonly =True
             on_active: value2.readonly =True
-            on_active: app.SetMode('Linear')
+            on_active: app.set_mode('Linear')
         Label:
             text: 'Linear'
             text_size: self.size
@@ -291,7 +291,7 @@ BoxLayout:
             on_active: value1.readonly =False
             on_active: s4.disabled = False
             on_active: s5.disabled = True
-            on_active: app.SetMode('Standard deviation')
+            on_active: app.set_mode('Standard deviation')
         Label:
             text: 'Standard Deviation'
             text_size: self.size
@@ -325,7 +325,7 @@ BoxLayout:
             on_active: s5.disabled = True
             on_active: value1.readonly =True
             on_active: value2.readonly =True
-            on_active: app.SetMode('Histogram equalization')
+            on_active: app.set_mode('Histogram equalization')
         Label:
             text: 'Histogram'
             text_size: self.size
@@ -358,7 +358,7 @@ BoxLayout:
             on_active: s4.value = s4.min
             on_active: value2.readonly = False
             on_active: value1.readonly =True
-            on_active: app.SetMode('Logarithmic stretch')
+            on_active: app.set_mode('Logarithmic stretch')
         Label:
             text: 'Logarithmic'
             text_size: self.size
@@ -391,7 +391,7 @@ BoxLayout:
             on_active: s4.value = s5.min
             on_active: value1.readonly = False
             on_active: value2.readonly = False
-            on_active: app.SetMode('Exponential')
+            on_active: app.set_mode('Exponential')
         Label:
             text: 'Exponential'
             text_size: self.size

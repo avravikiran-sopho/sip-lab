@@ -1,5 +1,5 @@
 
-#Experiment 1
+#Experiment 2
 #CONTARST ENHANCEMENT
 
 #import all required kivy modules
@@ -58,8 +58,10 @@ class Experiment2App(App):
             imgname.text = mainimg.source
             submitbtn.disabled = False
         except:
-            print fchooser.selection
-    def SetMode(self,mode):
+            pass
+
+    #set mode of experiment
+    def set_mode(self,mode):
         self.tp1=mode
 
     #Change slider value when text value is given
@@ -119,7 +121,7 @@ class Experiment2App(App):
         var2 = float(s5.value)
 
         #function to call scilab
-        def exe():
+        def execute():
             try:
                 scilab.getd(os.getcwd()+"/")
                 scilab.enhancement(self.fnm,rgb,self.tp1,var1,var2,outpath)
@@ -140,8 +142,9 @@ class Experiment2App(App):
         outpath = os.getcwd()+"/"+folder+"/"
         mainimg.source = 'Loading.gif'
         mainimg.reload()
-        thread = threading.Thread(target=exe,args=())
+        thread = threading.Thread(target=execute,args=())
         thread.start()
+
         #load all the output images after scilab is executed
         @mainthread
         def load():
@@ -173,4 +176,4 @@ class Experiment2App(App):
         os.chdir("..")
         m.SiplabApp().run()
 
-#App().run()
+#Experiment2App().run()

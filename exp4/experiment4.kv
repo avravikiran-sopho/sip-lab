@@ -1,5 +1,4 @@
 
-#: import Spinner kivy.uix.spinner
 BoxLayout:
     orientation: 'vertical'
 
@@ -32,7 +31,7 @@ BoxLayout:
                 text: 'Main Menu'
                 x: self.parent.x
                 y: self.parent.y + self.parent.height*0.25
-                on_press: app.mainMenu()
+                on_press: app.main_menu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
                 font_size: 20
@@ -53,7 +52,7 @@ BoxLayout:
                 height: self.parent.height*0.75
                 text: 'Input Image'
                 font_size: 20
-                on_press: app.showfc(mainimg,fcw,fchooser)
+                on_press: app.show_filechooser(mainimg,fcw,fchooser)
         Widget:
         Widget:
             Image:
@@ -81,7 +80,7 @@ BoxLayout:
                     width: self.parent.width
                     height: self.parent.height*1
                     #filters: ['*.png','*.jpg','*.jpeg']
-                    on_selection: app.showmainimg(mainimg,fcw,fchooser,submitbtn,imgname);
+                    on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
         Widget:
         Widget:
         Widget:
@@ -110,8 +109,8 @@ BoxLayout:
                 multiline:False
                 hint_text: "No of Bands"
                 fonst_size: 12
-                on_text_validate: app.focus(rgbslider,bandvalue)
-                on_focus: app.focus(rgbslider,bandvalue)
+                on_text_validate: app.change_slider(rgbslider,bandvalue)
+                on_focus: app.change_slider(rgbslider,bandvalue)
         Widget:
         Widget:
 
@@ -132,7 +131,7 @@ BoxLayout:
             text: 'Select Edge Type'
         CheckBox:
             group:"radio_grp"
-            on_active:app.setType("sobel")
+            on_active:app.set_type("sobel")
         Label:
             text:"Sobel"
         Widget:
@@ -155,7 +154,7 @@ BoxLayout:
             id: placeholder1
         CheckBox:
             group:"radio_grp"
-            on_active:app.setType("prewitt")
+            on_active:app.set_type("prewitt")
         Label:
             text:"Prewitt"
         Widget:
@@ -178,7 +177,7 @@ BoxLayout:
             id: placeholder1
         CheckBox:
             group:"radio_grp"
-            on_active:app.setType("canny")
+            on_active:app.set_type("canny")
         Label:
             text:"Canny"
         Widget:
@@ -201,7 +200,7 @@ BoxLayout:
             id: placeholder1
         CheckBox:
             group:"radio_grp"
-            on_active:app.setType("log")
+            on_active:app.set_type("log")
         Label:
             text:":Log"
         Widget:
@@ -224,7 +223,7 @@ BoxLayout:
             id: placeholder1
         CheckBox:
             group:"radio_grp"
-            on_active:app.setType("roberts")
+            on_active:app.set_type("roberts")
         Label:
             text:"Roberts"
         Widget:
@@ -290,7 +289,7 @@ BoxLayout:
             text: 'Select Direction'
         CheckBox:
             group:"d_group"
-            on_active:app.setDir("horizontal")
+            on_active:app.set_dir("horizontal")
         Label:
             text:"Horizontal"
         Widget:
@@ -313,7 +312,7 @@ BoxLayout:
             id: placeholder1
         CheckBox:
             group:"d_group"
-            on_active:app.setDir("vertical")
+            on_active:app.set_dir("vertical")
         Label:
             text:"Vertical"
 
@@ -379,7 +378,7 @@ BoxLayout:
         Widget:
             Button:
                 background_color: (0,0,0,0)
-                on_press: app.ButtonImage(mainimg,img1,img2,img3)
+                on_press: app.img_viewer (mainimg,img1,img2,img3)
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
@@ -402,7 +401,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img2,img1,img3)
+                on_press: app.img_viewer (mainimg,img2,img1,img3)
                 on_press: imgname.text = str(img2.source)
             Image:
                 x: self.parent.x
@@ -422,7 +421,7 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
-                on_press: app.ButtonImage(mainimg,img3,img2,img1)
+                on_press: app.img_viewer (mainimg,img3,img2,img1)
                 on_press: imgname.text = str(img3.source)
             Image:
                 x: self.parent.x

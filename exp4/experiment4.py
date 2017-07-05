@@ -1,3 +1,7 @@
+#Experiment 4
+#EDGE DETECTION
+
+#import all required kivy modules
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
@@ -5,57 +9,62 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.slider import Slider
 from kivy.uix.button import Button
 from kivy.uix.image import Image
+from kivy.graphics import BorderImage
 from kivy.uix.popup import Popup
-from scilab2py import scilab
 from kivy.core.window import Window
-from kivy.config import Config
 from kivy.clock import mainthread
-#scilab.getd
+import pygame
+
+#import scilab2py module
+from scilab2py import scilab
+
+#import other required modules
+from datetime import datetime
+import time
 import os
 import numpy as np
-import pygame
-import os
-from datetime import datetime
 import threading
-
 import sys
 import os.path
+import main as m
 p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(p)
-import main as m
 sys.path.remove(p)
 
-#Window.fullscreen = 'auto'
+#Background color
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
+#define all functionality in this class
 class Experiment4App(App):
+    #initialize input file name
     fnm = ''
-    def mainMenu(self):
+
+    #Display main_menu when button is clicked
+    def main_menu(self):
         App.get_running_app().stop()
         os.chdir("..")
         m.SiplabApp().run()
 
-    def showfc(self,mainimg,fcw,fchooser):
+    #Displays file chooser when input image is clicked
+    def show_filechooser(self,mainimg,fcw,fchooser):
         fchooser.height = fchooser.parent.height*8.5
         fcw.height = fcw.parent.height*8.5
         mainimg.source='no.gif'
 
-    def showmainimg(self,mainimg,fcw,fchooser,submitbtn,imgname):
+    #Displays preview of selected image from file chooser
+    def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
         try:
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
             imgname.text = mainimg.source
-            #band_slider.max = 1
-            #band_slider.min = 3s
             submitbtn.disabled = False
-
         except:
-            print fchooser.selection
+            pass
 
-
-    def focus (self,slider,textinput):
+    #Change slider value when text value is given
+    def change_slider (self,slider,textinput):
         try:
             if (int(textinput.text)>slider.max):
                 slider.value = slider.max
@@ -66,25 +75,20 @@ class Experiment4App(App):
             else:
                 slider.value = int(textinput.text)
         except:
-            print ""
-    def setType(self,eg):
-        self.egtype=eg
-    def setDir(self,d):
-        self.direction=d
-    def Set_Slider (self,slider,tlabel):
-        if (int(tlabel.text)>slider.max):
-            slider.value = slider.max
-            tlabel.text = slider.max
-        elif (int(tlabel.text)<slider.min):
-            slider.value = slider.min
-            tlabel.text = slider.min
-        else:
-            slider.value = int(tlabel.text)
+            pass
 
+
+    def set_type(self,eg):
+        self.egtype=eg
+
+    def set_dir(self,d):
+        self.direction=d
+
+    #Calls scilab and images are processed
     def submit(self,rgbslider,slider,mainimg,img1,img2,img3,imgname):
         folder=""
-        #function to call scilab
 
+        #validating inputs
         dec=True
         try:
             print self.egtype,"   ",self.direction,"  ",self.fnm
@@ -103,7 +107,8 @@ class Experiment4App(App):
         except:
             dec=False
 
-        def exe():
+        #function to call scilab
+        def execute():
             try:
                 scilab.getd(os.getcwd()+"/")
                 scilab.test(self.fnm,rgbslider.value,self.egtype,slider.value,self.direction,outpath)
@@ -128,7 +133,7 @@ class Experiment4App(App):
         if(dec):
             mainimg.source = 'Loading.gif'
             mainimg.reload()
-            thread = threading.Thread(target=exe,args=())
+            thread = threading.Thread(target=execute,args=())
             thread.start()
         else:
             Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
@@ -145,18 +150,12 @@ class Experiment4App(App):
             img1.opacity = 1
             imgname.text = mainimg.source
 
-
-
-    def ButtonImage (self,mainimg,imgtodisp,otherimg1,otherimg2):
+    #Displays image in mainimg when clicked on images in output panel
+    #Blurs the image which is being displayed in mainimg
+    def img_viewer  (self,mainimg,imgtodisp,otherimg1,otherimg2):
         mainimg.source = imgtodisp.source
         imgtodisp.opacity = 1
         otherimg1.opacity = 0.3
         otherimg2.opacity = 0.3
 
-    def simulator(self, label):
-        try:
-            label.text = (eval(label.text))
-        except:
-            label.text = 'syn error'
-
-#betaApp().run()
+#Experiment4App().run()
