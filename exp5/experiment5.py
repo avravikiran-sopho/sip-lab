@@ -144,21 +144,22 @@ class Experiment5App(App):
             img2.source = './'+folder+'/'+self.ftype+self.ptype+' filteredimg.jpg'
             img1.reload()
             img2.reload()
-            self.testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 1.jpg')
-            self.testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 2.jpg')
-            self.testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 3.jpg')
+            testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 1.jpg')
+            testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 2.jpg')
+            testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 3.jpg')
             img6.source = './'+folder+'/'+'out_mag_spectrum_All.jpg'
             img6.reload()
-            self.testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_1.jpg')
-            self.testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_2.jpg')
-            self.testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_3.jpg')
+            testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_1.jpg')
+            testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_2.jpg')
+            testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_3.jpg')
             mainimg.source = img1.source
             mainimg.reload()
             img1.opacity = 0.3
-    def testImg(self,img,btnimg,f):
+    def testImg(img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
             img.reload()
+            btnimg.disabled = False
         else:
             img.source = "no.gif"
             btnimg.disabled = True
@@ -170,10 +171,11 @@ class Experiment5App(App):
         m.SiplabApp().run()
 
     #If input image is HDR,then bahd value is enabled
-    def enable_band(self,bandvalue):
+    def enable_band(self,bandvalue,mainimg):
         if (self.fnm.find(".")==-1):
             print "band"
             bandvalue.disabled = False
+            mainimg.source = "preview.jpg"
 
     #Sets max value of rgb when band value is given
     def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):

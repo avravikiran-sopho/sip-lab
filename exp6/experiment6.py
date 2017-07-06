@@ -58,10 +58,10 @@ class Experiment6App(App):
             pass
 
     #If input image is HDR,then bahd value is enabled
-    def enable_band(self,bandvalue):
+    def enable_band(self,bandvalue,mainimg):
         if (self.fnm.find(".")==-1):
-            print "band"
-            bandvalue.disabled = False
+            bandvalue.readonly = False
+            mainimg.source = "preview.jpg"
 
     #Sets max value of rgb when band value is given
     def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
@@ -107,7 +107,7 @@ class Experiment6App(App):
             else:
                 slider.value = int(textinput.text)
         except:
-            print ""
+            pass
 
     #Calls scilab and images are processed
     def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,btnimg10,btnimg11,btnimg12):
@@ -152,9 +152,9 @@ class Experiment6App(App):
             img7.source = outpath+'out_SATURATION.jpg'
             img8.source = outpath+'out_HSV.jpg'
             img9.source = outpath+'out_HUE.jpg'
-            self.testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band 1.jpg')
-            self.testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band 2.jpg')
-            self.testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band 3.jpg')
+            testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band 1.jpg')
+            testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band 2.jpg')
+            testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band 3.jpg')
             mainimg.source = img1.source
             img1.reload()
             img2.reload()
@@ -172,10 +172,12 @@ class Experiment6App(App):
         App.get_running_app().stop()
         os.chdir("..")
         m.SiplabApp().run()
+
     def testImg(self,img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
             img.reload()
+            btnimg.disabled = False
         else:
             img.source = "no.gif"
             btnimg.disabled = True

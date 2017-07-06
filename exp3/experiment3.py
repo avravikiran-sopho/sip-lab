@@ -95,10 +95,10 @@ class Experiment3App(App):
         otherimg7.opacity = 1
 
     #If input image is HDR,then bahd value is enabled
-    def enable_band(self,bandvalue):
+    def enable_band(self,bandvalue,mainimg):
         if (self.fnm.find(".")==-1):
-            print "band"
-            bandvalue.disabled = False
+            bandvalue.readonly = False
+            mainimg.source = "preview.jpg"
 
     #Sets max value of rgb when band value is given
     def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
@@ -168,12 +168,15 @@ class Experiment3App(App):
             mainimg.source = img1.source
             mainimg.reload()
             img1.opacity = 0.3
-        def testImg(self,img,btnimg,f):
-            if(os.path.isfile(f)):
-                img.source = f
-                img.reload()
-            else:
-                img.source = "no.gif"
-                btnimg.disabled = True
+
+        #test if the ouput images are produced
+    def testImg(self,img,btnimg,f):
+        if(os.path.isfile(f)):
+            img.source = f
+            img.reload()
+            btnimg.disabled = False
+        else:
+            img.source = "no.gif"
+            btnimg.disabled = True
 
 #Experiment3App().run()

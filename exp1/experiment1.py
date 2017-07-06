@@ -87,18 +87,23 @@ class Experiment1App(App):
         otherimg4.opacity = 1
 
     #If input image is HDR,then bahd value is enabled
-    def enable_band(self,bandvalue):
+    def enable_band(self,bandvalue,mainimg,submitbtn):
         if (self.fnm.find(".")==-1):
-            bandvalue.disabled = False
+            bandvalue.readonly = False
+            bandvalue.hint_text= "Enter band value"
+            mainimg.source = "preview.jpg"
+            submitbtn.disabled = False
+
 
     #Displays preview of selected image from file chooser
     #Adjusts ranges of row start,end and column start,end
     def show_selected_img(self,mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
+
+        self.fnm = fchooser.selection[0]
         try:
             mainimg.source=fchooser.selection[0]
-            self.fnm = fchooser.selection[0]
             imgname.text = mainimg.source
             img = pygame.image.load(self.fnm)
             wid=img.get_width()
@@ -122,7 +127,7 @@ class Experiment1App(App):
             s5.disabled = False
             s6.disabled = False
             s7.disabled = False
-        except:
+        except :
             pass
 
     #Calls scilab and images are processed
@@ -155,6 +160,7 @@ class Experiment1App(App):
         mainimg.reload()
         thread = threading.Thread(target=exe,args=())
         thread.start()
+
         #load all the output images after scilab is executed
         @mainthread
         def load():
@@ -174,6 +180,7 @@ class Experiment1App(App):
         if(os.path.isfile(f)):
             img.source = f
             img.reload()
+            btnimg.disabled = False
         else:
             img.source = "no.gif"
             btnimg.disabled = True

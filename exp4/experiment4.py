@@ -55,13 +55,13 @@ class Experiment4App(App):
     def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
-        try:
-            mainimg.source=fchooser.selection[0]
-            self.fnm = fchooser.selection[0]
-            imgname.text = mainimg.source
-            submitbtn.disabled = False
-        except:
-            pass
+        if (self.fnm.find(".")==-1):
+            mainimg.source = "preview.jpg"
+        mainimg.source=fchooser.selection[0]
+        self.fnm = fchooser.selection[0]
+        imgname.text = mainimg.source
+        submitbtn.disabled = False
+
 
     #Change slider value when text value is given
     def change_slider (self,slider,textinput):

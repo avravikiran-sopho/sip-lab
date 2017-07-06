@@ -83,7 +83,7 @@ BoxLayout:
                     height: self.parent.height*1
                     #filters: ['*.png','*.jpg','*.jpeg']
                     on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
-                    on_selection: app.enable_band(bandvalue)
+                    on_selection: app.enable_band(bandvalue,mainimg)
         Widget:
             id: placeholder1
         Widget:
