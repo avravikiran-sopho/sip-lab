@@ -31,6 +31,8 @@ For Windows<br/>
 scilab
 SIVP Toolbox
 Python 2.7.any
+if python 3.any installed in system then make sure in cmd when you type python it should open python 2.7 not python 3.* 
+to change you can change enviorment path
 kivy
 if you get any depnedency error like widow thing then run this command 
 python -m pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
