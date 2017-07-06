@@ -26,38 +26,31 @@ Window.size = (1920, 1080)
 
 
 class SiplabApp(App):
-    s= ""
-    role= ""
-    def active(self,exp):
-        self.s = exp
 
-    def setrole(self,roles):
-        self.role = roles
-
-    def siplab(self,username,password):
+    def siplab(self,experiment):
 
         App.get_running_app().stop()
-        if(self.s=="Viewing Images in Different Bands"):
+        if(experiment=="exp1"):
             os.chdir("./exp1/")
             print(os.getcwd())
             t1.Experiment1App().run()
-        elif(self.s=="Contrast Enhancement"):
+        elif(experiment=="exp2"):
             os.chdir("./exp2/")
             print(os.getcwd())
             t2.Experiment2App().run()
-        elif(self.s=="Smoothing"):
+        elif(experiment=="exp3"):
             os.chdir("./exp3/")
             print(os.getcwd())
             t3.Experiment3App().run()
-        elif(self.s=="Edge Detection"):
+        elif(experiment=="exp4"):
             os.chdir("./exp4/")
             print(os.getcwd())
             t4.Experiment4App().run()
-        elif(self.s=="Frequency Domain Filtering (Fourier Transform)"):
+        elif(experiment=="exp5"):
             os.chdir("./exp5/")
             print(os.getcwd())
             t5.Experiment5App().run()
-        elif(self.s=="Experiment 6"):
+        elif(experiment=="exp6"):
             os.chdir("./exp6/")
             print(os.getcwd())
             t6.Experiment6App().run()

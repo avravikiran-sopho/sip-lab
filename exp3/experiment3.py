@@ -99,6 +99,7 @@ class Experiment3App(App):
         if (self.fnm.find(".")==-1):
             bandvalue.readonly = False
             mainimg.source = "preview.jpg"
+            bandvalue.hint_text = "Enter band value"
 
     #Sets max value of rgb when band value is given
     def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):

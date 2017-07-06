@@ -97,6 +97,7 @@ class Experiment2App(App):
             print "band"
             bandvalue.readonly = False
             mainimg.source = "preview.jpg"
+            bandvalue.hint_text = "Enter band value"
 
 
     #Sets max value of rgb when band value is given
@@ -152,27 +153,28 @@ class Experiment2App(App):
         def load():
             img1.source = './'+folder+'/' +'EnhancedImage.jpg'
             img1.reload()
-            testImg(img2,btnimg2,'./'+folder+'out_hist_afterenhancement band 1.jpg')
-            testImg(img3,btnimg3,'./'+folder+'out_hist_afterenhancement band 2.jpg')
-            testImg(img4,btnimg4,'./'+folder+'out_hist_afterenhancement band 3.jpg')
+            self.testImg(img2,btnimg2,'./'+folder+'out_hist_afterenhancement band 1.jpg')
+            self.testImg(img3,btnimg3,'./'+folder+'out_hist_afterenhancement band 2.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'out_hist_afterenhancement band 3.jpg')
             img5.source = './'+folder+'/' +'out_original_img.jpg'
             img5.reload()
-            testImg(img6,btnimg6,'./'+folder+'out_hist_band 1.jpg')
-            testImg(img7,btnimg7,'./'+folder+'out_hist_band 2.jpg')
-            testImg(img8,btnimg8,'./'+folder+'out_hist_band 3.jpg')
+            self.testImg(img6,btnimg6,'./'+folder+'out_hist_band 1.jpg')
+            self.testImg(img7,btnimg7,'./'+folder+'out_hist_band 2.jpg')
+            self.testImg(img8,btnimg8,'./'+folder+'out_hist_band 3.jpg')
             mainimg.source = img1.source
             imgname.text = img1.source
             mainimg.reload()
             img1.opacity = 0.3
 
-        def testImg(img,btnimg,f):
-            if(os.path.isfile(f)):
-                img.source = f
-                img.reload()
-                btnimg.disabled = False
-            else:
-                img.source = "no.gif"
-                btnimg.disabled = True
+    def testImg(img,btnimg,f):
+        if(os.path.isfile(f)):
+            img.source = f
+            img.reload()
+            btnimg.disabled = False
+        else:
+            img.source = "no.gif"
+            btnimg.disabled = True
+
     #Display mainmenu when button is clicked
     def main_menu(self):
         App.get_running_app().stop()

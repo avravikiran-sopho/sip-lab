@@ -62,6 +62,7 @@ class Experiment6App(App):
         if (self.fnm.find(".")==-1):
             bandvalue.readonly = False
             mainimg.source = "preview.jpg"
+            bandvalue.hint_text = "Enter band value"
 
     #Sets max value of rgb when band value is given
     def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
@@ -152,9 +153,9 @@ class Experiment6App(App):
             img7.source = outpath+'out_SATURATION.jpg'
             img8.source = outpath+'out_HSV.jpg'
             img9.source = outpath+'out_HUE.jpg'
-            testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band 1.jpg')
-            testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band 2.jpg')
-            testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band 3.jpg')
+            self.testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band 1.jpg')
+            self.testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band 2.jpg')
+            self.testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band 3.jpg')
             mainimg.source = img1.source
             img1.reload()
             img2.reload()

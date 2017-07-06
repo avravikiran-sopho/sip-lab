@@ -144,17 +144,18 @@ class Experiment5App(App):
             img2.source = './'+folder+'/'+self.ftype+self.ptype+' filteredimg.jpg'
             img1.reload()
             img2.reload()
-            testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 1.jpg')
-            testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 2.jpg')
-            testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 3.jpg')
+            self.testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 1.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 2.jpg')
+            self.testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 3.jpg')
             img6.source = './'+folder+'/'+'out_mag_spectrum_All.jpg'
             img6.reload()
-            testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_1.jpg')
-            testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_2.jpg')
-            testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_3.jpg')
+            self.testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_1.jpg')
+            self.testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_2.jpg')
+            self.testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_3.jpg')
             mainimg.source = img1.source
             mainimg.reload()
             img1.opacity = 0.3
+
     def testImg(img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
