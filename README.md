@@ -32,6 +32,8 @@ scilab
 SIVP Toolbox
 Python 2.7.any
 kivy
+if you get any depnedency error like widow thing then run this command 
+python -m pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
 
 You can install scipy and numpy using their wheels.
 
