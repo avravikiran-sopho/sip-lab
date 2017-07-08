@@ -19,39 +19,38 @@ This lab uses Scialb for processing the images and python is used to call scilab
  + SIVP Toolbox 
  
 - *Python2*
+ + pip
  + Kivy
  + Scilab2py
  + scipy
  + numpy
  + pygame
 
-Note: This lab works only with python2 but not python3.
+- *OpenCV*
 
+Note: This lab works only with python2 but not python3.
 
 ** Installation Guide
 
 *** For Ubuntu:
+**** For automatic installation
+- Download the folder and click on install icon.
+- Password is required for installation.
+- Approximatey 300MB of data is downloaded and all required softwares are autoamatically installed.
 
-For Debian Linux like Ubuntu,Mint<br/>
-1. Download the folder <br/>
-2. Run test.py in Python2 <br/>
-3. Go to exp <br/>
-4. Input Image file <br/> 
-5. Enter Inputs and click submit<br/>
+Note: If any problem arises in automatic installtion,then go for manual installation.
 
-Requirements: <br/>
-1.Scilab<br/>
+**** Manual Installation
+ - Open terminal (Press ctrl + alt +T)
+   #+begin_src org
+   sudo apt-get update
+   #+end_src
 
 
-2.SIVP toolbox <br/>
 
-3.Python2.7<br/>
-
-4.kivy<br/>
 sudo add-apt-repository ppa:kivy-team/kivy<br/>
 sudo apt-get install python-kivy<br/>
 
-5. scipy<br/>
 pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose<br/>
 or (incase above didn't work)<br/>
 sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose<br/>
