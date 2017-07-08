@@ -1,13 +1,43 @@
-#+TITLE:     Sateliite Image Proceesing Lab
+#+TITLE:     Virtual Satellite Image Processing and Analysis Laboratory
 #+AUTHOR:    A.V.Ravi kiran
 #+AUTHOR:    Siddhartha Chaki
-# sip-lab
+#+EMAIL:     me15btech11039@iith.ac.in
+#+EMAIL:     siddharthachaki02@gmail.com
+
+#+DESCRIPTION: This document contains all the information of Virtual Satellite Image Processing and Analysis Laboratory.
+
+** About
+This is an offline application,user has to download the lab,install all the required softwares and then then run the lab.\\
+This lab is about image processing in which user inputs a image,selects required controls,clicks on submit and then image is processed and displayed to user.
+
+** Aproach
+This lab uses Scialb for processing the images and python is used to call scilab and to build user interface.
+
+** Technologies Used:
+
+- *Scilab*
+ + SIVP Toolbox 
+ 
+- *Python2*
+ + Kivy
+ + Scilab2py
+ + scipy
+ + numpy
+ + pygame
+
+Note: This lab works only with python2 but not python3.
+
+
+** Installation Guide
+
+*** For Ubuntu:
+
 For Debian Linux like Ubuntu,Mint<br/>
-1.Download the folder <br/>
-2.Run test.py in Python2 <br/>
-3.Go to exp <br/>
-4.Input Image file <br/> 
-5.Enter Inputs and click submit<br/>
+1. Download the folder <br/>
+2. Run test.py in Python2 <br/>
+3. Go to exp <br/>
+4. Input Image file <br/> 
+5. Enter Inputs and click submit<br/>
 
 Requirements: <br/>
 1.Scilab<br/>
