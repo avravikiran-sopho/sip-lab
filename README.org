@@ -94,7 +94,9 @@ sudo apt-get install python-pip
 pip install --user numpy
 #+end_src
 
- or
+#+begin_center
+or
+#+end_center
 
 #+begin_src org
 sudo apt-get install python-numpy
@@ -106,7 +108,9 @@ sudo apt-get install python-numpy
 pip install --user scipy
 #+end_src
 
+#+begin_center
 or
+#+end_center
 
 #+begin_src org
 sudo apt-get install python-scipy
@@ -127,6 +131,31 @@ sudo add-apt-repository ppa:kivy-team/kivy
 #+begin_src org
 sudo apt-get install python-kivy
 #+end_src
+
+** User Guide
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 For Windows<br/>
 scilab
