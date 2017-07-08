@@ -33,7 +33,9 @@ Note: This lab works only with python2 but not python3.
 ** Installation Guide
 
 *** For Ubuntu:
+
 **** For automatic installation
+
 - Download the folder and click on install icon.
 - Password is required for installation.
 - Approximatey 300MB of data is downloaded and all required softwares are autoamatically installed.
@@ -41,26 +43,90 @@ Note: This lab works only with python2 but not python3.
 Note: If any problem arises in automatic installtion,then go for manual installation.
 
 **** Manual Installation
+
  - Open terminal (Press ctrl + alt +T)
+ 
+ - Update your system
+ 
 #+begin_src org
 sudo apt-get update
 #+end_src
+
+ - Install Python
+ 
 #+begin_src org
-sudo apt-get update
+sudo apt-get install python
 #+end_src
 
+Note: use python2 only.
 
+ - Install Scilab
+ 
+#+begin_src org
+sudo apt-get install scilab -y
+#+end_src
+ 
+ - Install openCV
+ 
+ #+begin_src org
+sudo apt-get install build-essential
+#+end_src
 
-sudo add-apt-repository ppa:kivy-team/kivy<br/>
-sudo apt-get install python-kivy<br/>
+#+begin_src org
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+#+end_src
 
-pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose<br/>
-or (incase above didn't work)<br/>
-sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose<br/>
+- Install SIVP toolbox 
 
-6.scilab2py</br>
-pip install scilab2py<br/>
+#+begin_src org
+scilab-cli  -e "atomsInstall('SIVP'); exit;" -nb
+#+end_src
 
+ - Install pip
+ 
+#+begin_src org
+sudo apt-get install python-pip
+#+end_src
+
+ - Install numpy
+
+#+begin_src org
+pip install --user numpy
+#+end_src
+
+ or
+
+#+begin_src org
+sudo apt-get install python-numpy
+#+end_src
+
+ - Install scipy
+ 
+#+begin_src org
+pip install --user scipy
+#+end_src
+
+or
+
+#+begin_src org
+sudo apt-get install python-scipy
+#+end_src
+
+ - Install scilab2py
+ 
+#+begin_src org
+pip install --user scilab2py
+#+end_src
+
+ - Install kivy
+
+#+begin_src org
+sudo add-apt-repository ppa:kivy-team/kivy
+#+end_src
+
+#+begin_src org
+sudo apt-get install python-kivy
+#+end_src
 
 For Windows<br/>
 scilab
