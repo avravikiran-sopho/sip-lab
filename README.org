@@ -152,7 +152,7 @@ sudo apt-get install python-kivy
  - Fill all the required inputs and click on submit.
 [[file:README/step6.png]]
 
- - Loadind screen is shown.
+ - Loadind screen is shown after submit button is clicked.
   + Note: Loading time depends on the experiment and type,size of image,so plese wait patiently.
 [[file:README/step7.png]]
 
@@ -162,7 +162,45 @@ sudo apt-get install python-kivy
  - Click on image in bottom panel,to view it.
 [[file:README/step9.png]]
 
+** Error Handling
 
+ - By defauilt, any error in scilab(while processing image) or python(error input controls) are displayed in popup as shown below.
+[[file:README/error1.png]]
+
+*** Error in loading SIVP ToolBox
+SIVP toolbox will not loaded properly in some linux based machines.\\
+This error may occur when scilab and SIVP are installed manually.\\
+The setup file provided fix for this error,hence this error will not occur if it is installed through setup.\\
+
+- Open scilab,the initial screen should be as shown belo
+[[file:README/error2.png]]
+ - If not,or it is showing any error,then open terminal and type all these commands.
+ 
+#+begin_src org
+apt-get install libjpeg62
+#+end_src
+
+#+begin_src org
+locate libtiff
+#+end_src
+
+#+begin_src org
+cd /usr/lib/x86_64-linux-gnu/
+#+end_src
+
+#+begin_src org
+ln -s libtiff.so.5 libtiff.so.4
+#+end_src
+
+*** Errors in installation process
+
+Installation of all the required softwares either manually or through setup is purely system dependent.If any error are found in installation process,search the web for the solution or raise an issue in gitlab.
+
+- One common error is found while installing python packages,use this command if necessary.
+
+#+begin_src org
+dpkg --configure -a
+#+end_src
 
 
 
