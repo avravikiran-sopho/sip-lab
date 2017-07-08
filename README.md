@@ -1,3 +1,6 @@
+#+TITLE:     Sateliite Image Proceesing Lab
+#+AUTHOR:    A.V.Ravi kiran
+#+AUTHOR:    Siddhartha Chaki
 # sip-lab
 For Debian Linux like Ubuntu,Mint<br/>
 1.Download the folder <br/>
