@@ -42,9 +42,12 @@ Note: If any problem arises in automatic installtion,then go for manual installa
 
 **** Manual Installation
  - Open terminal (Press ctrl + alt +T)
-   #+begin_src org
-   sudo apt-get update
-   #+end_src
+#+begin_src org
+sudo apt-get update
+#+end_src
+#+begin_src org
+sudo apt-get update
+#+end_src
 
 
 
