@@ -134,10 +134,33 @@ sudo apt-get install python-kivy
 
 ** User Guide
 
+ - This is the first screen when application is opened.
+[[file:README/step1.png]]
+
+ - Select a experiment to proceed.
+[[file:README/step2.png]]
+
+ - Click on input image and select required image.
+ [[file:README/step3.png]]
  
+ - When an image is selected,image preview is shown.
+[[file:README/step4.png]]
 
+ - When a raw data is selected,no image preview is shown.
+[[file:README/step5.png]]
 
+ - Fill all the required inputs and click on submit.
+[[file:README/step6.png]]
 
+ - Loadind screen is shown.
+  + Note: Loading time depends on the experiment and type,size of image,so plese wait patiently.
+[[file:README/step7.png]]
+
+ - After loading, all the output images are displayed in bottom panel.
+[[file:README/step8.png]]
+
+ - Click on image in bottom panel,to view it.
+[[file:README/step9.png]]
 
 
 
