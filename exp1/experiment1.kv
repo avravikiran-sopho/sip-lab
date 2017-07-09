@@ -92,8 +92,9 @@ BoxLayout:
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
+
+                    on_selection: app.show_selected_img(mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname)
                     on_selection: app.enable_band(bandvalue,mainimg,submitbtn)
-                    on_selection: app.show_selected_img(mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname);
 
         Widget:
         Widget:

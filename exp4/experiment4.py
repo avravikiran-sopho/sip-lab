@@ -113,7 +113,7 @@ class Experiment4App(App):
                 load()
             except Exception as e:
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
-                mainimg.source = "no.gif"
+                mainimg.source = "noimg.jpg"
                 mainimg.reload()
                 res.open()
 
@@ -135,7 +135,7 @@ class Experiment4App(App):
             thread = threading.Thread(target=execute,args=())
             thread.start()
         else:
-            print(" ")
+            pass
             #Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
         @mainthread
         def load():

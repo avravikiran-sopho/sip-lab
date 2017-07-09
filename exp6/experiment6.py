@@ -122,6 +122,7 @@ class Experiment6App(App):
                 scilab.colourtransform(self.fnm,rgb,outpath)
                 load()
             except Exception as e:
+                mainimg.source = "noimg.jpg"
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
 
@@ -153,9 +154,9 @@ class Experiment6App(App):
             img7.source = outpath+'out_SATURATION.jpg'
             img8.source = outpath+'out_HSV.jpg'
             img9.source = outpath+'out_HUE.jpg'
-            self.testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band 1.jpg')
-            self.testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band 2.jpg')
-            self.testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band 3.jpg')
+            self.testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band '+str(int(s1.value))+'.jpg')
+            self.testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band '+str(int(s2.value))+'.jpg')
+            self.testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band '+str(int(s3.value))+'.jpg')
             mainimg.source = img1.source
             img1.reload()
             img2.reload()

@@ -134,6 +134,7 @@ class Experiment3App(App):
                 scilab.filternew(self.fnm,rgb,self.tp1,ws1,ws2,sigma,outpath)
                 load()
             except Exception as e:
+                mainimg.source = "noimg.png"
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
 
@@ -158,14 +159,14 @@ class Experiment3App(App):
         def load():
             img1.source ='./'+folder+'/' +'FilteredImage.jpg'
             img1.reload()
-            self.testImg(img2,btnimg2,'./'+folder+'/' +'out_hist_afterfilter band 1.jpg')
-            self.testImg(img3,btnimg3,'./'+folder+'/' +'out_hist_afterfilter band 2.jpg')
-            self.testImg(img4,btnimg4,'./'+folder+'/' +'out_hist_afterfilter band 3.jpg')
+            self.testImg(img2,btnimg2,'./'+folder+'/' +'out_hist_afterfilter band '+str(int(s1.value))+'.jpg')
+            self.testImg(img3,btnimg3,'./'+folder+'/' +'out_hist_afterfilter band '+str(int(s2.value))+'.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'/' +'out_hist_afterfilter band '+str(int(s3.value))+'.jpg')
             img5.source = './'+folder+'/' +'out_original_img.jpg'
             img5.reload()
-            self.testImg(img6,btnimg6,'./'+folder+'/' +'out_hist_band 1.jpg')
-            self.testImg(img7,btnimg7,'./'+folder+'/' +'out_hist_band 2.jpg')
-            self.testImg(img8,btnimg8,'./'+folder+'/' +'out_hist_band 3.jpg')
+            self.testImg(img6,btnimg6,'./'+folder+'/' +'out_hist_band '+str(int(s1.value))+'.jpg')
+            self.testImg(img7,btnimg7,'./'+folder+'/' +'out_hist_band '+str(int(s2.value))+'.jpg')
+            self.testImg(img8,btnimg8,'./'+folder+'/' +'out_hist_band '+str(int(s3.value))+'.jpg')
             mainimg.source = img1.source
             mainimg.reload()
             img1.opacity = 0.3

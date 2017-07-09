@@ -122,6 +122,8 @@ class Experiment5App(App):
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
+            mainimg.source = "noimg.jpg"
+            mainimg.reload()
             res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
             res.open()
         outpath = os.getcwd()+"/"+folder+"/"
@@ -144,14 +146,14 @@ class Experiment5App(App):
             img2.source = './'+folder+'/'+self.ftype+self.ptype+' filteredimg.jpg'
             img1.reload()
             img2.reload()
-            self.testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 1.jpg')
-            self.testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 2.jpg')
-            self.testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg 3.jpg')
+            self.testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s1.value))+'.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s2.value))+'.jpg')
+            self.testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s3.value))+'.jpg')
             img6.source = './'+folder+'/'+'out_mag_spectrum_All.jpg'
             img6.reload()
-            self.testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_1.jpg')
-            self.testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_2.jpg')
-            self.testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_3.jpg')
+            self.testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_'+str(int(s1.value))+'.jpg')
+            self.testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_'+str(int(s2.value))+'.jpg')
+            self.testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_'+str(int(s3.value))+'.jpg')
             mainimg.source = img1.source
             mainimg.reload()
             img1.opacity = 0.3

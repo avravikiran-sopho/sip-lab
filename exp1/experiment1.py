@@ -88,6 +88,8 @@ class Experiment1App(App):
 
     #If input image is HDR,then bahd value is enabled
     def enable_band(self,bandvalue,mainimg,submitbtn):
+        print self.fnm.find(".")
+        print self.fnm
         if (self.fnm.find(".")==-1):
             bandvalue.readonly = False
             bandvalue.hint_text= "Enter band value"
@@ -100,9 +102,8 @@ class Experiment1App(App):
     def show_selected_img(self,mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
-
-        self.fnm = fchooser.selection[0]
         try:
+            self.fnm = fchooser.selection[0]
             mainimg.source=fchooser.selection[0]
             imgname.text = mainimg.source
             img = pygame.image.load(self.fnm)
@@ -143,6 +144,7 @@ class Experiment1App(App):
                 scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
                 load()
             except Exception as e:
+                mainimg.source = "noimg.png"
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
         #create folder in format "out_day_month_year_hour_minute_second" to store output files
@@ -167,9 +169,10 @@ class Experiment1App(App):
 
             img1.source = './'+folder+'/'+'out_original_img.jpg'
             self.testImg(img2,btnimg2,'./'+folder+'/'+'out_subset_img.jpg')
-            self.testImg(img3,btnimg3,'./'+folder+'/'+'out_hist_band 1.jpg')
-            self.testImg(img4,btnimg4,'./'+folder+'/'+'out_hist_band 2.jpg')
-            self.testImg(img5,btnimg5,'./'+folder+'/'+'out_hist_band 3.jpg')
+            self.testImg(img3,btnimg3,'./'+folder+'/'+'out_hist_band '+str(int(s1.value))+'.jpg')
+            self.testImg(img4,btnimg4,'./'+folder+'/'+'out_hist_band '+str(int(s2.value))+'.jpg')
+            self.testImg(img5,btnimg5,'./'+folder+'/'+'out_hist_band '+str(int(s3.value))+'.jpg')
+            print './'+folder+'/'+'out_hist_band '+str(s1.value)+'.jpg'
             mainimg.source = img1.source
             img1.opacity = 0.3
             imgname.text = img1.source
