@@ -132,7 +132,111 @@ sudo add-apt-repository ppa:kivy-team/kivy
 sudo apt-get install python-kivy
 #+end_src
 
-** User Guide
+ *** For Windows
+ - Scilab
+  + Download and install scilab with below link.
+  + [[https://www.scilab.org/download/previous]Scilab 5.5.2 Web site]]
+  + Note: Use scilab 5.5.2 only.
+ 
+ - SIVP Toolbox
+  + Open scilab, type the command given below and hit enter.
+
+#+begin_src org
+atomsInstall('SIVP')
+#+end_src
+[[file:README/sivp.png]]
+
+ + Restart scilab,then a message is displayed saying that toolbox is loaded
+[[file:README/error2.png]]
+
+ - Python 2.7
+  + Download and install python 2.7 from link below.
+  + [[https://www.python.org/downloads/release/python-2713/]Python 2.7 Web site]].
+  + Note: 
+    * Use Python 2.7 only.
+    * if python3 is installed in your system,then make sure to set envinormental variable to python2.7
+  
+   * Install wheel and Pip
+#+begin_src org
+pip install wheel
+#+end_src
+#+begin_src org
+pip install --upgrade pip wheel setuptools
+#+end_src
+
+ - kivy
+  
+  + Open Command prompt (Press Win + R, type cmd and hit enter)
+  + Type the below command and hit enter 
+  
+#+begin_src org
+cd C:\Python27\Scripts
+#+end_src
+
+   * Note: This command works if python is installed to deafult directory,otherwise python path should be mentioned.
+   
+#+begin_src org
+cd path\to\python2.7\Scripts
+#+end_src
+
+  + Enter this command to install kivy 
+#+begin_src org
+pip install kivy
+#+end_src
+
+  + Enter this command to install kivy dependencies
+#+begin_src org
+pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
+#+end_src
+#+begin_src org
+pip install kivy.deps.gstreamer
+#+end_src
+ 
+ - Scipy and Numpy
+ 
+  + Scipy and Numpy are installed using their wheels.
+  + Download the latest version of packages('cp27-cp27m' should be present in filename .i.e for python2.7) for scipy and numpy.
+   * [ http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy]scipy package Web site]]
+   * [ http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy]numpy package Web site]]
+  + Move the downloaded packages to C:\Python27\Scripts ( path\to\python2.7\Scripts if python is installed somewhere else)
+  + Then the packages using command below
+  
+#+begin_src org
+pip install filename_of_package
+#+end_src
+
+   * for example:
+   
+#+begin_src org
+pip install numpy-1.11.3+mkl-cp27-cp27m-win_amd64.whl
+#+end_src
+ 
+ - Pygame and Pillow
+  
+  + Open command prompt and go to python scripts path as mentioned in process of installing kivy.
+  + Type these commands to install pygame and pillow
+
+#+begin_src org
+pip install pygame
+#+end_src
+
+#+begin_src org
+pip install pillow
+#+end_src
+
+ - Scilab2py
+  
+  + Open command prompt and go to python scripts path as mentioned in process of installing kivy.
+  + Type this command to install Scilab2py
+
+#+begin_src org
+pip install scilab2py
+#+end_src
+
+  + Scilab is required for this package,environmental variables for scilab is needed.See the link below to set path for scilab.   
+   * [[http://blink1073.github.io/scilab2py/source/installation.html]Scilab 5.5.2 path setup]]
+
+** Experiment Guide
 
  - This is the first screen when application is opened.
 [[file:README/step1.png]]
@@ -168,11 +272,11 @@ sudo apt-get install python-kivy
 [[file:README/error1.png]]
 
 *** Error in loading SIVP ToolBox
-SIVP toolbox will not loaded properly in some linux based machines.\\
-This error may occur when scilab and SIVP are installed manually.\\
-The setup file provided fix for this error,hence this error will not occur if it is installed through setup.\\
+SIVP toolbox will not loaded properly in some linux based machines.
+This error may occur when scilab and SIVP are installed manually.
+The setup file is provided with fix for this error,hence this error will not occur if it is installed through setup.
 
-- Open scilab,the initial screen should be as shown belo
+- Open scilab,the initial screen should be as shown below .i.e SIVP toolbox should be loaded properly.
 [[file:README/error2.png]]
  - If not,or it is showing any error,then open terminal and type all these commands.
  
@@ -218,42 +322,7 @@ dpkg --configure -a
 
 
 
-For Windows<br/>
-scilab
-SIVP Toolbox
-Python 2.7.any
-if python 3.any installed in system then make sure in cmd when you type python it should open python 2.7 not python 3.* 
-to change you can change enviorment path
-kivy
-if you get any depnedency error like widow thing then run this command 
-python -m pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
 
-You can install scipy and numpy using their wheels.
-
-First install wheel package if it's already not there...
-
-pip install wheel
-Just select the package you want from http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy
-
-Then go to the command line and change the directory to the downloads folder and install the above wheel using pip.
-
-Example:
-cd C:\Users\[user]\Downloads
-pip install numpy-1.11.3+mkl-cp27-cp27m-win_amd64.whl
-pip install scipy-0.18.1-cp35-cp35m-win_amd64.whl
-
-if you get any error like NUMPY_MKL
-then uninstall numpy which installed using normal 'pip install numpy'
-Becasue scipy whl package need numpy whl package not normal numpy package.
-
-
-scilab2py
-pip install scilab2py
- if you geting any error like
- Scilab not found.  Please see documentation at:
-http://blink1073.github.io/scilab2py/source/installation.html
-then uninstall wheel using pip uninstall wheel
-then install scilab2py using pip install scilab2py
 
 
 Now we are ready to go
