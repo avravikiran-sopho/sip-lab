@@ -306,7 +306,23 @@ Installation of all the required softwares either manually or through setup is p
 dpkg --configure -a
 #+end_src
 
-Links:
-http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy
-https://stackoverflow.com/questions/26657334/installing-numpy-and-scipy-on-64-bit-windows-with-pip
+ ** References
+
+ - Scilab:
+ [[http://www.scilab.org/][scilab home]]
+ 
+ - Python2.7:
+ [[https://www.python.org/][python home]]
+ 
+ - Scilab2py:
+ [[https://pypi.python.org/pypi/scilab2py][scilab2py home]]
+ 
+  - kivy:
+ [[https://kivy.org/#home][kivy home]]
+ 
+ - Scipy:
+ [[https://www.scipy.org/][scipy home]]
+ 
+ - Numpy:
+ [[http://www.numpy.org/][numpy home]]
 
