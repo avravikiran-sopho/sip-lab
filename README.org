@@ -32,11 +32,13 @@ Note: This lab works only with python2 but not python3.
 
 ** Installation Guide
 
+*Note: We strongly recommend ubuntu for running this software.Windows version is not stable as of now.*
+
 *** For Ubuntu:
 
 **** For automatic installation
 
-- Download the folder and click on install icon.
+- Download the folder and click on install icon(only for ubuntu).
 - Password is required for installation.
 - Approximatey 300MB of data is downloaded and all required softwares are autoamatically installed.
 
@@ -132,7 +134,16 @@ sudo add-apt-repository ppa:kivy-team/kivy
 sudo apt-get install python-kivy
 #+end_src
 
+ - Make SIPLauncher.py executable:
+ 
+  + Right click on file,open properties,under permissions tab tick the option "Allow executing files as programs"
+  + For more help : [[https://askubuntu.com/questions/293636/how-can-i-run-a-python-script-with-out-the-prompt-run-in-terminal-display-can][Make program files executable]]
+  
 *** For Windows
+
+All the softwares are to be installed manually.
+
+
  - Scilab
   + Download and install scilab with below link.
   + [[https://www.scilab.org/download/previous][Scilab 5.5.2 Web site]]
@@ -236,6 +247,8 @@ pip install pillow
 
 ** Experiment Guide
 
+To run the experiment double click on SIPLauncher.py (and select run option for ubuntu).
+
  - This is the first screen when application is opened.
 [[file:README/step1.png]]
 
@@ -263,6 +276,8 @@ pip install pillow
 
  - Click on image in bottom panel,to view it.
 [[file:README/step9.png]]
+
+Note: in each experiment folder there is file named run_in_terminal_exp(experiment_number).py, run this file with python to perform experiment within terminal(No GUI). 
 
 ** Error Handling
 
