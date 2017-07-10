@@ -165,32 +165,30 @@ pip install --upgrade pip wheel setuptools
 #+end_src
 
  - kivy
-  
   + Open Command prompt (Press Win + R, type cmd and hit enter)
   + Type the below command and hit enter 
-  
-#+begin_src org
-cd C:\Python27\Scripts
-#+end_src
 
-   * Note: This command works if python is installed to deafult directory,otherwise python path should be mentioned.
+  #+begin_src org
+  cd C:\Python27\Scripts
+  #+end_src
+  + Note: This command works if python is installed to deafult directory,otherwise python path should be mentioned.
    
-#+begin_src org
-cd path\to\python2.7\Scripts
-#+end_src
+  #+begin_src org
+  cd path\to\python2.7\Scripts
+  #+end_src
 
   + Enter this command to install kivy 
-#+begin_src org
-pip install kivy
-#+end_src
+  #+begin_src org
+  pip install kivy
+  #+end_src
 
   + Enter this command to install kivy dependencies
-#+begin_src org
-pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
-#+end_src
-#+begin_src org
-pip install kivy.deps.gstreamer
-#+end_src
+  #+begin_src org
+  pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
+  #+end_src
+  #+begin_src org
+  pip install kivy.deps.gstreamer
+  #+end_src
  
  - Scipy and Numpy
  
@@ -201,9 +199,9 @@ pip install kivy.deps.gstreamer
   + Move the downloaded packages to C:\Python27\Scripts ( path\to\python2.7\Scripts if python is installed somewhere else)
   + Then the packages using command below
   
-#+begin_src org
-pip install filename_of_package
-#+end_src
+  #+begin_src org
+  pip install filename_of_package
+  #+end_src
 
    * for example:
    
@@ -229,9 +227,9 @@ pip install pillow
   + Open command prompt and go to python scripts path as mentioned in process of installing kivy.
   + Type this command to install Scilab2py
 
-#+begin_src org
-pip install scilab2py
-#+end_src
+  #+begin_src org
+  pip install scilab2py
+  #+end_src
 
   + Scilab is required for this package,environmental variables for scilab is needed.See the link below to set path for scilab.   
    * [[http://blink1073.github.io/scilab2py/source/installation.html][Scilab 5.5.2 path setup]]
