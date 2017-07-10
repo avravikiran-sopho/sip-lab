@@ -181,7 +181,6 @@ class Experiment1App(App):
             self.test_img(img3,btnimg3,'./'+folder+'/'+'out_hist_band '+str(int(s1.value))+'.jpg')
             self.test_img(img4,btnimg4,'./'+folder+'/'+'out_hist_band '+str(int(s2.value))+'.jpg')
             self.test_img(img5,btnimg5,'./'+folder+'/'+'out_hist_band '+str(int(s3.value))+'.jpg')
-            print './'+folder+'/'+'out_hist_band '+str(s1.value)+'.jpg'
             mainimg.source = img1.source
             img1.opacity = 0.3
             imgname.text = img1.source
