@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Exec=bash -c 'sudo "$(dirname "$1")"/src.sh' dummy %k
+Name=Install
+Comment=Start XAMPP Control Panel
+Icon=utilities-terminal
+Name[en_IN]=Install.desktop

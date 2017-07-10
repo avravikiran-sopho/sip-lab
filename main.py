@@ -26,6 +26,34 @@ Window.size = (1920, 1080)
 
 
 class SiplabApp(App):
+	
+	#uncomment these for login functionality.
+	"""
+	s = ""
+    role = ""
+    def active(self,exp):
+        self.s = exp
+
+    def setrole(self,roles):
+        self.role = roles
+
+    def siplab(self,username,password):
+        conn = pymysql.connect(host='localhost',user='root',password='avrkiran',db='siplab')
+        print self.role,self.s
+        a = conn.cursor()
+        hash_password = hashlib.md5(password.text).hexdigest()
+        sql1 = "INSERT INTO  `siplab`.`users` (`id` ,`name` ,`password` ,`category`) VALUES (NULL,%s,%s,%s);"
+        sql2 = "INSERT INTO  `siplab`.`experiments` (`id` ,`name` ,`experiment`)VALUES (NULL,%s,%s);"
+        try:
+            role = self.role
+            s = self.s
+            a.execute(sql1,(username.text,hash_password,role))
+            conn.commit()
+            a.execute(sql2,(username.text,s))
+            conn.commit()
+        except Exception as e:
+            print e
+            conn.rollback()"""
 
     def siplab(self,experiment):
 

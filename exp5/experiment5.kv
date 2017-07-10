@@ -356,10 +356,10 @@ BoxLayout:
             text: 'CutOff'
         #Cutoff slider
         Slider:
-            range: (1,50)
+            range: (1,0)
             id: cf_val
             width: self.parent.width
-            step: 1
+            step: 0.1
             #display value in textbox
             on_value: cvalue.text = str(cf_val.value)
         #cutoff text input
@@ -372,8 +372,8 @@ BoxLayout:
                 font_size:12
                 text: ''
                 id: cvalue
-                input_filter: 'int'
-                hint_text: "0.1 - 50"
+                input_filter: 'float'
+                hint_text: "0.1 - 10"
                 multiline:False
                 #update the value in slider
                 #when users hits enter
@@ -396,7 +396,7 @@ BoxLayout:
             text: 'Order'
         #order slider
         Slider:
-            range: (1,50)
+            range: (1,10)
             value: 1
             id: or_val
             step: 1
@@ -412,7 +412,7 @@ BoxLayout:
                 text: ''
                 id: ovalue
                 input_filter: 'int'
-                hint_text: "1 - 50"
+                hint_text: "1 - 10"
                 multiline:False
                 #update the value in slider
                 #when users hits enter

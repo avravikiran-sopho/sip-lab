@@ -1,0 +1,217 @@
+BoxLayout:
+    orientation: 'vertical'
+    GridLayout:
+        cols: 7
+
+        Widget:
+            Label:
+                x: self.parent.x
+                y: self.parent.y
+                text: 'SATELITE IMAGE PROCESSING LAB'
+                width: self.parent.width*7
+                font_size: 40
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.parent.width*(0.7),2
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+
+        #row2
+        Widget:
+            Label:
+                x: self.parent.x
+                y: self.parent.y
+                text:"Select an experiment and Login"
+                halign : 'center'
+                width: self.parent.width*5
+                font_size:30
+        Widget:
+        Widget:
+        Widget:
+            id: separator
+            canvas:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.parent.width*0.7,self.parent.height*0.05
+                    size: 2,self.parent.height*0.8
+        Widget:
+            Label:
+                x: self.parent.x + self.parent.width*0.5
+                y: self.parent.y
+                text:"Login"
+                halign : 'center'
+                width: self.parent.width*3
+                font_size:30
+        Widget:
+        Widget:
+
+
+        #row2
+        CheckBox:
+            group: 'radio'
+            on_press: app.active("Viewing Images in Different Bands")
+        Widget:
+        Label:
+            halign: 'center'
+            valign: 'middle'
+            text: 'Viewing Images in Different Bands'
+            font_size:25
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+
+
+        CheckBox:
+            group: 'radio'
+            on_press: app.active("Contrast Enhancement")
+        Widget:
+        Label:
+            halign: 'center'
+            valign: 'middle'
+            text: 'Contrast Enhancement'
+            font_size:25
+        Widget:
+        Widget:
+        Label:
+            x: self.parent.x
+            y: self.parent.y
+            text: "Username :"
+            halign: 'left'
+            valign: 'middle'
+            font_size: 20
+        Widget:
+            TextInput:
+                height:self.parent.height*0.25
+                width:self.parent.width*0.8
+                x: self.parent.x #+ self.parent.width
+                y: self.parent.y + self.parent.height*0.375
+                #font_size: 20
+                text: ''
+                id: username
+                hint_text: "Enter Username"
+                multiline:False
+
+
+        CheckBox:
+            group: 'radio'
+            on_press: app.active("Smoothing")
+        Widget:
+        Label:
+            halign: 'center'
+            vlaign: 'middle'
+            text: 'Smoothing'
+            font_size:25
+        Widget:
+        Widget:
+        Label:
+            x: self.parent.x
+            y: self.parent.y
+            text: "Password :"
+            halign: 'left'
+            valign: 'middle'
+            font_size: 20
+        Widget:
+            TextInput:
+                height:self.parent.height*0.25
+                width:self.parent.width *0.8
+                x: self.parent.x #+ self.parent.width
+                y: self.parent.y + self.parent.height*0.375
+                #font_size: 20
+                text: ''
+                id: password
+                hint_text: "Enter Password"
+                multiline:False
+
+
+        CheckBox:
+            group: 'radio'
+            on_press: app.active("Edge Detection")
+        Widget:
+        Label:
+            halign: 'center'
+            valign: 'middle'
+            text: 'Edge Detection'
+            font_size:25
+        Widget:
+        Widget:
+        Widget:
+            CheckBox:
+                x: self.parent.x + self.parent.width*0.25
+                y: self.parent.y + self.parent.height*0.5
+                group: 'role'
+                on_active: app.setrole("student")
+            Label:
+                x: self.parent.x + self.parent.width*0.5
+                y: self.parent.y + self.parent.height*0.5
+                halign: 'center'
+                valign: 'middle'
+                text: 'Student'
+        Widget:
+            CheckBox:
+                x: self.parent.x + self.parent.width*0
+                y: self.parent.y + self.parent.height*0.5
+                group: 'role'
+                on_active: app.setrole("faculty")
+            Label:
+                x: self.parent.x + self.parent.width*0.25
+                y: self.parent.y + self.parent.height*0.5
+                halign: 'center'
+                valign: 'middle'
+                text: 'Faculty'
+
+
+        CheckBox:
+            group: 'radio'
+            on_press: app.active("Frequency Domain Filtering (Fourier Transform)")
+        Widget:
+        Label:
+            halign: 'center'
+            valign: 'middle'
+            text: 'Frequency Domain Filtering (Fourier Transform)'
+            font_size:25
+        Widget:
+        Widget:
+        Widget:
+            Button:
+                on_press : app.siplab(username,password)
+                text: "Login & Proceed"
+                font_size: 20
+                width: self.parent.width*1.5
+                height: self.parent.height*0.6
+                x: self.parent.x + self.parent.width*0.2
+                y: self.parent.y + self.parent.width*0.2
+
+        Widget:
+
+
+        CheckBox:
+            group: 'radio'
+            on_press: app.active("Experiment 6")
+        Widget:
+        Label:
+            halign: 'left'
+            valign: 'middle'
+            text: 'Experiment 6'
+            font_size:25
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
