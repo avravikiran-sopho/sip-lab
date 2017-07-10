@@ -38,7 +38,8 @@ Note: This lab works only with python2 but not python3.
 
 **** For automatic installation
 
-- Download the folder and click on install icon(only for ubuntu).
+- Download the folder and make srch.sh executable(Right click on file,open properties,under permissions tab tick the option "Allow executing files as programs")
+- Double click on src.sh and click run(only for ubuntu).
 - Password is required for installation.
 - Approximatey 300MB of data is downloaded and all required softwares are autoamatically installed.
 
