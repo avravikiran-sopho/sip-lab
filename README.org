@@ -144,7 +144,7 @@ sudo apt-get install python-kivy
 #+begin_src org
 atomsInstall('SIVP')
 #+end_src
-[[file:README/sivp.png]]
+[[file:README/sivp.PNG]]
 
  + Restart scilab,then a message is displayed saying that toolbox is loaded
 [[file:README/error2.png]]
