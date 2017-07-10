@@ -1,16 +1,26 @@
 
+#Experiment 4
+#EDGE DETECTION
+#UI Layout
+
 BoxLayout:
     orientation: 'vertical'
+
+    #row: 11
+    #cols: 11
 
     GridLayout:
         cols: 10
 
+        #row1
+        #title
         Widget:
             Label:
                 text: 'EDGE DETECTION'
                 y: self.parent.y
                 width: self.parent.width*10
                 font_size:40
+        #Underline
         Widget:
             id: separator
             canvas:
@@ -19,6 +29,7 @@ BoxLayout:
                 Rectangle:
                     pos: self.parent.width*0.05,self.parent.height*0.92
                     size: self.parent.width*0.9,2
+        #empty widgets
         Widget:
         Widget:
         Widget:
@@ -26,16 +37,20 @@ BoxLayout:
         Widget:
         Widget:
         Widget:
+        #Mainmenu Button
         Widget:
             Button:
                 text: 'Main Menu'
                 x: self.parent.x
                 y: self.parent.y + self.parent.height*0.25
+                #opens main menu when clicked
                 on_press: app.main_menu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
                 font_size: 20
 
+        #row2
+        #underline
         Widget:
             id: separator
             canvas:
@@ -44,6 +59,7 @@ BoxLayout:
                 Rectangle:
                     pos: self.parent.width*(0.0125),self.parent.height*(0.825)
                     size: self.parent.width*0.275,2
+        #Input Image button
         Widget:
             Button:
                 x: self.parent.x
@@ -52,11 +68,13 @@ BoxLayout:
                 height: self.parent.height*0.75
                 text: 'Input Image'
                 font_size: 20
+                #show filechooser when clicked
                 on_press: app.show_filechooser(mainimg,fcw,fchooser)
         Widget:
         Widget:
+            #main image
             Image:
-                y: placeholder1.y + self.parent.height*1
+                y: self.parent.height*1.55
                 x: self.parent.x
                 id: mainimg
                 source: 'noimg.png'
@@ -64,22 +82,20 @@ BoxLayout:
                 height: self.parent.height*8.5
                 allow_stretch: True
                 keep_ratio: True
-                #display_border: True
-
+            #Inputfile selector
             Widget:
-                y: placeholder1.y + self.parent.height*2
+                y: self.parent.height*1.55
                 x: self.parent.x
                 width: self.parent.width*7
                 height: self.parent.height*0
                 id: fcw
-                #display_border: True
                 FileChooserIconView:
                     id:fchooser
-                    y: placeholder1.y
+                    y: self.parent.height*1.55
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
-                    #filters: ['*.png','*.jpg','*.jpeg']
+                    #show preview of selected image
                     on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
         Widget:
         Widget:
@@ -88,15 +104,12 @@ BoxLayout:
         Widget:
         Widget:
 
-        #row2
+        #row3
+        #Band value
         Label:
             text: 'Band Value'
-        Slider:
-            range: (1,3)
-            id: rgbslider
-            #disabled: True
-            step: 1
-            on_value: bandvalue.text = str(rgbslider.value)
+        Widget:
+        #input Bandvalue
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -109,153 +122,124 @@ BoxLayout:
                 multiline:False
                 hint_text: "No of Bands"
                 fonst_size: 12
+                #Set the max of R,G,B value to input Band value
+                #when users hits enter
                 on_text_validate: app.change_slider(rgbslider,bandvalue)
+                #when  user focuses out of textbox
                 on_focus: app.change_slider(rgbslider,bandvalue)
         Widget:
         Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
 
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-
-
-        #row3
+        #row4
+        #Select Edge Type
         Label:
             text: 'Select Edge Type'
+        #radio button for edge type
         CheckBox:
             group:"radio_grp"
+            #set edge type to sobel
             on_active:app.set_type("sobel")
+            #sobel
         Label:
             text:"Sobel"
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
-
-        #row4
-        Widget:
-            id: placeholder1
-        CheckBox:
-            group:"radio_grp"
-            on_active:app.set_type("prewitt")
-        Label:
-            text:"Prewitt"
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
 
         #row5
         Widget:
-            id: placeholder1
+        #radio button for edge type
         CheckBox:
             group:"radio_grp"
-            on_active:app.set_type("canny")
+            #set edge type to prewitt
+            on_active:app.set_type("prewitt")
+        #prewitt
         Label:
-            text:"Canny"
+            text:"Prewitt"
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
         #row6
         Widget:
-            id: placeholder1
+        #radio button for edge type
         CheckBox:
             group:"radio_grp"
-            on_active:app.set_type("log")
+            #set edge type to canny
+            on_active:app.set_type("canny")
+        #canny
         Label:
-            text:":Log"
+            text:"Canny"
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
         #row7
         Widget:
-            id: placeholder1
+        #radio button for edge type
         CheckBox:
             group:"radio_grp"
+            #set edge type to log
+            on_active:app.set_type("log")
+        #log
+        Label:
+            text:":Log"
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+
+        #row7
+        Widget:
+        #radio button for edge type
+        CheckBox:
+            group:"radio_grp"
+            #set edge type to roberts
             on_active:app.set_type("roberts")
+        #roberts
         Label:
             text:"Roberts"
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
-
-
-
-
 
         #row8
+        #Threshold value
         Label:
             text: 'Threshold'
+        #threshold slider
         Slider:
             range: (0,1)
             value: 0
             id: slider
-            #disabled: True
             step: .1
+            #display value in textbox
             on_value: tlabel.text = str(slider.value)
-            #on_value: app.setThearsh(slider)
+        #threshold input
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -268,54 +252,49 @@ BoxLayout:
                 multiline:False
                 readonly: True
                 hint_text: "NA"
-                on_text_validate:
+                #update the value in slider
+                #when users hits enter
+                on_text_validate: app.Set_Slider(slider,tlabel)
+                #when  user focuses out of textbox
                 on_focus: app.Set_Slider(slider,tlabel)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
+
         #row9
+        #Select Direction
         Label:
             text: 'Select Direction'
+        #radio button for direction
         CheckBox:
             group:"d_group"
+            #set direction to horizontal
             on_active:app.set_dir("horizontal")
+        #horizontal
         Label:
             text:"Horizontal"
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row4
+        #row10
         Widget:
-            id: placeholder1
+        #radio button for direction
         CheckBox:
             group:"d_group"
+            #set direction to vertical
             on_active:app.set_dir("vertical")
         Label:
             text:"Vertical"
-
+        #horizontal line below main image
         Widget:
             id: separator
             canvas:
@@ -324,6 +303,7 @@ BoxLayout:
                 Rectangle:
                     pos: self.parent.width*(0.3125),self.parent.height*(0.1)
                     size: self.parent.width*0.675,2
+        #display img name
         Widget:
             Label:
                 x: self.parent.x
@@ -334,17 +314,13 @@ BoxLayout:
                 id: imgname
                 font_size:25
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row 10
+        #row 11
+        #horizontal line above submit button
         Widget:
             id: separator
             canvas:
@@ -354,6 +330,7 @@ BoxLayout:
                     pos: self.parent.width*(0.0125),self.parent.height*(0.1)
                     size: self.parent.width*0.275,2
         Widget:
+        #submit button
         Widget:
             Button:
                 id: submitbtn
@@ -364,24 +341,28 @@ BoxLayout:
                 disabled: True
                 text: 'Submit'
                 font_size: 20
+                #submit the form
                 on_press: app.submit(rgbslider,slider,mainimg,img1,img2,img3,imgname)
-
+        #horizontal image below main image
         Widget:
             id: separator
-
             canvas:
                 Color:
                     rgb: 1,1,1
                 Rectangle:
                     pos: self.parent.width*0.3,self.parent.height*0.025
                     size: 2,self.parent.height*0.85
+        #output image1
         Widget:
             Button:
                 background_color: (0,0,0,0)
-                on_press: app.img_viewer (mainimg,img1,img2,img3)
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
+                disabled: True
+                #When this button is clicked,output image1 will be displayed in mainimg
+                on_press: app.img_viewer (mainimg,img1,img2,img3)
+                #show the image name when clicked
                 on_press: imgname.text = str(img1.source)
             Image:
                 x: self.parent.x
@@ -394,6 +375,7 @@ BoxLayout:
                 keep_ratio: True
                 id: img1
         Widget:
+        #output image2
         Widget:
             Button:
                 background_color: (0,0,0,0)
@@ -401,7 +383,10 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
+                disabled: True
+                #When this button is clicked,output image2 will be displayed in mainimg
                 on_press: app.img_viewer (mainimg,img2,img1,img3)
+                #show the image name when clicked
                 on_press: imgname.text = str(img2.source)
             Image:
                 x: self.parent.x
@@ -421,7 +406,10 @@ BoxLayout:
                 x: self.parent.x
                 height: self.parent.height
                 width:self.parent.width
+                disabled: True
+                #When this button is clicked,output image3 will be displayed in mainimg
                 on_press: app.img_viewer (mainimg,img3,img2,img1)
+                #show the image name when clicked
                 on_press: imgname.text = str(img3.source)
             Image:
                 x: self.parent.x

@@ -1,5 +1,5 @@
-#Experiment 5
-#VIEWING IMAGES IN DIFFERENT FILTERS
+#Experiment 6
+#Experiment 6 name
 
 #import all required kivy modules
 from kivy.app import App
@@ -46,11 +46,12 @@ class Experiment6App(App):
         mainimg.source='no.gif'
 
     #Displays preview of selected image from file chooser
+    #Submit button is enabled
     def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
-        imgname.text = mainimg.source
         try:
+            imgname.text = mainimg.source
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
             submitbtn.disabled = False
@@ -58,6 +59,8 @@ class Experiment6App(App):
             pass
 
     #If input image is HDR,then bahd value is enabled
+    #'No preview available' image is displayed
+    #Submit button is enabled
     def enable_band(self,bandvalue,mainimg):
         if (self.fnm.find(".")==-1):
             bandvalue.readonly = False
@@ -120,7 +123,7 @@ class Experiment6App(App):
             try:
                 scilab.getd(os.getcwd()+"/")
                 scilab.colourtransform(self.fnm,rgb,outpath)
-                load()
+                load_images()
             except Exception as e:
                 mainimg.source = "noimg.jpg"
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
@@ -132,31 +135,36 @@ class Experiment6App(App):
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
-            print("error"+str(ex))
-        outpath = os.getcwd()+"/"+folder+"/"
+            mainimg.source = self.fnm
+            mainimg.reload()
+            res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
+            res.open()
 
         #show loadind gif when experiment is running
         outpath = os.getcwd()+"/"+folder+"/"
         mainimg.source = 'Loading.gif'
+        imgname.text = "Loading..."
         mainimg.reload()
-        thread = threading.Thread(target=exe,args=())
+        #call scilab in another thread
+        thread = threading.Thread(target=execute(),args=())
         thread.start()
 
         #load all the output images after scilab is executed
         @mainthread
-        def load():
-            img1.source = outpath+'out_original_img.jpg'
-            img2.source = outpath+'out_RGB.jpg'
-            img3.source = outpath+'out_Red.jpg'
-            img4.source = outpath+'out_Green.jpg'
-            img5.source = outpath+'out_Blue.jpg'
-            img6.source = outpath+'out_VALUE.jpg'
-            img7.source = outpath+'out_SATURATION.jpg'
-            img8.source = outpath+'out_HSV.jpg'
-            img9.source = outpath+'out_HUE.jpg'
-            self.testImg(img10,btnimg10,'./'+folder+'/'+'out_hist_band '+str(int(s1.value))+'.jpg')
-            self.testImg(img11,btnimg11,'./'+folder+'/'+'out_hist_band '+str(int(s2.value))+'.jpg')
-            self.testImg(img12,btnimg12,'./'+folder+'/'+'out_hist_band '+str(int(s3.value))+'.jpg')
+        def load_images():
+            #call test_img function for each image to check whether images are produced
+            self.test_img(img1,btnimg1,outpath+'out_original_img.jpg')
+            self.test_img(img2,btnimg2,outpath+'out_RGB.jpg')
+            self.test_img(img3,btnimg3,outpath+'out_Red.jpg')
+            self.test_img(img4,btnimg4,outpath+'out_Green.jpg')
+            self.test_img(img5,btnimg5,outpath+'out_Blue.jpg')
+            self.test_img(img6,btnimg6,outpath+'out_VALUE.jpg')
+            self.test_img(img7,btnimg7,outpath+'out_SATURATION.jpg')
+            self.test_img(img8,btnimg8,outpath+'out_HSV.jpg')
+            self.test_img(img9,btnimg9,outpath+'out_HUE.jpg')
+            self.test_img(img10,btnimg10,'./'+folder+'/'+'out_hist_band '+str(int(s1.value))+'.jpg')
+            self.test_img(img11,btnimg11,'./'+folder+'/'+'out_hist_band '+str(int(s2.value))+'.jpg')
+            self.test_img(img12,btnimg12,'./'+folder+'/'+'out_hist_band '+str(int(s3.value))+'.jpg')
             mainimg.source = img1.source
             img1.reload()
             img2.reload()
@@ -175,7 +183,8 @@ class Experiment6App(App):
         os.chdir("..")
         m.SiplabApp().run()
 
-    def testImg(self,img,btnimg,f):
+    #test if the ouput images are produced
+    def test_img(self,img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
             img.reload()
@@ -183,4 +192,6 @@ class Experiment6App(App):
         else:
             img.source = "no.gif"
             btnimg.disabled = True
+
+#uncomment the next line to run experiment1 directly
 #Experiment6App().run()

@@ -52,16 +52,17 @@ class Experiment4App(App):
         mainimg.source='no.gif'
 
     #Displays preview of selected image from file chooser
+    #submit button is enabled
     def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
-        if (self.fnm.find(".")==-1):
-            mainimg.source = "preview.jpg"
-        mainimg.source=fchooser.selection[0]
-        self.fnm = fchooser.selection[0]
-        imgname.text = mainimg.source
-        submitbtn.disabled = False
-
+        try:
+            mainimg.source=fchooser.selection[0]
+            self.fnm = fchooser.selection[0]
+            imgname.text = mainimg.source
+            submitbtn.disabled = False
+        except:
+            pass
 
     #Change slider value when text value is given
     def change_slider (self,slider,textinput):
@@ -109,11 +110,12 @@ class Experiment4App(App):
         def execute():
             try:
                 scilab.getd(os.getcwd()+"/")
+                #call scilab test function
                 scilab.test(self.fnm,rgbslider.value,self.egtype,slider.value,self.direction,outpath)
-                load()
+                load_images()
             except Exception as e:
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
-                mainimg.source = "noimg.jpg"
+                mainimg.source = self.fnm
                 mainimg.reload()
                 res.open()
 
@@ -123,25 +125,29 @@ class Experiment4App(App):
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
+            mainimg.source = self.fnm
             res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
             res.open()
-        outpath = os.getcwd()+"/"+folder+"/"
 
         #show loadind gif when experiment is running
         outpath = os.getcwd()+"/"+folder+"/"
         if(dec):
+            imgname.text = "Loading..."
             mainimg.source = 'Loading.gif'
             mainimg.reload()
+            #call scilab in another thread
             thread = threading.Thread(target=execute,args=())
             thread.start()
         else:
             pass
-            #Popup(title="Error",content=Label(text="Please fill all fields properly"),size_hint=(None, None), size=(400, 200)).open()
+
+        #load all the output images after scilab is executed
         @mainthread
-        def load():
-            img1.source = self.fnm
-            img2.source = outpath+'out_original_img.jpg'
-            img3.source = outpath+'edgeimg.jpg'
+        def load_images():
+            #call test_img function for each image to check whether images are produced
+            self.test_img(img1,btnimg1,self.fnm)
+            self.test_img(img2,btnimg2,outpath+'out_original_img.jpg')
+            self.test_img(img3,outpath+'edgeimg.jpg')
             mainimg.source = img1.source
             img1.reload()
             img2.reload()
@@ -149,6 +155,16 @@ class Experiment4App(App):
             mainimg.reload()
             img1.opacity = 1
             imgname.text = mainimg.source
+
+    #test if the ouput images are produced
+    def test_img(self,img,btnimg,f):
+        if(os.path.isfile(f)):
+            img.source = f
+            img.reload()
+            btnimg.disabled = False
+        else:
+            img.source = "no.gif"
+            btnimg.disabled = True
 
     #Displays image in mainimg when clicked on images in output panel
     #Blurs the image which is being displayed in mainimg
@@ -158,4 +174,5 @@ class Experiment4App(App):
         otherimg1.opacity = 0.3
         otherimg2.opacity = 0.3
 
+#uncomment the next line to run experiment4 directly
 #Experiment4App().run()

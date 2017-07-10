@@ -38,6 +38,10 @@ Window.clearcolor = (0.1, 0.1, 0.1, 1)
 class Experiment5App(App):
     #initialize input file name
     fnm = ''
+    #initialize filter type
+    ftype=""
+    #initialize pass type
+    ptype=""
 
     #Displays file chooser when input image is clicked
     def show_filechooser(self,mainimg,fcw,fchooser):
@@ -74,11 +78,10 @@ class Experiment5App(App):
         otherimg8.opacity = 1
 
     #Displays preview of selected image from file chooser
+    #Submit button is enable
     def show_selected_img(self,mainimg,fcw,fchooser,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
-        self.ftype=""
-        self.ptype=""
         try:
             mainimg.source=fchooser.selection[0]
             self.fnm = fchooser.selection[0]
@@ -108,10 +111,12 @@ class Experiment5App(App):
         def execute():
             try:
                 scilab.getd(os.getcwd()+"/")
+                #call scilab fftfilter function
                 scilab.fftfilter(self.fnm,rgb,self.ptype,cutoff,order,self.ftype,outpath)
-                load()
+                #call load_images function
+                load_images()
             except Exception as e:
-                mainimg.source = "no.gif"
+                mainimg.source = self.fnm
                 mainimg.reload()
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
@@ -122,43 +127,45 @@ class Experiment5App(App):
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
-            mainimg.source = "noimg.jpg"
+            mainimg.source = self.fnm
             mainimg.reload()
             res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
             res.open()
-        outpath = os.getcwd()+"/"+folder+"/"
+
 
         #show loadind gif when experiment is running
         outpath = os.getcwd()+"/"+folder+"/"
         if(dec):
             mainimg.source = 'Loading.gif'
             mainimg.reload()
+            imgname.text = "Loading..."
+            #call scilab in another thread
             thread = threading.Thread(target=execute,args=())
             thread.start()
         else:
+            mainimg.source = self.fnm
             Popup(title="Error",content=Label(text="fill all fields properly") ,size_hint=(None, None), size=(600, 400)).open()
 
 
         #load all the output images after scilab is executed
         @mainthread
-        def load():
-            img1.source = './'+folder+'/'+'out_original_img.jpg'
-            img2.source = './'+folder+'/'+self.ftype+self.ptype+' filteredimg.jpg'
-            img1.reload()
-            img2.reload()
-            self.testImg(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s1.value))+'.jpg')
-            self.testImg(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s2.value))+'.jpg')
-            self.testImg(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s3.value))+'.jpg')
-            img6.source = './'+folder+'/'+'out_mag_spectrum_All.jpg'
-            img6.reload()
-            self.testImg(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_'+str(int(s1.value))+'.jpg')
-            self.testImg(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_'+str(int(s2.value))+'.jpg')
-            self.testImg(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_'+str(int(s3.value))+'.jpg')
+        def load_images():
+            #call test_img function for each image to check whether images are produced
+            self.test_img(img1,btnimg1,'./'+folder+'/'+'out_original_img.jpg')
+            self.test_img(img2,btnimg2,'./'+folder+'/'+self.ftype+self.ptype+' filteredimg.jpg')
+            self.test_img(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s1.value))+'.jpg')
+            self.test_img(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s2.value))+'.jpg')
+            self.test_img(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s3.value))+'.jpg')
+            self.test_img(img1,btnimg1,'./'+folder+'/'+'out_mag_spectrum_All.jpg')
+            self.test_img(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_'+str(int(s1.value))+'.jpg')
+            self.test_img(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_'+str(int(s2.value))+'.jpg')
+            self.test_img(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_'+str(int(s3.value))+'.jpg')
             mainimg.source = img1.source
             mainimg.reload()
             img1.opacity = 0.3
 
-    def testImg(img,btnimg,f):
+    #test if the ouput images are produced
+    def test_img(img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
             img.reload()
@@ -174,11 +181,14 @@ class Experiment5App(App):
         m.SiplabApp().run()
 
     #If input image is HDR,then bahd value is enabled
+    #'No preview available' image is displayed
+    #Submit button is enabled
     def enable_band(self,bandvalue,mainimg):
         if (self.fnm.find(".")==-1):
             print "band"
             bandvalue.disabled = False
             mainimg.source = "preview.jpg"
+            bandvalue.hint_text = "Enter band value"
 
     #Sets max value of rgb when band value is given
     def set_max_rgb(self,bandvalue,s1,s2,s3,rvalue,gvalue,bvalue):
@@ -203,4 +213,5 @@ class Experiment5App(App):
     def set_pass(self,s):
     	self.ptype=s
 
+#uncomment the next line to run experiment1 directly
 #SimulatorApp().run()

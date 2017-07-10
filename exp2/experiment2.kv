@@ -1,6 +1,13 @@
 
+#Experiment 2
+#CONTARST ENHANCEMENT
+#UI layout
+
 BoxLayout:
     orientation: 'vertical'
+
+    #columns: 10
+    #rows: 15
 
     GridLayout:
         cols: 11
@@ -15,7 +22,7 @@ BoxLayout:
                 Rectangle:
                     pos: self.parent.width*0.05,self.parent.height*0.93
                     size: self.parent.width*0.9,2
-
+        #title
         Widget:
             Label:
                 text: 'CONTARST ENHANCEMENT'
@@ -23,32 +30,39 @@ BoxLayout:
                 y: self.parent.y - self.parent.height*0.2
                 width: self.parent.width*7
                 font_size:40
+        #empty widgets
         Widget:
-        Label:
-        Label:
-        Label:
-        Label:
-        Label:
+        widget:
+        widget:
+        widget:
+        widget:
         Widget:
+        Widget:
+        #Mainmenu Button
         Widget:
             Button:
                 text: 'Main Menu'
                 x: self.parent.x
                 y: self.parent.y + self.parent.height*0.25
+                #opens main menu when clicked
                 on_press: app.main_menu()
                 height: self.parent.height*0.5
                 width:self.parent.width*0.75
                 font_size: 20
 
+        #row2
+        #Input Image button
         Widget:
             Button:
                 x: self.parent.width*(1.)
-                y: self.parent.y #+ self.parent.height*(0.125)
+                y: self.parent.y
                 width: self.parent.width*1
                 height: self.parent.height*.75
                 text: 'Input Image'
                 font_size: 20
+                #show filechooser when clicked
                 on_press: app.show_filechooser(mainimg,fcw,fchooser)
+        #underline
         Widget:
             id: separator
             canvas:
@@ -59,8 +73,9 @@ BoxLayout:
                     size: self.parent.width*0.25,2
         Widget:
         Widget:
+            #main image
             Image:
-                y: placeholder1.y + self.parent.height*1
+                y: self.parent.height*1.55
                 x: self.parent.x
                 id: mainimg
                 source: 'noimg.png'
@@ -68,19 +83,22 @@ BoxLayout:
                 height: self.parent.height*11
                 allow_stretch: True
                 keep_ratio: True
+            #Inputfile selector
             Widget:
-                y: placeholder1.y + self.parent.height*1
+                y: self.parent.height*1.55
                 x: self.parent.x
                 width: self.parent.width*8
                 height: self.parent.height*0
                 id: fcw
                 FileChooserIconView:
                     id:fchooser
-                    y: placeholder1.y
+                    y: self.parent.height*1.55
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
+                    #show preview of selected image
                     on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
+                    #enable bandvalue if image is HDR
                     on_selection: app.enable_band(bandvalue,mainimg)
         Widget:
         Widget:
@@ -90,9 +108,11 @@ BoxLayout:
         Widget:
         Widget:
 
-
+        #row3
+        #Band value
         Label:
             text: 'Band Value'
+        #input Bandvalue
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -106,35 +126,34 @@ BoxLayout:
                 multiline:False
                 readonly: True
                 hint_text: "NA"
+                #Set the max of R,G,B value to input Band value
+                #when users hits enter
                 on_text_validate: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
+                #when  user focuses out of textbox
                 on_focus: app.set_max_rgb(bandvalue,s1,s2,s3,rvalue,gvalue,bvalue)
         Widget:
         Widget:
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-
-        #row2
+        #row4
+        #R value
         Label:
             text: 'R Value'
+        #R slider
         Slider:
             range: (1,3)
             id: s1
             width: self.parent.width
             step: 1
+            #Display the value in textbox
             on_value: rvalue.text = str(s1.value)
+        #R input value
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -146,36 +165,34 @@ BoxLayout:
                 id: rvalue
                 input_filter: 'int'
                 hint_text: "1 - 3"
-                #hint_text.size: self.size
                 multiline:False
+                #update the value in slider
+                #when users hits enter
                 on_text_validate: app.change_slider(s1,rvalue)
+                #when  user focuses out of textbox
                 on_focus: app.change_slider(s1,rvalue)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row2
+        #row5
+        #G value
         Label:
             text: 'G Value'
+        #G Slider
         Slider:
             range: (1,3)
             id: s2
             width: self.parent.width
             step: 1
+            #display value in textbox
             on_value: gvalue.text = str(s2.value)
+        #G input
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -187,36 +204,34 @@ BoxLayout:
                 id: gvalue
                 input_filter: 'int'
                 hint_text: "1 - 3"
-                #hint_text.size: self.size
                 multiline:False
+                #update the value in slider
+                #when users hits enter
                 on_text_validate: app.change_slider(s2,gvalue)
+                #when  user focuses out of textbox
                 on_focus: app.change_slider(s2,gvalue)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row3
+        #row6
+        #B value
         Label:
             text: 'B Value'
+        #B Slider
         Slider:
             range: (1,3)
             id: s3
             width: self.parent.width
             step: 1
+            #display value in textbox
             on_value: bvalue.text = str(s3.value)
+        #B input
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -229,26 +244,22 @@ BoxLayout:
                 input_filter: 'int'
                 hint_text: "1 - 3"
                 multiline:False
+                #update the value in slider
+                #when users hits enter
                 on_text_validate: app.change_slider(s3,bvalue)
+                #when  user focuses out of textbox
                 on_focus: app.change_slider(s3,bvalue)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row4
+        #row7
+        #radio button for experiment mode
         CheckBox:
             group: 'radio'
             on_active: s4.value = s4.min
@@ -257,31 +268,27 @@ BoxLayout:
             on_active: s5.disabled = True
             on_active: value1.readonly =True
             on_active: value2.readonly =True
+            #set mode to linear
             on_active: app.set_mode('Linear')
+        #linear
         Label:
             text: 'Linear'
             text_size: self.size
             halign: 'left'
             valign: 'middle'
-        Label:
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
+        Widget:
 
-        #row5
+
+        #row8
+        #radio button for experiment mode
         CheckBox:
             group: 'radio'
             on_active: s4.value = s4.min
@@ -290,32 +297,26 @@ BoxLayout:
             on_active: value1.readonly =False
             on_active: s4.disabled = False
             on_active: s5.disabled = True
+            #set mode to Standard deviation
             on_active: app.set_mode('Standard deviation')
+        #Standard deviation
         Label:
             text: 'Standard Deviation'
             text_size: self.size
             halign: 'left'
             valign: 'middle'
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
+        Widget:
 
-        Label:
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-        Widget:
-            id: placeholder1
-
-        #row6
+        #row9
+        #radio button for experiment mode
         CheckBox:
             group: 'radio'
             on_active: s4.value = s4.min
@@ -324,31 +325,26 @@ BoxLayout:
             on_active: s5.disabled = True
             on_active: value1.readonly =True
             on_active: value2.readonly =True
+            #set mode to Histogram equalization
             on_active: app.set_mode('Histogram equalization')
+        #Histogram equalization
         Label:
             text: 'Histogram'
             text_size: self.size
             halign: 'left'
             valign: 'middle'
-        Label:
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
+        Widget:
 
-        #row7
+        #row10
+        #radio button for experiment mode
         CheckBox:
             group: 'radio'
             on_active: s5.disabled = False
@@ -357,31 +353,26 @@ BoxLayout:
             on_active: s4.value = s4.min
             on_active: value2.readonly = False
             on_active: value1.readonly =True
+            #set mode to Logarithmic stretch
             on_active: app.set_mode('Logarithmic stretch')
+        #Logarithmic stretch
         Label:
             text: 'Logarithmic'
             text_size: self.size
             halign: 'left'
             valign: 'middle'
-        Label:
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
+        Widget:
 
-        #row8
+        #row11
+        #radio button for experiment mode
         CheckBox:
             group: 'radio'
             on_active: s4.disabled = False
@@ -390,31 +381,26 @@ BoxLayout:
             on_active: s4.value = s5.min
             on_active: value1.readonly = False
             on_active: value2.readonly = False
+            #set mode to Exponential
             on_active: app.set_mode('Exponential')
+        #Exponential
         Label:
             text: 'Exponential'
             text_size: self.size
             halign: 'left'
             valign: 'middle'
-        Label:
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
+        Widget:
 
-        #row9
+        #row12
+        #radio button for experiment mode
         CheckBox:
             group: 'radio'
             on_active: s4.value = s4.min
@@ -423,39 +409,38 @@ BoxLayout:
             on_active: s5.disabled = True
             on_active: value1.readonly =True
             on_active: value1.readonly =True
+            #set mode to Decorrelation
+            on_active: app.set_mode('Decorrelation')
+        #Decorrelation
         Label:
             text: 'Decorrelation'
             text_size: self.size
             halign: 'left'
             valign: 'middle'
-        Label:
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
+        Widget:
 
-        #row10
+        #row13
+        #value1
         Label:
             text: 'Value 1'
+        #value1 slider
         Slider:
             range: (0,2)
             id: s4
             width: self.parent.width
             step: 0.001
+            #display value in textbox
             on_value: value1.text = str(s4.value)
             disabled:True
+        #value1 text input
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -469,26 +454,22 @@ BoxLayout:
                 hint_text: "0 - 2"
                 multiline:False
                 readonly: True
+                #update the value in slider
+                #when users hits enter
                 on_text_validate: app.change_slider(s4,value1)
+                #when  user focuses out of textbox
                 on_focus: app.change_slider(s4,value1)
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row11
+        #row14
+        #value1
         Label:
             text: 'Value 2'
         Slider:
@@ -496,8 +477,10 @@ BoxLayout:
             id: s5
             width: self.parent.width
             step: 0.001
+            #display value in textbox
             on_value: value2.text = str(s5.value)
             disabled: True
+        #value2 text input
         Widget:
             TextInput:
                 height:self.parent.height*0.375
@@ -511,8 +494,12 @@ BoxLayout:
                 hint_text: "0 - 255"
                 multiline:False
                 readonly: True
+                #update the value in slider
+                #when users hits enter
                 on_text_validate: app.change_slider(s5,value2)
+                #when  user focuses out of textbox
                 on_focus: app.change_slider(s5,value2)
+        #horizontal line below main image
         Widget:
             id: separator
             canvas:
@@ -521,6 +508,7 @@ BoxLayout:
                 Rectangle:
                     pos: self.parent.width*0.275,self.parent.height*0.025
                     size: 2,self.parent.height*0.875
+        #vertical line between inputs and main image
         Widget:
             id: separator
             canvas:
@@ -529,6 +517,7 @@ BoxLayout:
                 Rectangle:
                     pos: self.parent.width*(0.2875),self.parent.height*(0.075)
                     size: self.parent.width*0.7,2
+        #display image name
         Widget:
             Label:
                 x: self.parent.x
@@ -539,17 +528,13 @@ BoxLayout:
                 id: imgname
                 font_size:25
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
         Widget:
-            id: placeholder1
 
-        #row12
+        #row15
+        #horizontal line above submit button
         Widget:
             id: separator
             canvas:
@@ -560,6 +545,7 @@ BoxLayout:
                     size: self.parent.width*0.25,2
         Widget:
         Widget:
+            #submit button
             Button:
                 id: submitbtn
                 x: self.parent.x*(0.5)
@@ -569,17 +555,21 @@ BoxLayout:
                 font_size: 20
                 disabled: True
                 text: 'Submit'
+                #submit the form
                 on_press: app.submit(s1,s2,s3,s4,s5,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8)
-
-        Widget
+        #output image1
+        Widget:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg1
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
-                on_press: imgname.text = str(img1.source)
+                #When this button is clicked,output image1 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img1,img2,img3,img4,img5,img6,img7,img8)
+                #show the image name when clicked
+                on_press: imgname.text = str(img1.source)
             Image:
                 x: self.parent.x
                 y: self.parent.height*0.1
@@ -590,14 +580,18 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img1
-        Widget
+        #output image2
+        Widget:
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg2
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
+                #show the image name when clicked
                 on_press: imgname.text = str(img2.source)
+                #When this button is clicked,output image2 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img2,img1,img3,img4,img5,img6,img7,img8)
             Image:
                 x: self.parent.x
@@ -609,14 +603,18 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img2
+        #output image3
         Widget
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg3
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
+                #show the image name when clicked
                 on_press: imgname.text = str(img3.source)
+                #When this button is clicked,output image3 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img3,img2,img1,img4,img5,img6,img7,img8)
             Image:
                 x: self.parent.x
@@ -628,14 +626,18 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img3
+        #output image4
         Widget
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg4
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
+                #show the image name when clicked
                 on_press: imgname.text = str(img4.source)
+                #When this button is clicked,output image4 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img4,img2,img3,img1,img5,img6,img7,img8)
             Image:
                 x: self.parent.x
@@ -647,14 +649,18 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img4
+        #output image5
         Widget
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg5
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
+                #show the image name when clicked
                 on_press: imgname.text = str(img5.source)
+                #When this button is clicked,output image5 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img5,img2,img3,img4,img1,img6,img7,img8)
             Image:
                 x: self.parent.x
@@ -666,14 +672,18 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img5
+        #output image6
         Widget
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg6
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
+                #show the image name when clicked
                 on_press: imgname.text = str(img6.source)
+                #When this button is clicked,output image6 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img6,img2,img3,img4,img5,img1,img7,img8)
             Image:
                 x: self.parent.x
@@ -685,14 +695,18 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img6
+        #output image7
         Widget
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg7
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
+                #show the image name when clicked
                 on_press: imgname.text = str(img7.source)
+                #When this button is clicked,output image7 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img7,img2,img3,img4,img5,img6,img1,img8)
             Image:
                 x: self.parent.x
@@ -704,14 +718,18 @@ BoxLayout:
                 allow_stretch: True
                 keep_ratio: True
                 id: img7
+        #output image8
         Widget
             Button:
                 background_color: (0,0,0,0)
                 x: self.parent.x
                 id:btnimg8
+                disabled: True
                 height: self.parent.height
                 width:self.parent.width
+                #show the image name when clicked
                 on_press: imgname.text = str(img8.source)
+                #When this button is clicked,output image8 will be displayed in mainimg
                 on_press: app.img_viewer(mainimg,img8,img2,img3,img4,img5,img6,img7,img1)
             Image:
                 x: self.parent.x

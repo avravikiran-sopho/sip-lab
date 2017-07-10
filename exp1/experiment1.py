@@ -14,12 +14,12 @@ from kivy.graphics import BorderImage
 from kivy.uix.popup import Popup
 from kivy.core.window import Window
 from kivy.clock import mainthread
-import pygame
 
 #import scilab2py module
 from scilab2py import scilab
 
 #import other required modules
+import pygame
 from datetime import datetime
 import time
 import os
@@ -76,7 +76,7 @@ class Experiment1App(App):
         except:
             pass
 
-    #Displays image in mainimg when clicked on images in output panel
+    #Displays image in mainimg when clicked on images in bottom panel
     #Blurs the image which is being displayed in mainimg
     def img_viewer(self,mainimg,imgtodisp,otherimg1,otherimg2,otherimg3,otherimg4):
         mainimg.source = imgtodisp.source
@@ -87,6 +87,8 @@ class Experiment1App(App):
         otherimg4.opacity = 1
 
     #If input image is HDR,then bahd value is enabled
+    #'No preview available' image is displayed
+    #Submit button is enabled
     def enable_band(self,bandvalue,mainimg,submitbtn):
         print self.fnm.find(".")
         print self.fnm
@@ -99,6 +101,7 @@ class Experiment1App(App):
 
     #Displays preview of selected image from file chooser
     #Adjusts ranges of row start,end and column start,end
+    #enables all the inputs
     def show_selected_img(self,mainimg,fcw,fchooser,s4,s5,s6,s7,rstart,rend,cstart,cend,submitbtn,imgname):
         fchooser.height = fchooser.parent.height*0
         fcw.height = fcw.parent.height*0
@@ -133,18 +136,21 @@ class Experiment1App(App):
 
     #Calls scilab and images are processed
     def submit(self,s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5):
+        #matrices are defined to pass in scilab functions
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         subrow = np.matrix("'"+str(s4.value)+","+str(s5.value)+"'")
         subcol = np.matrix("'"+str(s6.value)+","+str(s7.value)+"'")
 
         #function to call scilab
-        def exe():
+        def execute():
             try:
                 scilab.getd(os.getcwd()+"/")
+                #call imgdisplay functions
                 scilab.imgdisplay(self.fnm,rgb,subrow,subcol,'win4pix.txt',outpath)
-                load()
+                #call load functions
+                load_images()
             except Exception as e:
-                mainimg.source = "noimg.png"
+                mainimg.source = self.fnm
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
         #create folder in format "out_day_month_year_hour_minute_second" to store output files
@@ -153,6 +159,7 @@ class Experiment1App(App):
             folder="out_"+str(now.day)+"_"+str(now.month)+"_"+str(now.year)+"_"+str(now.hour)+"_"+str(now.minute)+"_"+str(now.second)
             os.mkdir(folder)
         except Exception as ex:
+            mainimg.source = self.fnm
             res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
             res.open()
 
@@ -160,18 +167,20 @@ class Experiment1App(App):
         outpath = os.getcwd()+"/"+folder+"/"
         mainimg.source = 'Loading.gif'
         mainimg.reload()
+        imgname.text = "Loading..."
+        #call scilab in another thread
         thread = threading.Thread(target=exe,args=())
         thread.start()
 
         #load all the output images after scilab is executed
         @mainthread
-        def load():
-
-            img1.source = './'+folder+'/'+'out_original_img.jpg'
-            self.testImg(img2,btnimg2,'./'+folder+'/'+'out_subset_img.jpg')
-            self.testImg(img3,btnimg3,'./'+folder+'/'+'out_hist_band '+str(int(s1.value))+'.jpg')
-            self.testImg(img4,btnimg4,'./'+folder+'/'+'out_hist_band '+str(int(s2.value))+'.jpg')
-            self.testImg(img5,btnimg5,'./'+folder+'/'+'out_hist_band '+str(int(s3.value))+'.jpg')
+        def load_images():
+            #call test_img function for each image to check whether images are produced
+            self.test_img(img1,btnimg1'./'+folder+'/'+'out_original_img.jpg')
+            self.test_img(img2,btnimg2,'./'+folder+'/'+'out_subset_img.jpg')
+            self.test_img(img3,btnimg3,'./'+folder+'/'+'out_hist_band '+str(int(s1.value))+'.jpg')
+            self.test_img(img4,btnimg4,'./'+folder+'/'+'out_hist_band '+str(int(s2.value))+'.jpg')
+            self.test_img(img5,btnimg5,'./'+folder+'/'+'out_hist_band '+str(int(s3.value))+'.jpg')
             print './'+folder+'/'+'out_hist_band '+str(s1.value)+'.jpg'
             mainimg.source = img1.source
             img1.opacity = 0.3
@@ -179,7 +188,7 @@ class Experiment1App(App):
             mainimg.reload()
 
     #Checking for images before display
-    def testImg(self,img,btnimg,f):
+    def test_img(self,img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
             img.reload()
@@ -200,4 +209,5 @@ class Experiment1App(App):
         os.chdir("..")
         m.SiplabApp().run()
 
+#uncomment the next line to run experiment1 directly
 #SimulatorApp().run()
