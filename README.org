@@ -309,20 +309,20 @@ dpkg --configure -a
 ** References
 
  - Scilab:
- [[http://www.scilab.org/]http://www.scilab.org/]]
+ [[http://www.scilab.org/]]
  
  - Python2.7:
- [[https://www.python.org/][https://www.python.org/]]
+ [[https://www.python.org/]]
  
  - Scilab2py:
- [[https://pypi.python.org/pypi/scilab2py]https://pypi.python.org/pypi/scilab2py]]
+ [[https://pypi.python.org/pypi/scilab2py]]
  
   - kivy:
- [[https://kivy.org/#home][https://kivy.org/#home]]
+ [[https://kivy.org/#home]]
  
  - Scipy:
- [[https://www.scipy.org/][https://www.scipy.org/]]
+ [[https://www.scipy.org/]]
  
  - Numpy:
- [[http://www.numpy.org/][http://www.numpy.org/]]
+ [[http://www.numpy.org/]]
 
