@@ -132,10 +132,10 @@ sudo add-apt-repository ppa:kivy-team/kivy
 sudo apt-get install python-kivy
 #+end_src
 
- *** For Windows
+*** For Windows
  - Scilab
   + Download and install scilab with below link.
-  + [[https://www.scilab.org/download/previous]Scilab 5.5.2 Web site]]
+  + [[https://www.scilab.org/download/previous][Scilab 5.5.2 Web site]]
   + Note: Use scilab 5.5.2 only.
  
  - SIVP Toolbox
@@ -151,10 +151,10 @@ atomsInstall('SIVP')
 
  - Python 2.7
   + Download and install python 2.7 from link below.
-  + [[https://www.python.org/downloads/release/python-2713/]Python 2.7 Web site]].
+  + [[https://www.python.org/downloads/release/python-2713/][Python 2.7 Web site]].
   + Note: 
     * Use Python 2.7 only.
-    * if python3 is installed in your system,then make sure to set envinormental variable to python2.7
+    * If python3 is installed in your system,then make sure to set envinormental variable to python2.7
   
    * Install wheel and Pip
 #+begin_src org
@@ -196,8 +196,8 @@ pip install kivy.deps.gstreamer
  
   + Scipy and Numpy are installed using their wheels.
   + Download the latest version of packages('cp27-cp27m' should be present in filename .i.e for python2.7) for scipy and numpy.
-   * [ http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy]scipy package Web site]]
-   * [ http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy]numpy package Web site]]
+   * [[http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy][scipy package Web site]]
+   * [[http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy][numpy package Web site]]
   + Move the downloaded packages to C:\Python27\Scripts ( path\to\python2.7\Scripts if python is installed somewhere else)
   + Then the packages using command below
   
@@ -234,7 +234,7 @@ pip install scilab2py
 #+end_src
 
   + Scilab is required for this package,environmental variables for scilab is needed.See the link below to set path for scilab.   
-   * [[http://blink1073.github.io/scilab2py/source/installation.html]Scilab 5.5.2 path setup]]
+   * [[http://blink1073.github.io/scilab2py/source/installation.html][Scilab 5.5.2 path setup]]
 
 ** Experiment Guide
 
@@ -306,31 +306,23 @@ Installation of all the required softwares either manually or through setup is p
 dpkg --configure -a
 #+end_src
 
+** References
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Now we are ready to go
-
-
-
-
-Links:
-http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy
-https://stackoverflow.com/questions/26657334/installing-numpy-and-scipy-on-64-bit-windows-with-pip
+ - Scilab:
+ [[http://www.scilab.org/]http://www.scilab.org/]]
+ 
+ - Python2.7:
+ [[https://www.python.org/][https://www.python.org/]]
+ 
+ - Scilab2py:
+ [[https://pypi.python.org/pypi/scilab2py]https://pypi.python.org/pypi/scilab2py]]
+ 
+  - kivy:
+ [[https://kivy.org/#home][https://kivy.org/#home]]
+ 
+ - Scipy:
+ [[https://www.scipy.org/][https://www.scipy.org/]]
+ 
+ - Numpy:
+ [[http://www.numpy.org/][http://www.numpy.org/]]
 
