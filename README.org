@@ -132,7 +132,7 @@ sudo add-apt-repository ppa:kivy-team/kivy
 sudo apt-get install python-kivy
 #+end_src
 
- *** For Windows
+*** For Windows
  - Scilab
   + Download and install scilab with below link.
   + [[https://www.scilab.org/download/previous][Scilab 5.5.2 Web site]]
@@ -306,23 +306,23 @@ Installation of all the required softwares either manually or through setup is p
 dpkg --configure -a
 #+end_src
 
- ** References
+** References
 
  - Scilab:
- [[http://www.scilab.org/][scilab home]]
+ [[http://www.scilab.org/]http://www.scilab.org/]]
  
  - Python2.7:
- [[https://www.python.org/][python home]]
+ [[https://www.python.org/][https://www.python.org/]]
  
  - Scilab2py:
- [[https://pypi.python.org/pypi/scilab2py][scilab2py home]]
+ [[https://pypi.python.org/pypi/scilab2py]https://pypi.python.org/pypi/scilab2py]]
  
   - kivy:
- [[https://kivy.org/#home][kivy home]]
+ [[https://kivy.org/#home][https://kivy.org/#home]]
  
  - Scipy:
- [[https://www.scipy.org/][scipy home]]
+ [[https://www.scipy.org/][https://www.scipy.org/]]
  
  - Numpy:
- [[http://www.numpy.org/][numpy home]]
+ [[http://www.numpy.org/][http://www.numpy.org/]]
 
