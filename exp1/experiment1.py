@@ -89,14 +89,13 @@ class Experiment1App(App):
     #If input image is HDR,then bahd value is enabled
     #'No preview available' image is displayed
     #Submit button is enabled
-    def enable_band(self,bandvalue,mainimg,submitbtn):
+    def enable_band(self,bandvalue,mainimg):
         print self.fnm.find(".")
         print self.fnm
         if (self.fnm.find(".")==-1):
             bandvalue.readonly = False
             bandvalue.hint_text= "Enter band value"
             mainimg.source = "preview.jpg"
-            submitbtn.disabled = False
 
 
     #Displays preview of selected image from file chooser
@@ -209,4 +208,4 @@ class Experiment1App(App):
         m.SiplabApp().run()
 
 #uncomment the next line to run experiment1 directly
-#SimulatorApp().run()
+#Experiment1App().run()
