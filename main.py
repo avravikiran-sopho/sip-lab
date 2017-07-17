@@ -26,11 +26,9 @@ Window.size = (1920, 1080)
 
 
 class SiplabApp(App):
-	
 	#uncomment these for login functionality.
-	"""
-	s = ""
-    role = ""
+	#s = ""
+    #role = ""
     def active(self,exp):
         self.s = exp
 
@@ -53,7 +51,7 @@ class SiplabApp(App):
             conn.commit()
         except Exception as e:
             print e
-            conn.rollback()"""
+            conn.rollback()
 
     def siplab(self,experiment):
 

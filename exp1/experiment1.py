@@ -168,7 +168,7 @@ class Experiment1App(App):
         mainimg.reload()
         imgname.text = "Loading..."
         #call scilab in another thread
-        thread = threading.Thread(target=exe,args=())
+        thread = threading.Thread(target=execute,args=())
         thread.start()
 
         #load all the output images after scilab is executed
