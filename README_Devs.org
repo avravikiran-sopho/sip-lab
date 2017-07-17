@@ -98,3 +98,95 @@ Note: 1.This lab works only with python2 but not python3.
 
  - *main_menu(arguments)*:
   * This function is called when 'Main Menu' button is clicked.
+  
+** Explaination of each Experiment:
+*** Experiment 1:
+The title of this experiment is *Viewing Images in Different Bands*.
+**** Inputs:
+ - Input Image - (Button)
+ - Band Value (If input image is HDR) - (input textfield)
+ - R Value - (slider,textfield)
+ - G value - (slider,textfield)
+ - B value - (slider,textfield)
+ - Row start - (slider,textfield)
+ - Row end - (slider,textfield)
+ - Column start - (slider,textfield)
+ - Column end - (slider,textfield)
+ - Submit - (Button)
+ - *Note*: 
+  + Row start range: 1 - (Height of image - 100)
+  + Row End range: (Row start input+100) - height of image
+  + Column start range: 1 - (Width of image - 100)
+  + Column End range: (Column start input+100) - width of image
+  
+*** Experiment 3:
+The title of this experiment is *Smoothing*.
+**** Inputs:
+ - Input Image - (Button)
+ - Band Value (If input image is HDR) - (input textfield)
+ - Enhancement Type:
+  + Average - (radio button)
+  + Circular - (radio button)
+  + Gaussian - (radio button)
+  + Median - (radio button)
+  + Weighted Average - (radio button)
+ - Window1 Size - (slider,textfield)
+ - Window2 Size - (slider,textfield)
+ - Sigma Value - (slider,textfield)
+ - Submit - (Button)
+ - *Note*: 
+  + Ranges of Window1 Size,Window2 Size are 3 to 7 and takes only odd values.
+  + Sigma Value range: 0.5 - 3.0 (applicable only for gaussian mode)
+
+*** Experiment 4:
+The title of this experiment is *Edge Detection*.
+**** Inputs:
+ - Input Image - (Button)
+ - Band Value (If input image is HDR) - (input textfield)
+ - Select Edge Type:
+  + Sobel - (radio button)
+  + Prewitt - (radio button)
+  + Canny - (radio button)
+  + Log - (radio button)
+  + Roberts - (radio button)
+ - Threshold - (slider,textfield)
+ - Select Direction:
+  - Horizontal - (radio button)
+  - Vertical - (radio button)
+ - Submit - (Button)
+ - *Note*: 
+  + Ranges of Window1 Size,Window2 Size are 3 to 7 and takes only odd values.
+  + Sigma Value range: 0.5 - 3.0 (applicable only for gaussian mode)
+  
+*** Experiment 5:
+The title of this experiment is *Frequency Domain Filtering (Fourier Transform)*.
+**** Inputs:
+ - Input Image - (Button)
+ - Band Value (If input image is HDR) - (input textfield)
+ - R Value - (slider,textfield)
+ - G value - (slider,textfield)
+ - B value - (slider,textfield)
+ - Filter type:
+  + ButterWorth - (radio button)
+  + Gaussian - (radio button)
+ - Pass type:
+  + Lowpass - (radio button)
+  + Highpass - (radio button)
+ - Cutoff - (slider,textfield)
+ - Order - (slider,textfield)
+ - Submit - (Button)
+ - *Note*: 
+  + Cutoff range: 0.1 - 10
+  + Order: 1 -10
+  
+*** Experiment 6:
+The title of this experiment is *Colour Transform*.
+**** Inputs:
+ - Input Image - (Button)
+ - Band Value (If input image is HDR) - (input textfield)
+ - R Value - (slider,textfield)
+ - G value - (slider,textfield)
+ - B value - (slider,textfield)
+ - Submit - (Button)
+ 
+ 
