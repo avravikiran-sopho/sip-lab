@@ -69,32 +69,32 @@ Note: 1.This lab works only with python2 but not python3.
  file has a class named 'Experiment(number)App'.This class contains all the functions to handle inputs,call scilab and display output images.
  - Here are some of the common functions present in all experiments
 
- - show_filechooser(arguments):
+ - *show_filechooser(arguments)*:
   * This function is called when 'Input Image' button is clicked.
   * This function makek the main image transparent (changes main image source to 'no.gif') and displays file selector.(by deafult the height of
-    filechooser is set to 0,this function changes height to non-zero value, hence displaying the filechooser)
+    filechooser is set to 0,this function changes height to non-zero value, hence displaying the filechooser)\\
 
- - show_selected_img(arguments):
+ - *show_selected_img(arguments)*:
   * This function is called when image file is selected in file chooser.
   * Closes the file chooser (.i.e changes the height to 0)
   * This function changes the source of main image to selected image,hence selected image is displayed.
   * Displays image name below the image.
-  * Note: For Exp1 : Finds the height and width of selected image and adjusts the ranges of rowstart,rowend.columnstart and columnend.
+  * Note: For Exp1 : Finds the height and width of selected image and adjusts the ranges of rowstart,rowend.columnstart and columnend.\\
 
- - enable_band(arguments):
+ - *enable_band(arguments)*:
   * This function is called when image is selected.
   * This function checks whether input file has any extension (.jpg,.gif),if not it is assumed to be raw HDR image and band value text field is enabled.
-  * Band value is disabled by default because it's value is 3 for all image formats expect HDR,if image is HDR user should input no of bands.
+  * Band value is disabled by default because it's value is 3 for all image formats expect HDR,if image is HDR user should input no of bands.\\
 
- - set_max_rgb(arguments):
+ - *set_max_rgb(arguments)*:
   * This function is called when user inputs band value.
   * This function changes the max of R,G,B values to input band value.
-  * Also updates the hint text to updated range.
+  * Also updates the hint text to updated range.\\
 
- - change_slider(arguments):
+ - *change_slider(arguments)*:
   * This function is called when user inputs value in text field which are present side by sliders.
   * Changes the value of slider to input value in text field.
-  * Sets the value of slider to max when users inputs value greater than range(and also for minimum)
+  * Sets the value of slider to max when users inputs value greater than range(and also for minimum)\\
 
- - main_menu(arguments):
+ - *main_menu(arguments)*:
   * This function is called when 'Main Menu' button is clicked.
