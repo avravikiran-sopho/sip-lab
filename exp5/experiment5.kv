@@ -76,7 +76,7 @@ BoxLayout:
         #main image
         Widget:
             Image:
-                y:  self.parent.height*1.55
+                y:  self.parent.height*2
                 x: self.parent.x
                 id: mainimg
                 source: 'noimg.png'
@@ -91,17 +91,16 @@ BoxLayout:
                 width: self.parent.width*9
                 height: self.parent.height*0
                 id: fcw
-
                 FileChooserIconView:
                     id:fchooser
-                    y:  self.parent.height*1.55
+                    y:  self.parent.y
                     x: self.parent.x
                     width: self.parent.width
-                    height: self.parent.height*1
+                    height: self.parent.height
                     #show preview of selected image
                     on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
                     #enable band value if image is HDR
-                    on_selection: enable_band(bandvalue,mainimg)
+                    on_selection: app.enable_band(bandvalue,mainimg)
         Widget:
         Widget:
         Widget:
@@ -173,9 +172,9 @@ BoxLayout:
                 multiline:False
                 #update the value in slider
                 #when users hits enter
-                on_text_validate: app.focus(s1,rvalue)
+                on_text_validate: app.change_slider(s1,rvalue)
                 #when  user focuses out of textbox
-                on_focus: app.focus(s1,rvalue)
+                on_focus: app.change_slider(s1,rvalue)
         Widget:
         Widget:
         Widget:
@@ -214,9 +213,9 @@ BoxLayout:
                 multiline:False
                 #update the value in slider
                 #when users hits enter
-                on_text_validate: s2.value = int(gvalue.text)
+                on_text_validate: app.change_slider(s2,gvalue)
                 #when  user focuses out of textbox
-                on_focus: app.focus(s2,gvalue)
+                on_focus: app.change_slider(s2,gvalue)
         Widget:
         Widget:
         Widget:
@@ -253,9 +252,9 @@ BoxLayout:
                 multiline:False
                 #update the value in slider
                 #when users hits enter
-                on_text_validate: s3.value = int(bvalue.text)
+                on_text_validate: app.change_slider(s3,bvalue)
                 #when  user focuses out of textbox
-                on_focus: app.focus(s3,bvalue)
+                on_focus: app.change_slider(s3,bvalue)
         Widget:
         Widget:
         Widget:
@@ -356,10 +355,10 @@ BoxLayout:
             text: 'CutOff'
         #Cutoff slider
         Slider:
-            range: (1,0)
+            range: (0.01,10)
             id: cf_val
             width: self.parent.width
-            step: 0.1
+            step: 0.01
             #display value in textbox
             on_value: cvalue.text = str(cf_val.value)
         #cutoff text input
@@ -373,13 +372,13 @@ BoxLayout:
                 text: ''
                 id: cvalue
                 input_filter: 'float'
-                hint_text: "0.1 - 10"
+                hint_text: "0.01 - 10"
                 multiline:False
                 #update the value in slider
                 #when users hits enter
-                on_text_validate: cf_val = int(cvalue.text)
+                on_text_validate: app.change_slider(cf_val,cvalue)
                 #when  user focuses out of textbox
-                on_focus: app.focus(cf_val,cvalue)
+                on_focus: app.change_slider(cf_val,cvalue)
         Widget:
         Widget:
         Widget:
@@ -416,9 +415,9 @@ BoxLayout:
                 multiline:False
                 #update the value in slider
                 #when users hits enter
-                on_text_validate: or_val = int(ovalue.text)
+                on_text_validate: app.change_slider(or_val,ovalue)
                 #when  user focuses out of textbox
-                on_focus: app.focus(or_val,ovalue)
+                on_focus: app.change_slider(or_val,ovalue)
         #horizontal line above submit button
         Widget:
             id: separator
@@ -467,7 +466,7 @@ BoxLayout:
                 disabled: True
                 text: 'Submit'
                 #submit the form
-                on_press: app.submit(s1,s2,s3,mainimg,cf_val.value,or_val.value,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8)
+                on_press: app.submit(s1,s2,s3,mainimg,cf_val.value,or_val.value,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8,btnimg9)
         #vertical line between inputs and main image
         Widget:
             id: separator
@@ -504,7 +503,6 @@ BoxLayout:
         Widget:
             Button:
                 background_color: (0,0,0,0)
-                on_press: print "2"
                 x: self.parent.x
                 id:btnimg2
                 height: self.parent.height
@@ -528,7 +526,6 @@ BoxLayout:
         Widget:
             Button:
                 background_color: (0,0,0,0)
-                on_press: print "3"
                 id:btnimg3
                 x: self.parent.x
                 height: self.parent.height

@@ -50,14 +50,14 @@ class Experiment1App(App):
     #Change slider value when text value is given
     def change_slider(self,slider,textinput):
         try:
-            if (int(textinput.text)>slider.max):
+            if (float(textinput.text)>slider.max):
                 slider.value = slider.max
                 textinput.text = slider.max
-            elif (int(textinput.text)<slider.min):
+            elif (float(textinput.text)<slider.min):
                 slider.value = slider.min
                 textinput.text = slider.min
             else:
-                slider.value = int(textinput.text)
+                slider.value = float(textinput.text)
         except:
             pass
 
@@ -89,13 +89,12 @@ class Experiment1App(App):
     #If input image is HDR,then bahd value is enabled
     #'No preview available' image is displayed
     #Submit button is enabled
-    def enable_band(self,bandvalue,mainimg):
-        print self.fnm.find(".")
-        print self.fnm
+    def enable_band(self,submitbtn,bandvalue,mainimg):
         if (self.fnm.find(".")==-1):
             bandvalue.readonly = False
             bandvalue.hint_text= "Enter band value"
             mainimg.source = "preview.jpg"
+            submitbtn.disabled = False
 
 
     #Displays preview of selected image from file chooser
@@ -131,7 +130,7 @@ class Experiment1App(App):
             s6.disabled = False
             s7.disabled = False
         except :
-            pass
+            mainimg.source = "preview.jpg"
 
     #Calls scilab and images are processed
     def submit(self,s1,s2,s3,s4,s5,s6,s7,mainimg,img1,img2,img3,img4,img5,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5):
@@ -150,6 +149,7 @@ class Experiment1App(App):
                 load_images()
             except Exception as e:
                 mainimg.source = self.fnm
+                imgname.text = str(self.fnm)
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
         #create folder in format "out_day_month_year_hour_minute_second" to store output files
@@ -159,6 +159,7 @@ class Experiment1App(App):
             os.mkdir(folder)
         except Exception as ex:
             mainimg.source = self.fnm
+            imgname.text = str(self.fnm)
             res=Popup(title="Error",content=Label(text="" + str(ex)),size_hint=(None, None), size=(600, 400))
             res.open()
 

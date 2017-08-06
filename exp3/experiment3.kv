@@ -75,24 +75,24 @@ BoxLayout:
         Widget:
             #main image
             Image:
-                y: self.parent.height*1.55
+                y: self.parent.height*2
                 x: self.parent.x
                 id: mainimg
                 source: 'noimg.png'
                 width: self.parent.width*8
-                height: self.parent.height*11.5
+                height: self.parent.height*11
                 allow_stretch: True
                 keep_ratio: True
             #Inputfile selector
             Widget:
-                y: self.parent.height*1.55
                 x: self.parent.x
+                y: self.parent.height*1.5
                 width: self.parent.width*8
                 height: self.parent.height*0
                 id: fcw
                 FileChooserIconView:
                     id:fchooser
-                    y: self.parent.height*1.55
+                    y: self.parent.y
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
@@ -264,8 +264,9 @@ BoxLayout:
             on_active: s6.value = s6.min
             on_active: s6.disabled = True
             on_active: svalue.readonly =True
-            #set Enhancement Type to Gaussian
-            on_active: app.set_mode('Gaussian')
+            #set Enhancement Type to Average
+            on_active: app.set_mode('Average')
+
         #average
         Label:
             text: 'Average'
@@ -311,9 +312,12 @@ BoxLayout:
         #radio button for Enhancement Type
         CheckBox:
             group: 'radio'
+            on_active: s6.min = 0.5
+            on_active: s6.max = 3
             on_active: s6.value = s6.min
             on_active: s6.disabled = False
-            on_active: svalue.readonly =True
+            on_active: svalue.readonly = False
+            on_active: svalue.hint_text = "0.5 - 3.0"
             #set Enhancement Type to Circular
             on_active: app.set_mode('Gaussian')
         #Gaussian
@@ -361,14 +365,17 @@ BoxLayout:
         #radio button for Enhancement Type
         CheckBox:
             group: 'radio'
+            on_active: s6.min = 0
+            on_active: s6.max = 1
             on_active: s6.value = s6.min
-            on_active: s6.disabled = True
-            on_active: svalue.readonly =True
-            #set Enhancement Type to Weighted Average
-            on_active: app.set_mode('Weighted Average')
+            on_active: s6.disabled = False
+            on_active: svalue.readonly = False
+            on_active: svalue.hint_text = "0 - 1"
+            #set Enhancement Type to Lee
+            on_active: app.set_mode('Lee')
         #Weighted Average
         Label:
-            text: 'Weighted Average'
+            text: 'Lee'
             text_size: self.size
             halign: 'left'
             valign: 'middle'
@@ -463,12 +470,12 @@ BoxLayout:
             text: 'Sigma Value'
         #slider for sigma value
         Slider:
-            range: (0.5,3.0)
+            range: (0,1)
             id: s6
             width: self.parent.width
             step: 0.01
             #display value in textbox
-            on_value: svalue.text = str(s4.value)
+            on_value: svalue.text = str(s6.value)
             disabled:True
         #sigma value text input
         Widget:
@@ -479,15 +486,15 @@ BoxLayout:
                 y: self.parent.y + self.parent.height*0.3125
                 text: ''
                 id: svalue
-                input_filter: 'float'
-                hint_text: "0.5 - 3.0"
+                #input_filter: 'float'
+                hint_text: "NA"
                 multiline:False
                 readonly: True
                 #update the value in slider
                 #when users hits enter
-                on_text_validate: app.change_slider(s4,svalue)
+                on_text_validate: app.change_slider(s6,svalue)
                 #when  user focuses out of textbox
-                on_focus: app.change_slider(s4,svalue)
+                on_focus: app.change_slider(s6,svalue)
         #vertical line between inputs and main image
         Widget:
             id: separator

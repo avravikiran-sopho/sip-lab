@@ -2,6 +2,9 @@
 #Experiment 2
 #CONTARST ENHANCEMENT
 
+#Experiment 1
+#VIEWING IMAGES IN DIFFERENT BANDS
+
 #import all required kivy modules
 from kivy.app import App
 from kivy.uix.label import Label
@@ -27,10 +30,12 @@ import numpy as np
 import threading
 import sys
 import os.path
-import main as m
+
 p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(p)
 sys.path.remove(p)
+import main as m
+
 
 #Background color
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
@@ -44,9 +49,10 @@ class Experiment2App(App):
 
     #Displays file chooser when input image is clicked
     def show_filechooser(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*11
-        fcw.height = fcw.parent.height*11
-        mainimg.source='no.gif'
+        if fchooser.height == 0:
+            fchooser.height = fchooser.parent.height*11
+            fcw.height = fcw.parent.height*11
+            mainimg.source='no.gif'
 
     #Displays preview of selected image from file chooser
     #submit button is enabled
@@ -68,14 +74,14 @@ class Experiment2App(App):
     #Change slider value when text value is given
     def change_slider(self,slider,textinput):
         try:
-            if (int(textinput.text)>slider.max):
+            if (float(textinput.text)>slider.max):
                 slider.value = slider.max
                 textinput.text = slider.max
-            elif (int(textinput.text)<slider.min):
+            elif (float(textinput.text)<slider.min):
                 slider.value = slider.min
                 textinput.text = slider.min
             else:
-                slider.value = int(textinput.text)
+                slider.value = float(textinput.text)
         except:
             pass
 

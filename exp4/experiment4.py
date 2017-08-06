@@ -47,9 +47,10 @@ class Experiment4App(App):
 
     #Displays file chooser when input image is clicked
     def show_filechooser(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*8.5
-        fcw.height = fcw.parent.height*8.5
-        mainimg.source='no.gif'
+        if fchooser.height == 0:
+            fchooser.height = fchooser.parent.height*8.5
+            fcw.height = fcw.parent.height*8.5
+            mainimg.source='no.gif'
 
     #Displays preview of selected image from file chooser
     #submit button is enabled
@@ -67,14 +68,14 @@ class Experiment4App(App):
     #Change slider value when text value is given
     def change_slider (self,slider,textinput):
         try:
-            if (int(textinput.text)>slider.max):
+            if (float(textinput.text)>slider.max):
                 slider.value = slider.max
                 textinput.text = slider.max
-            elif (int(textinput.text)<slider.min):
+            elif (float(textinput.text)<slider.min):
                 slider.value = slider.min
                 textinput.text = slider.min
             else:
-                slider.value = int(textinput.text)
+                slider.value = float(textinput.text)
         except:
             pass
 
@@ -87,7 +88,7 @@ class Experiment4App(App):
         self.direction=d
 
     #Calls scilab and images are processed
-    def submit(self,rgbslider,slider,mainimg,img1,img2,img3,imgname):
+    def submit(self,bandvalue,slider,mainimg,img1,img2,img3,imgname):
         folder=""
 
         #validating inputs
@@ -111,7 +112,7 @@ class Experiment4App(App):
             try:
                 scilab.getd(os.getcwd()+"/")
                 #call scilab test function
-                scilab.test(self.fnm,rgbslider.value,self.egtype,slider.value,self.direction,outpath)
+                scilab.test(self.fnm,bandvalue.text,self.egtype,slider.value,self.direction,outpath)
                 load_images()
             except Exception as e:
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))

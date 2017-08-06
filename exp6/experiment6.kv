@@ -74,7 +74,7 @@ BoxLayout:
         #Main image
         Widget:
             Image:
-                y: self.parent.height*1.55
+                y: self.parent.height*2.5
                 x: self.parent.x + self.parent.width*0.5
                 id: mainimg
                 source: 'noimg.png'
@@ -84,15 +84,15 @@ BoxLayout:
                 keep_ratio: True
             #Inputfile selector
             Widget:
-                y: self.parent.height*1.55
-                x: self.parent.x + self.parent.width*0.5
+                x: self.parent.x + self.width*0.1
+                y: self.parent.height*2
                 width: self.parent.width*7
                 height: self.parent.height*0
                 id: fcw
                 #display_border: True
                 FileChooserIconView:
                     id:fchooser
-                    y: self.parent.height*1.55
+                    y: self.parent.y
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height*1
@@ -472,7 +472,7 @@ BoxLayout:
                 disabled: True
                 text: 'Submit'
                 #submit form
-                on_press: app.submit(s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,btnimg10,btnimg11,btnimg12)
+                on_press: app.submit(s1,s2,s3,mainimg,imgname,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,btnimg10,btnimg11,btnimg12)
         #vertical line between inputs and main image
         Widget:
             id: separator

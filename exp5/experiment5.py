@@ -45,21 +45,22 @@ class Experiment5App(App):
 
     #Displays file chooser when input image is clicked
     def show_filechooser(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*9.5
-        fcw.height = fcw.parent.height*9.5
-        mainimg.source='no.gif'
+        if fchooser.height == 0:
+            fchooser.height = fchooser.parent.height*9.5
+            fcw.height = fcw.parent.height*9.5
+            mainimg.source='no.gif'
 
     #Change slider value when text value is given
     def change_slider (self,slider,textinput):
         try:
-            if (int(textinput.text)>slider.max):
+            if (float(textinput.text)>slider.max):
                 slider.value = slider.max
                 textinput.text = slider.max
-            elif (int(textinput.text)<slider.min):
+            elif (float(textinput.text)<slider.min):
                 slider.value = slider.min
                 textinput.text = slider.min
             else:
-                slider.value = int(textinput.text)
+                slider.value = float(textinput.text)
         except:
             pass
 
@@ -91,7 +92,7 @@ class Experiment5App(App):
             pass
 
     #Calls scilab and images are processed
-    def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8):
+    def submit(self,s1,s2,s3,mainimg,cutoff,order,img1,img2,img3,img4,img5,img6,img7,img8,img9,imgname,btnimg1,btnimg2,btnimg3,btnimg4,btnimg5,btnimg6,btnimg7,btnimg8,btnimg9):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
 
@@ -156,16 +157,19 @@ class Experiment5App(App):
             self.test_img(img3,btnimg3,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s1.value))+'.jpg')
             self.test_img(img4,btnimg4,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s2.value))+'.jpg')
             self.test_img(img5,btnimg5,'./'+folder+'/' +self.ftype+self.ptype+' filteredimg '+str(int(s3.value))+'.jpg')
-            self.test_img(img1,btnimg1,'./'+folder+'/'+'out_mag_spectrum_All.jpg')
-            self.test_img(img7,btnimg7,'./'+folder+'out_magnitude_spectrum_'+str(int(s1.value))+'.jpg')
-            self.test_img(img8,btnimg8,'./'+folder+'out_magnitude_spectrum_'+str(int(s2.value))+'.jpg')
-            self.test_img(img9,btnimg9,'./'+folder+'out_magnitude_spectrum_'+str(int(s3.value))+'.jpg')
+            self.test_img(img6,btnimg6,'./'+folder+'/'+'out_mag_spectrum_All.jpg')
+            self.test_img(img7,btnimg7,'./'+folder+'/'+'out_magnitude_spectrum_'+str(int(s1.value))+'.jpg')
+            self.test_img(img8,btnimg8,'./'+folder+'/'+'out_magnitude_spectrum_'+str(int(s2.value))+'.jpg')
+            self.test_img(img9,btnimg9,'./'+folder+'/'+'out_magnitude_spectrum_'+str(int(s3.value))+'.jpg')
+            print './'+folder+'out_magnitude_spectrum_'+str(int(s1.value))+'.jpg'
+            print './'+folder+'/'+'out_mag_spectrum_All.jpg'
             mainimg.source = img1.source
+            imgname.text = mainimg.source
             mainimg.reload()
             img1.opacity = 0.3
 
     #test if the ouput images are produced
-    def test_img(img,btnimg,f):
+    def test_img(self,img,btnimg,f):
         if(os.path.isfile(f)):
             img.source = f
             img.reload()

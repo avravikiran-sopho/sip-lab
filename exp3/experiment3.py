@@ -32,6 +32,7 @@ p=os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 sys.path.append(p)
 sys.path.remove(p)
 
+
 #Background color
 Window.clearcolor = (0.1, 0.1, 0.1, 1)
 
@@ -44,9 +45,10 @@ class Experiment3App(App):
 
     #Displays file chooser when input image is clicked
     def show_filechooser(self,mainimg,fcw,fchooser):
-        mainimg.source='no.gif'
-        fchooser.height = fchooser.parent.height*11.5
-        fcw.height = fcw.parent.height*11.5
+            fchooser.height == 0
+            mainimg.source='no.gif'
+            fchooser.height = fchooser.parent.height*11.5
+            fcw.height = fcw.parent.height*11.5
 
     #Display main_menu when button is clicked
     def main_menu(self):
@@ -74,14 +76,14 @@ class Experiment3App(App):
     #Change slider value when text value is given
     def change_slider(self,slider,textinput):
         try:
-            if (int(textinput.text)>slider.max):
+            if (float(textinput.text)>slider.max):
                 slider.value = slider.max
                 textinput.text = slider.value
-            elif (int(textinput.text)<slider.min):
+            elif (float(textinput.text)<slider.min):
                 slider.value = slider.value
                 textinput.text = slider.min
             else:
-                slider.value = int(textinput.text)
+                slider.value = float(textinput.text)
         except:
             pass
 
@@ -162,7 +164,7 @@ class Experiment3App(App):
         imgname.text = "Loading..."
         mainimg.reload()
         #call scilab in another thread
-        thread = threading.Thread(target=exe,args=())
+        thread = threading.Thread(target=execute,args=())
         thread.start()
 
         #load all the output images after scilab is executed

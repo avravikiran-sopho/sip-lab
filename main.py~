@@ -26,6 +26,7 @@ Window.size = (1920, 1080)
 
 
 class SiplabApp(App):
+	#uncomment these for login functionality.
 
     def siplab(self,experiment):
 

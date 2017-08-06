@@ -74,7 +74,7 @@ BoxLayout:
         Widget:
             #main image
             Image:
-                y: self.parent.height*1.55
+                y: self.parent.height*2
                 x: self.parent.x
                 id: mainimg
                 source: 'noimg.png'
@@ -84,17 +84,17 @@ BoxLayout:
                 keep_ratio: True
             #Inputfile selector
             Widget:
-                y: self.parent.height*1.55
                 x: self.parent.x
+                y: self.parent.height*1.5
                 width: self.parent.width*7
                 height: self.parent.height*0
                 id: fcw
                 FileChooserIconView:
                     id:fchooser
-                    y: self.parent.height*1.55
+                    y: self.parent.y
                     x: self.parent.x
                     width: self.parent.width
-                    height: self.parent.height*1
+                    height: self.parent.height
                     #show preview of selected image
                     on_selection: app.show_selected_img(mainimg,fcw,fchooser,submitbtn,imgname);
         Widget:
@@ -122,11 +122,6 @@ BoxLayout:
                 multiline:False
                 hint_text: "No of Bands"
                 fonst_size: 12
-                #Set the max of R,G,B value to input Band value
-                #when users hits enter
-                on_text_validate: app.change_slider(rgbslider,bandvalue)
-                #when  user focuses out of textbox
-                on_focus: app.change_slider(rgbslider,bandvalue)
         Widget:
         Widget:
         Widget:
@@ -200,7 +195,7 @@ BoxLayout:
             on_active:app.set_type("log")
         #log
         Label:
-            text:":Log"
+            text:"Log"
         Widget:
         Widget:
         Widget:
@@ -342,7 +337,7 @@ BoxLayout:
                 text: 'Submit'
                 font_size: 20
                 #submit the form
-                on_press: app.submit(rgbslider,slider,mainimg,img1,img2,img3,imgname)
+                on_press: app.submit(bandvalue,slider,mainimg,img1,img2,img3,imgname)
         #horizontal image below main image
         Widget:
             id: separator

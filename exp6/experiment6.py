@@ -41,9 +41,10 @@ class Experiment6App(App):
 
     #Displays file chooser when input image is clicked
     def show_filechooser(self,mainimg,fcw,fchooser):
-        fchooser.height = fchooser.parent.height*7
-        fcw.height = fcw.parent.height*7
-        mainimg.source='no.gif'
+        if fchooser.height == 0:
+            fchooser.height = fchooser.parent.height*7
+            fcw.height = fcw.parent.height*7
+            mainimg.source='no.gif'
 
     #Displays preview of selected image from file chooser
     #Submit button is enabled
@@ -102,32 +103,32 @@ class Experiment6App(App):
     #Change slider value when text value is given
     def change_slider (self,slider,textinput):
         try:
-            if (int(textinput.text)>slider.max):
+            if (float(textinput.text)>slider.max):
                 slider.value = slider.max
                 textinput.text = slider.max
-            elif (int(textinput.text)<slider.min):
+            elif (float(textinput.text)<slider.min):
                 slider.value = slider.min
                 textinput.text = slider.min
             else:
-                slider.value = int(textinput.text)
+                slider.value = float(textinput.text)
         except:
             pass
 
     #Calls scilab and images are processed
-    def submit(self,s1,s2,s3,mainimg,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,btnimg10,btnimg11,btnimg12):
+    def submit(self,s1,s2,s3,mainimg,imgname,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,btnimg10,btnimg11,btnimg12):
         rgb = np.matrix("'"+str(s1.value)+","+str(s2.value)+","+str(s3.value)+"'")
         folder=""
 
         #function to call scilab
-        def exe():
+        def execute():
             try:
                 scilab.getd(os.getcwd()+"/")
                 scilab.colourtransform(self.fnm,rgb,outpath)
                 load_images()
             except Exception as e:
-                mainimg.source = "noimg.jpg"
                 res=Popup(title="Error",content=Label(text="" + str(e)),size_hint=(None, None), size=(600, 400))
                 res.open()
+                mainimg.source = "noimg.jpg"
 
         #create folder in format "out_day_month_year_hour_minute_second" to store output files
         try:

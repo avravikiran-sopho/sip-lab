@@ -7,8 +7,8 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from kivy.core.window import WindowBase
-from exp1 import experiment1 as t1
 import os
+from exp1 import experiment1 as t1
 from exp2 import experiment2 as t2
 from exp3 import experiment3 as t3
 from exp4 import experiment4 as t4
