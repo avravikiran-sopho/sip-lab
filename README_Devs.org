@@ -42,12 +42,13 @@ Note: 1.This lab works only with python2 but not python3.
 ** Understnding Files
 
  - This lab contains six experiments
-  + is in exp1 folder
-  + is in exp2 folder
-  + is in exp3 folder
-  + is in exp4 folder
-  + is in exp5 folder
-  + is in exp6 folder
+  + Viewing Images in Different Bands is in exp1 folder
+  + Contrast Enhancement is in exp2 folder
+  + Smoothing is in exp3 folder
+  + Edge Detection is in exp4 folder
+  + Frequency Domain Filtering (Fourier Transform) is in exp5 folder
+  + Colour Transform is in exp6 folder
+  
 
  - In each folder there are two files named experiment(number).py and experiment(number).kv
   * experiment(number).kv is a kivy file which contains the layout of the experiment GUI.kivy is used to build GUI.
@@ -56,12 +57,12 @@ Note: 1.This lab works only with python2 but not python3.
 
  - In each folder there are few files with extension of .sci,these are scilab files.These files are used to process images and produce output images.
  - Here's the list of scilab files which are called from python.
-  * Exp1 -
-  * Exp2 -
-  * Exp3 -
-  * Exp4 -
-  * Exp5 -
-  * Exp6 -
+  * Exp1 - imgdisplay.sci
+  * Exp2 - enhancement.sci
+  * Exp3 - filternew.sci
+  * Exp4 - test.sci
+  * Exp5 - fftfilter.sci
+  * Exp6 - colortransform.sci
 
 ** How it works?
 
