@@ -119,6 +119,35 @@ The title of this experiment is *Viewing Images in Different Bands*.
   + Row End range: (Row start input+100) - height of image
   + Column start range: 1 - (Width of image - 100)
   + Column End range: (Column start input+100) - width of image
+**** Functions:
+ - adjust_end_value(arguments):
+  + Adjust the row end value and column end value depending on the value of input of row start and column start.
+  + The minimum differnce between the row start and row end,cloumn start and column end is 100px   
+
+*** Experiment 2:
+The title of this experiment is CONTARST ENHANCEMENT
+**** Inputs:
+ - Input Image - (Button)
+ - Band Value (If input image is HDR) - (input textfield)
+ - R Value - (slider,textfield)
+ - G value - (slider,textfield)
+ - B value - (slider,textfield) 
+ - Linear - (radio button)
+ - Standard Deviation - (radio button)
+ - Histogram - (radio button)
+ - Logarthmic - (radio button)
+ - Exponential - (radio button)
+ - Decoleration - (radio button)
+ - Variance 1 - (slider,textfield)
+ - Variance 2 - (slider,textfield)
+ - Submit - (Button)
+ - *Note*:
+  + Var1 > 0 for Standard Deviation
+  + Var1 = [0,255] for Logarthmic
+  + Var1 = [0,2], Var2 = [0,255] for Exponential
+**** Functions:
+ - set_mode(arguments):
+  + sets the mode of the experiments when a radio button is selected.
   
 *** Experiment 3:
 The title of this experiment is *Smoothing*.
@@ -138,6 +167,9 @@ The title of this experiment is *Smoothing*.
  - *Note*: 
   + Ranges of Window1 Size,Window2 Size are 3 to 7 and takes only odd values.
   + Sigma Value range: 0.5 - 3.0 (applicable only for gaussian mode)
+**** Functions:
+ - set_mode(arguments):
+  + sets the mode of the experiments when a radio button is selected.
 
 *** Experiment 4:
 The title of this experiment is *Edge Detection*.
@@ -158,6 +190,11 @@ The title of this experiment is *Edge Detection*.
  - *Note*: 
   + Ranges of Window1 Size,Window2 Size are 3 to 7 and takes only odd values.
   + Sigma Value range: 0.5 - 3.0 (applicable only for gaussian mode)
+**** Functions:
+ - set_type(arguments):
+  + sets the mode of the experiments when a radio button is selected.
+ - set_dir(arguments):
+  + ssts the direction for the mode of the experiment.
   
 *** Experiment 5:
 The title of this experiment is *Frequency Domain Filtering (Fourier Transform)*.
@@ -179,6 +216,11 @@ The title of this experiment is *Frequency Domain Filtering (Fourier Transform)*
  - *Note*: 
   + Cutoff range: 0.1 - 10
   + Order: 1 -10
+**** Functions:
+ - set_filter(arguments):
+  + sets the type of filter for the experiment.
+ - set_pass(arguments):
+  + sets pass type of the experiment.
   
 *** Experiment 6:
 The title of this experiment is *Colour Transform*.
