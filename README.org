@@ -39,7 +39,7 @@ Note: This lab works only with python2 but not python3.
 **** For automatic installation
 
 - Download the folder and make srch.sh executable(Right click on file,open properties,under permissions tab tick the option "Allow executing files as programs")
-- Double click on src.sh and click run(only for ubuntu).
+- Double click on src.sh and click run in terminal(only for ubuntu).
 - Password is required for installation.
 - Approximatey 300MB of data is downloaded and all required softwares are autoamatically installed.
 
@@ -248,7 +248,9 @@ pip install pillow
 
 ** Experiment Guide
 
-To run the experiment double click on SIPLauncher.py (and select run option for ubuntu).
+To run the experiment make SIPLauncher.py executable (Right click on file,open properties,under permissions tab tick the option "Allow executing files as programs") and double click on SIPLauncher.py (this is for ubuntu).
+
+To run the experiment double click on SIPLauncher.py (this is for windows).
 
  - This is the first screen when application is opened.
 [[file:README/step1.png]]
